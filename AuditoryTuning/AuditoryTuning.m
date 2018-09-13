@@ -66,16 +66,21 @@ S.NumTrialTypes=max(TrialSequence);
 S.MaxTrials=length(TrialSequence);
 
 %% NIDAQ Initialization
-if S.GUI.Photometry
-    Nidaq_photometry('ini',ParamPC);
-    FigNidaq=Online_AudTuningPlot('ini',TrialSequence);
-    if S.GUI.DbleFibers==1
-        FigNidaqB=Online_AudTuningPlot('ini',TrialSequence);
+if S.GUI.Photometry || S.GUI.Wheel
+    if (S.GUI.DbleFibers+S.GUI.Isobestic405+S.GUI.RedChannel)*S.GUI.Photometry >1
+        disp('WARNING - Incorrect photometry recording parameters')
+        return
     end
-end 
-
-BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
+    Nidaq_photometry('ini',ParamPC);
+end
+if S.GUI.Photometry
+    FigNidaq1=Online_AudTuningPlot('ini',TrialSequence);
+    if S.GUI.DbleFibers || S.GUI.Isobestic405 || S.GUI.RedChannel
+        FigNidaq2=Online_AudTuningPlot('ini',TrialSequence);
+    end
+end
 %% Main trial loop
+BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
 for currentTrial = 1:S.MaxTrials
 %% Initialize current trial parameters
     S = BpodParameterGUI('sync', S); % Sync parameters with BpodParameterGUI plugin
@@ -130,16 +135,45 @@ if ~isempty(fieldnames(RawEvents))                                          % If
 end
 
 %% PLOT - extract events from BpodSystem.data and update figures
+try
 if S.GUI.Photometry
-    currentNidaq470=Online_NidaqDemod(PhotoData(:,1),nidaq.LED1,S.GUI.LED1_Freq,S.GUI.LED1_Amp,S.Names.StateToZero{S.GUI.StateToZero},currentTrial);
-    FigNidaq=Online_AudTuningPlot('update',TrialSequence,FigNidaq,currentTrial,currentNidaq470);
-    if S.GUI.DbleFibers == 1
-        currentNidaq470b=Online_NidaqDemod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED1b_Freq,S.GUI.LED1b_Amp,S.Names.StateToZero{S.GUI.StateToZero},currentTrial);
-        FigNidaqB=Online_AudTuningPlot('update',TrialSequence,FigNidaqB,currentTrial,currentNidaq470b);
-    end   
-end
-HandlePauseCondition; % Checks to see if the protocol is paused. If so, waits until user resumes.
+    currentNidaq1=Online_NidaqDemod(PhotoData(:,1),nidaq.LED1,S.GUI.LED1_Freq,S.GUI.LED1_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+    FigNidaq1=Online_AudTuningPlot('update',TrialSequence,FigNidaq1,currentTrial,currentNidaq1);
 
+    if S.GUI.Isobestic405 || S.GUI.DbleFibers || S.GUI.RedChannel
+        if S.GUI.Isobestic405
+        currentNidaq2=Online_NidaqDemod(PhotoData(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+        elseif S.GUI.RedChannel
+        currentNidaq2=Online_NidaqDemod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+        elseif S.GUI.DbleFibers
+        currentNidaq2=Online_NidaqDemod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED1b_Freq,S.GUI.LED1b_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+        end
+        FigNidaq2=Online_AudTuningPlot('update',TrialSequence,FigNidaq2,currentTrial,currentNidaq2);
+    end
+end
+catch
+    disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
+end
+
+%% Photometry QC
+if currentTrial==1 && S.GUI.Photometry
+    thismax=max(PhotoData(S.GUI.NidaqSamplingRate:S.GUI.NidaqSamplingRate*2,1))
+    if thismax>4 || thismax<0.3
+        disp('WARNING - Something is wrong with fiber #1 - run check-up! - unpause to ignore')
+        BpodSystem.Pause=1;
+        HandlePauseCondition;
+    end
+    if S.GUI.DbleFibers
+    thismax=max(Photo2Data(S.GUI.NidaqSamplingRate:S.GUI.NidaqSamplingRate*2,1))
+    if thismax>4 || thismax<0.3
+        disp('WARNING - Something is wrong with fiber #2 - run check-up! - unpause to ignore')
+        BpodSystem.Pause=1;
+        HandlePauseCondition;
+    end
+    end
+end
+%% End of trial
+HandlePauseCondition; % Checks to see if the protocol is paused. If so, waits until user resumes.
 if BpodSystem.BeingUsed == 0
     return
 end

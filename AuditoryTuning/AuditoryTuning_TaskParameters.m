@@ -8,15 +8,29 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Wheel=1;
+    S.GUI.Wheel=0;
     S.GUIMeta.Wheel.Style='checkbox';
     S.GUIMeta.Wheel.String='Auto';
-    S.GUI.Repetition=3;
-    S.GUI.TimePreCue=2;
-    S.GUI.TimeCue=0.5; %independent of the actual length of the cue
-    S.GUI.TimePostCue=4;
-    S.GUIPanels.Timing={'Wheel','Repetition','TimePreCue','TimeCue','TimePostCue'};
+ 	S.GUI.Photometry=1;
+    S.GUIMeta.Photometry.Style='checkbox';
+    S.GUIMeta.Photometry.String='Auto';
+    S.GUI.DbleFibers=0;
+    S.GUIMeta.DbleFibers.Style='checkbox';
+    S.GUIMeta.DbleFibers.String='Auto';
+    S.GUI.Isobestic405=0;
+    S.GUIMeta.Isobestic405.Style='checkbox';
+    S.GUIMeta.Isobestic405.String='Auto';
+    S.GUI.RedChannel=0;
+    S.GUIMeta.RedChannel.Style='checkbox';
+    S.GUIMeta.RedChannel.String='Auto';    
+    S.GUIPanels.Recording={'Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
     
+    S.GUI.TimeMin=-1;
+    S.GUI.TimeMax=2;
+    S.GUI.NidaqMin=-5;
+    S.GUI.NidaqMax=10;
+    S.GUIPanels.Plot={'TimeMin','TimeMax','NidaqMin','NidaqMax'};
+     
 	S.GUI.WhiteNoise=1;
     S.GUIMeta.WhiteNoise.Style='checkbox';
     S.GUIMeta.WhiteNoise.String='Auto';
@@ -27,18 +41,36 @@ global S
     S.GUIMeta.Sweeps.Style='checkbox';
     S.GUIMeta.Sweeps.String='Auto';   
     
-    S.GUI.SoundSamplingRate=192000;
+    S.GUIPanels.Sounds={'WhiteNoise','PureTones','Sweeps'};
+    S.GUITabs.General={'Plot','Recording','Sounds'};
     
-    S.GUIPanels.Sounds={'WhiteNoise','PureTones','Sweeps','SoundSamplingRate'};
-    S.GUITabs.GeneralParameters={'Sounds','Timing'};
+%% Timing
+    S.GUI.Repetition=3;
+    S.GUI.TimePreCue=2;
+    S.GUI.TimeCue=0.5; %independent of the actual length of the cue
+    S.GUI.TimePostCue=4;
+    S.GUIPanels.TaskTiming={'Repetition','TimePreCue','TimeCue','TimePostCue'};
+        
+    S.GUI.StateToZero=1;
+	S.GUIMeta.StateToZero.Style='popupmenu';
+    S.GUIMeta.StateToZero.String=S.Names.StateToZero;
+    S.GUI.BaselineBegin=0.1;
+    S.GUI.BaselineEnd=1.1;
+    S.GUI.CueBegin=0;
+    S.GUI.CueEnd=0.5;
+    S.GUIPanels.PlotTiming={'StateToZero','BaselineBegin','BaselineEnd','CueBegin','CueEnd'};
 
-%% Sounds Parameters   
+    S.GUITabs.OnlinePlot={'TaskTiming','PlotTiming'};
+    
+    
+%% Sound Parameters
+    S.GUI.SoundSamplingRate=192000;
     S.GUI.SoundDuration_pt=0.5;
 	S.GUI.SoundRamp_pt=0;
     S.GUI.LowFreq_pt=4000;
     S.GUI.HighFreq_pt=20000;
     S.GUI.NbOfTones=5;
-    S.GUIPanels.PureTones_Properties={'SoundDuration_pt','SoundRamp_pt','LowFreq_pt','HighFreq_pt','NbOfTones'};
+    S.GUIPanels.PureTones_Properties={'SoundSamplingRate','SoundDuration_pt','SoundRamp_pt','LowFreq_pt','HighFreq_pt','NbOfTones'};
      
     S.GUI.SoundDuration_s=0.5;
     S.GUI.LowFreq_s=4000;
@@ -52,51 +84,27 @@ global S
     S.GUITabs.SoundParameters={'PureTones_Properties','Sweeps_Properties','WhiteNoise_Properties'};
 
 %% Nidaq and Photometry
- 	S.GUI.Photometry=1;
-    S.GUIMeta.Photometry.Style='checkbox';
-    S.GUIMeta.Photometry.String='Auto';
     S.GUI.Modulation=1;
     S.GUIMeta.Modulation.Style='checkbox';
     S.GUIMeta.Modulation.String='Auto';
-    S.GUI.DbleFibers=0;
-    S.GUIMeta.DbleFibers.Style='checkbox';
-    S.GUIMeta.DbleFibers.String='Auto';
-
-	S.GUI.NidaqDuration=5;
+	S.GUI.NidaqDuration=10;
     S.GUI.NidaqSamplingRate=6100;
-    S.GUI.LED1_Wavelength=490;
+    S.GUI.DecimateFactor=610;
+    S.GUI.LED1_Name='Fiber1 470-A1';
     S.GUI.LED1_Amp=Param.LED1Amp;
     S.GUI.LED1_Freq=211;
-    S.GUI.LED2_Wavelength=405;
+    S.GUI.LED2_Name='Fiber1 405 / 565';
     S.GUI.LED2_Amp=Param.LED2Amp;
     S.GUI.LED2_Freq=531;
-    S.GUI.LED1b_Wavelength=470;
+    S.GUI.LED1b_Name='Fiber2 470-mPFC';
     S.GUI.LED1b_Amp=Param.LED1bAmp;
     S.GUI.LED1b_Freq=531;
 
-    S.GUIPanels.Photometry={'Photometry','Modulation','DbleFibers','NidaqDuration','NidaqSamplingRate',...
-                            'LED1_Wavelength','LED1_Amp','LED1_Freq',...
-                            'LED2_Wavelength','LED2_Amp','LED2_Freq',...
-                            'LED1b_Wavelength','LED1b_Amp','LED1b_Freq'};
+    S.GUIPanels.Photometry={'Modulation','NidaqDuration',...
+                            'NidaqSamplingRate','DecimateFactor',...
+                            'LED1_Name','LED1_Amp','LED1_Freq',...
+                            'LED2_Name','LED2_Amp','LED2_Freq',...
+                            'LED1b_Name','LED1b_Amp','LED1b_Freq'};
                         
     S.GUITabs.Photometry={'Photometry'};
-
-%% Online Plots   
-    S.GUI.StateToZero=1;
-	S.GUIMeta.StateToZero.Style='popupmenu';
-    S.GUIMeta.StateToZero.String=S.Names.StateToZero;
-    S.GUI.TimeMin=-1;
-    S.GUI.TimeMax=2;
-    S.GUIPanels.PlotParameters={'StateToZero','TimeMin','TimeMax'};
-    
-    S.GUI.DecimateFactor=100;
-	S.GUI.BaselineBegin=1.5;
-    S.GUI.BaselineEnd=2.5;
-    S.GUI.NidaqMin=-5;
-    S.GUI.NidaqMax=10;
-    S.GUI.CueBegin=0;
-    S.GUI.CueEnd=0.5;
-    S.GUIPanels.PlotNidaq={'DecimateFactor','NidaqMin','NidaqMax','BaselineBegin','BaselineEnd','CueBegin','CueEnd'};
-    
-    S.GUITabs.OnlinePlot={'PlotNidaq','PlotParameters'};
 end

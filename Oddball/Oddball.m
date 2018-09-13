@@ -95,7 +95,7 @@ if S.GUI.Photometry || S.GUI.Wheel
     [PhotoData,WheelData,Photo2Data]=Nidaq_photometry('Save');
     if S.GUI.Photometry
         BpodSystem.Data.NidaqData{currentTrial}=PhotoData;
-        if S.GUI.DbleFibers == 1
+        if S.GUI.DbleFibers || S.GUI.RedChannel
             BpodSystem.Data.Nidaq2Data{currentTrial}=Photo2Data;
         end
     end
@@ -110,9 +110,25 @@ if ~isempty(fieldnames(RawEvents))                                          % If
     BpodSystem.Data.TrialTypes(currentTrial) = TrialSequence(currentTrial); % Adds the trial type of the current trial to data
     SaveBpodSessionData;                                                    % Saves the field BpodSystem.Data to the current data file
 end
-
+%% Photometry QC
+if currentTrial==1 && S.GUI.Photometry
+    thismax=max(PhotoData(S.GUI.NidaqSamplingRate:S.GUI.NidaqSamplingRate*2,1))
+    if thismax>4 || thismax<0.3
+        disp('WARNING - Something is wrong with fiber #1 - run check-up! - unpause to ignore')
+        BpodSystem.Pause=1;
+        HandlePauseCondition;
+    end
+    if S.GUI.DbleFibers
+    thismax=max(Photo2Data(S.GUI.NidaqSamplingRate:S.GUI.NidaqSamplingRate*2,1))
+    if thismax>4 || thismax<0.3
+        disp('WARNING - Something is wrong with fiber #2 - run check-up! - unpause to ignore')
+        BpodSystem.Pause=1;
+        HandlePauseCondition;
+    end
+    end
+end
+%% End of trial
 HandlePauseCondition; % Checks to see if the protocol is paused. If so, waits until user resumes.
-
 if BpodSystem.BeingUsed == 0
     return
 end

@@ -13,7 +13,7 @@ global S
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
     S.GUI.MaxTrials=100;
-    S.GUI.ITI=0.5;
+    S.GUI.ITI=1;
     S.GUI.BlockITI=5;
     S.GUIPanels.Task={'Phase','MaxTrials','ITI','BlockITI'};
     
@@ -23,15 +23,18 @@ global S
  	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
-    S.GUI.Modulation=1;
-    S.GUIMeta.Modulation.Style='checkbox';
-    S.GUIMeta.Modulation.String='Auto';
-	S.GUI.DbleFibers=0;
+    S.GUI.DbleFibers=0;
     S.GUIMeta.DbleFibers.Style='checkbox';
     S.GUIMeta.DbleFibers.String='Auto';
-    S.GUIPanels.General={'Wheel','Photometry','Modulation','DbleFibers'};
+    S.GUI.Isobestic405=0;
+    S.GUIMeta.Isobestic405.Style='checkbox';
+    S.GUIMeta.Isobestic405.String='Auto';
+    S.GUI.RedChannel=0;
+    S.GUIMeta.RedChannel.Style='checkbox';
+    S.GUIMeta.RedChannel.String='Auto';    
+    S.GUIPanels.Recording={'Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
      
-    S.GUITabs.General={'General','Task'};
+    S.GUITabs.General={'Recording','Task'};
 
 %% Task Parameters
     S.GUI.SoundType=2;
@@ -48,22 +51,27 @@ global S
     S.GUITabs.Cue={'Cue'};
 
 %% Nidaq and Photometry
-	S.GUI.NidaqDuration=180;
+    S.GUI.Modulation=1;
+    S.GUIMeta.Modulation.Style='checkbox';
+    S.GUIMeta.Modulation.String='Auto';
+	S.GUI.NidaqDuration=10;
     S.GUI.NidaqSamplingRate=6100;
-    S.GUI.LED1_Wavelength=470;
+    S.GUI.DecimateFactor=610;
+    S.GUI.LED1_Name='Fiber1 470-A1';
     S.GUI.LED1_Amp=Param.LED1Amp;
     S.GUI.LED1_Freq=211;
-    S.GUI.LED2_Wavelength=405;
+    S.GUI.LED2_Name='Fiber1 405 / 565';
     S.GUI.LED2_Amp=Param.LED2Amp;
     S.GUI.LED2_Freq=531;
-	S.GUI.LED1b_Wavelength=470;
+    S.GUI.LED1b_Name='Fiber2 470-mPFC';
     S.GUI.LED1b_Amp=Param.LED1bAmp;
-    S.GUI.LED1b_Freq=211;
+    S.GUI.LED1b_Freq=531;
 
-    S.GUIPanels.Photometry={'NidaqDuration','NidaqSamplingRate',...
-                            'LED1_Wavelength','LED1_Amp','LED1_Freq',...
-                            'LED2_Wavelength','LED2_Amp','LED2_Freq',...
-                            'LED1b_Wavelength','LED1b_Amp','LED1b_Freq'};
+    S.GUIPanels.Photometry={'Modulation','NidaqDuration',...
+                            'NidaqSamplingRate','DecimateFactor',...
+                            'LED1_Name','LED1_Amp','LED1_Freq',...
+                            'LED2_Name','LED2_Amp','LED2_Freq',...
+                            'LED1b_Name','LED1b_Amp','LED1b_Freq'};
                         
     S.GUITabs.Photometry={'Photometry'};
 end
