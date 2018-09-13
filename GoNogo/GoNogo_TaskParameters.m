@@ -88,7 +88,9 @@ global S
     S.GUIMeta.OmissionValve.String={1,2,3,4,5,6};
     S.GUIPanels.Outcome={'RewardValve','RewardSize','PunishValve','PunishTime','OmissionValve'};
     S.GUITabs.Outcome={'Outcome'};
-
+    
+%% Photometry
+    S.GUI.PhotometryVersion=1;
     S.GUI.Modulation=1;
     S.GUIMeta.Modulation.Style='checkbox';
     S.GUIMeta.Modulation.String='Auto';
@@ -105,7 +107,7 @@ global S
     S.GUI.LED1b_Amp=Param.LED1bAmp;
     S.GUI.LED1b_Freq=531;
 
-    S.GUIPanels.Photometry={'Modulation','NidaqDuration',...
+    S.GUIPanels.Photometry={'PhotometryVersion','Modulation','NidaqDuration',...
                             'NidaqSamplingRate','DecimateFactor',...
                             'LED1_Name','LED1_Amp','LED1_Freq',...
                             'LED2_Name','LED2_Amp','LED2_Freq',...
