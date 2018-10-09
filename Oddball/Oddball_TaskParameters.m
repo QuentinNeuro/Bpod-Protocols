@@ -55,7 +55,7 @@ global S
     S.GUI.Modulation=1;
     S.GUIMeta.Modulation.Style='checkbox';
     S.GUIMeta.Modulation.String='Auto';
-	S.GUI.NidaqDuration=200;
+	S.GUI.NidaqDuration=180;
     S.GUI.NidaqSamplingRate=6100;
     S.GUI.DecimateFactor=610;
     S.GUI.LED1_Name='Fiber1 470-A1';
