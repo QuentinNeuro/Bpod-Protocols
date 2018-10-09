@@ -3,7 +3,7 @@ function CuedOutcome_TaskParameters(Param)
 %
 
 global S
-    S.Names.Phase={'RewardA','RewardB','RewardAPunishB','RewardBPunishA','RewardAPunishBValues','RewardBPunishAValues','RewardACBValues'};
+    S.Names.Phase={'RewardA','RewardB','RewardAPunishB','RewardBPunishA','RewardAPunishBValues','RewardBPunishAValues','RewardACBValues','PunishA','PunishB'};
     S.Names.Cue={'Sweep','Tones','Visual'};
     S.Names.StateToZero={'PostOutcome','CueDelivery'};
     S.Names.Rig=Param.rig;
