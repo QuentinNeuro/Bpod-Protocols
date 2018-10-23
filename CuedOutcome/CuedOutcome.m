@@ -91,14 +91,8 @@ for currentTrial = 1:S.GUI.MaxTrials
 	S.Delay     =	S.TrialsMatrix(TrialSequence(currentTrial),4)+(S.GUI.DelayIncrement*(currentTrial-1));
 	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
 	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
-    S.VisualCue =   [0 0];
     S.NoLick=[255 100]; % Softcode - no sound / LED at 100
-% ExtraCue to 0 by default
-    S.ExtraCue=0;
-    S.ExtraCueDuration=0;
-    S.ExtraDelay=0;
-    S.ExtraVisualCue=[0 0];
-% Visual Cues   
+    % Visual Cues   
 if S.GUI.CueType==3 
     switch S.Cue
         case 1
@@ -108,18 +102,26 @@ if S.GUI.CueType==3
     end
     S.Cue=3;
     S.NoLick=[5 0]; % Softcode - Whitenoise / LED at 0
+else
+    S.VisualCue =   [0 0];
 end
 % Extra Cues 
-if S.Phase{S.GUI.Phase}=='RewardA-2CuesVS'
+switch S.Names.Phase{S.GUI.Phase}
+    case 'RewardA-2CuesVS'
     switch S.Cue
         case 1
-            S.ExtraVisualCue=[100 0];
+            S.ExtraVisualCue=[255 0];
         case 2
-            S.ExtraVisualCue=[100 0];
+            S.ExtraVisualCue=[0 255];
+    end
     S.ExtraCue=3;
     S.ExtraCueDuration=S.GUI.SoundDuration;
     S.ExtraDelay=S.Delay;
-    end
+    otherwise
+    S.ExtraCue=0;
+    S.ExtraCueDuration=0;
+    S.ExtraDelay=0;
+    S.ExtraVisualCue=[0 0];
 end
 % Random ITI
 S.ITI = 100;

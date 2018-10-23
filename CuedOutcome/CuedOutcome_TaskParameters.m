@@ -2,14 +2,14 @@ function CuedOutcome_TaskParameters(Param)
 %
 %
 
-global S
+global S            % 1         2           3               4               5                       6                       7                   8      9            10
     S.Names.Phase={'RewardA','RewardB','RewardAPunishB','RewardBPunishA','RewardAPunishBValues','RewardBPunishAValues','RewardACBValues','PunishA','PunishB','RewardA-2CuesVS'};
     S.Names.Cue={'Sweep','Tones','Visual'};
     S.Names.StateToZero={'PostOutcome','CueDelivery'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Phase = 1;
+    S.GUI.Phase = 10;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
     S.GUI.eZTrials=1;
@@ -17,10 +17,10 @@ global S
     S.GUIMeta.eZTrials.String='Auto';
     S.GUIPanels.Task={'Phase','eZTrials'};
     
-    S.GUI.Wheel=1;
+    S.GUI.Wheel=0;
     S.GUIMeta.Wheel.Style='checkbox';
     S.GUIMeta.Wheel.String='Auto';
- 	S.GUI.Photometry=1;
+ 	S.GUI.Photometry=0;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
     S.GUI.DbleFibers=0;
