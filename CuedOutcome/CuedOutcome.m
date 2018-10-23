@@ -92,8 +92,14 @@ for currentTrial = 1:S.GUI.MaxTrials
 	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
 	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
     S.VisualCue =   [0 0];
-    S.NoLick=[255 100]; % Softcode - no sound / LED at 255
- if S.GUI.CueType==3 % Visual Cues
+    S.NoLick=[255 100]; % Softcode - no sound / LED at 100
+% ExtraCue to 0 by default
+    S.ExtraCue=0;
+    S.ExtraCueDuration=0;
+    S.ExtraDelay=0;
+    S.ExtraVisualCue=[0 0];
+% Visual Cues   
+if S.GUI.CueType==3 
     switch S.Cue
         case 1
             S.VisualCue =   [100 0];
@@ -103,28 +109,51 @@ for currentTrial = 1:S.GUI.MaxTrials
     S.Cue=3;
     S.NoLick=[5 0]; % Softcode - Whitenoise / LED at 0
 end
-    S.ITI = 100;
-    while S.ITI > 3 * S.GUI.ITI
-        S.ITI = exprnd(S.GUI.ITI);
+% Extra Cues 
+if S.Phase{S.GUI.Phase}=='RewardA-2CuesVS'
+    switch S.Cue
+        case 1
+            S.ExtraVisualCue=[100 0];
+        case 2
+            S.ExtraVisualCue=[100 0];
+    S.ExtraCue=3;
+    S.ExtraCueDuration=S.GUI.SoundDuration;
+    S.ExtraDelay=S.Delay;
     end
+end
+% Random ITI
+S.ITI = 100;
+while S.ITI > 3 * S.GUI.ITI
+    S.ITI = exprnd(S.GUI.ITI);
+end
   
 %% Assemble State matrix
  	sma = NewStateMatrix();
     %Pre task states
     sma = AddState(sma, 'Name','PreState',...
         'Timer',S.GUI.PreCue,...
-        'StateChangeConditions',{'Tup','CueDelivery'},...
+        'StateChangeConditions',{'Tup','ExtraCueDelivery'},...
         'OutputActions',{'BNCState',1});
+    %Extra Cue for 2Cues-Visual-Sound
+    sma=AddState(sma,'Name', 'ExtraCueDelivery',...
+        'Timer',S.ExtraCueDuration,...
+        'StateChangeConditions', {'Tup', 'ExtraDelay'},...
+        'OutputActions', {'SoftCode',S.ExtraCue,'PWM4',S.ExtraVisualCue(1),'PWM5',S.ExtraVisualCue(2)});
+    %Extra Delay for 2Cues-Visual-Sound
+    sma=AddState(sma,'Name', 'ExtraDelay',...
+        'Timer',S.ExtraDelay,...
+        'StateChangeConditions',{'Tup', 'CueDelivery'},...
+        'OutputActions',{});   
     %Stimulus delivery
     sma=AddState(sma,'Name', 'CueDelivery',...
         'Timer',S.GUI.SoundDuration,...
         'StateChangeConditions',{'Tup', 'Delay'},...
         'OutputActions', {'SoftCode',S.Cue,'PWM4',S.VisualCue(1),'PWM5',S.VisualCue(2)});
-    %Delay
+     %Delay
     sma=AddState(sma,'Name', 'Delay',...
         'Timer',S.Delay,...
-        'StateChangeConditions', {'Tup', 'Outcome'},...
-        'OutputActions', {});
+        'StateChangeConditions',{'Tup', 'Outcome'},...
+        'OutputActions',{});
     %Reward
     sma=AddState(sma,'Name', 'Outcome',...
         'Timer',S.Outcome,...
