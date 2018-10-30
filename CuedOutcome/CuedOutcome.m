@@ -113,6 +113,8 @@ switch S.Names.Phase{S.GUI.Phase}
             S.ExtraVisualCue=[255 0];
         case 2
             S.ExtraVisualCue=[0 255];
+        case 3
+            S.ExtraVisualCue=[0 0];
     end
     S.ExtraCue=3;
     S.ExtraCueDuration=S.GUI.SoundDuration;
