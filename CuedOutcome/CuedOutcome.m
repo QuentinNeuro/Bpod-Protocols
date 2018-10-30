@@ -91,7 +91,7 @@ for currentTrial = 1:S.GUI.MaxTrials
 	S.Delay     =	S.TrialsMatrix(TrialSequence(currentTrial),4)+(S.GUI.DelayIncrement*(currentTrial-1));
 	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
 	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
-    S.NoLick=[255 100]; % Softcode - no sound / LED at 100
+    S.NoLick=[255 0]; % Softcode - no sound / LED at 0 (orig. 100) for visual cue version
     % Visual Cues   
 if S.GUI.CueType==3 
     switch S.Cue
