@@ -41,7 +41,7 @@ switch S.GUI.CueType
         CueB=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.HighFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
         NoCue=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
         CueC=SoundGenerator(S.GUI.SoundSamplingRate,(S.GUI.LowFreq+S.GUI.HighFreq)/2,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
-    case 3 % Visual Cue
+    case {3,4} % Visual / olfactory Cue
         CueA=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
         CueB=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
         NoCue=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
@@ -58,12 +58,24 @@ BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
 
 %% Define trial types parameters, trial sequence and Initialize plots
 [S.TrialsNames, S.TrialsMatrix,ezTrialsSeq]=CuedOutcome_Phase(S,S.Names.Phase{S.GUI.Phase});
+if S.GUI.Optogenetic
+    [S.TrialsNames, S.TrialsMatrix]=Phase_Add_Stim(S.TrialsNames, S.TrialsMatrix);
+end
 TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
 if S.GUI.eZTrials
     TrialSequence(1:length(ezTrialsSeq))=ezTrialsSeq;
 end
 S.NumTrialTypes=max(TrialSequence);
 FigLick=Online_LickPlot('ini',TrialSequence);
+
+%% Stimulation
+Stim_State=zeros(length(S.Names.StateToStim));
+if S.GUI.Optogenetic
+    Stim_State(S.GUI.Opto_State)=1*S.GUI.Opto_BNC;
+    PulsePal('COM6');
+    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod\Protocols\PhotoStim_multiFreq\LightTrain_6s.mat');
+    ProgramPulsePal(ParameterMatrix);
+end
 %% NIDAQ Initialization amd Plots
 if S.GUI.Photometry || S.GUI.Wheel
     if (S.GUI.DbleFibers+S.GUI.Isobestic405+S.GUI.RedChannel)*S.GUI.Photometry >1
@@ -85,80 +97,59 @@ end
 BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
 for currentTrial = 1:S.GUI.MaxTrials
     S = BpodParameterGUI('sync', S); % Sync parameters with BpodParameterGUI plugin 
-    
-%% Initialize current trial parameters
+%% Initialize current trial parameters - Auditory cue by default
 	S.Cue       =	S.TrialsMatrix(TrialSequence(currentTrial),3);
 	S.Delay     =	S.TrialsMatrix(TrialSequence(currentTrial),4)+(S.GUI.DelayIncrement*(currentTrial-1));
 	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
 	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
-    S.VisualCue =   [0 0];
-    S.NoLick=[255 100]; % Softcode - no sound / LED at 100
-% ExtraCue to 0 by default
-    S.ExtraCue=0;
-    S.ExtraCueDuration=0;
-    S.ExtraDelay=0;
-    S.ExtraVisualCue=[0 0];
-% Visual Cues   
-if S.GUI.CueType==3 
-    switch S.Cue
-        case 1
-            S.VisualCue =   [100 0];
-        case 2
-            S.VisualCue =   [0 100];
+    S.VisualCue =   [0 0]; % Left right LED
+    S.WireOlf=0;
+    S.NoLick=[255 100]; % Softcode - no sound / LED at 255
+    switch S.GUI.CueType
+        case 3 % Visual Cues
+            if S.Cue==1 || S.Cue==2
+    S.VisualCue(S.Cue)=100;  
+    S.Cue=3;        % No sound cue beeing delivered
+    S.NoLick=[5 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
+            end
+        case 4 % Olfaction
+    S.WireOlf=S.Cue;
+    S.Cue=3;        % No sound cue beeing delivered
+    S.NoLick=[5 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
+    end       
+    S.ITI = 100;
+    while S.ITI > 3 * S.GUI.ITI
+        S.ITI = exprnd(S.GUI.ITI);
     end
-    S.Cue=3;
-    S.NoLick=[5 0]; % Softcode - Whitenoise / LED at 0
+if S.GUI.Optogenetic
+    S.Stim_State=Stim_State*S.TrialsMatrix(TrialSequence(currentTrial),8);
+else
+    S.Stim_State=Stim_State;
 end
-% Extra Cues 
-if S.Phase{S.GUI.Phase}=='RewardA-2CuesVS'
-    switch S.Cue
-        case 1
-            S.ExtraVisualCue=[100 0];
-        case 2
-            S.ExtraVisualCue=[100 0];
-    S.ExtraCue=3;
-    S.ExtraCueDuration=S.GUI.SoundDuration;
-    S.ExtraDelay=S.Delay;
-    end
-end
-% Random ITI
-S.ITI = 100;
-while S.ITI > 3 * S.GUI.ITI
-    S.ITI = exprnd(S.GUI.ITI);
-end
-  
 %% Assemble State matrix
  	sma = NewStateMatrix();
     %Pre task states
     sma = AddState(sma, 'Name','PreState',...
         'Timer',S.GUI.PreCue,...
-        'StateChangeConditions',{'Tup','ExtraCueDelivery'},...
-        'OutputActions',{'BNCState',1});
-    %Extra Cue for 2Cues-Visual-Sound
-    sma=AddState(sma,'Name', 'ExtraCueDelivery',...
-        'Timer',S.ExtraCueDuration,...
-        'StateChangeConditions', {'Tup', 'ExtraDelay'},...
-        'OutputActions', {'SoftCode',S.ExtraCue,'PWM4',S.ExtraVisualCue(1),'PWM5',S.ExtraVisualCue(2)});
-    %Extra Delay for 2Cues-Visual-Sound
-    sma=AddState(sma,'Name', 'ExtraDelay',...
-        'Timer',S.ExtraDelay,...
-        'StateChangeConditions',{'Tup', 'CueDelivery'},...
-        'OutputActions',{});   
+        'StateChangeConditions',{'Tup','CueDelivery'},...
+        'OutputActions',{'BNCState',1+S.Stim_State(1)});
     %Stimulus delivery
     sma=AddState(sma,'Name', 'CueDelivery',...
         'Timer',S.GUI.SoundDuration,...
         'StateChangeConditions',{'Tup', 'Delay'},...
-        'OutputActions', {'SoftCode',S.Cue,'PWM4',S.VisualCue(1),'PWM5',S.VisualCue(2)});
-     %Delay
+        'OutputActions', {'SoftCode',S.Cue,'PWM4',S.VisualCue(1),'PWM5',S.VisualCue(2),... 
+                            'BNCState',S.Stim_State(2),'WireState',S.WireOlf});
+    %Delay
     sma=AddState(sma,'Name', 'Delay',...
         'Timer',S.Delay,...
-        'StateChangeConditions',{'Tup', 'Outcome'},...
-        'OutputActions',{});
+        'StateChangeConditions', {'Tup', 'Outcome'},...
+        'OutputActions', {'BNCState',S.Stim_State(3)});
     %Reward
     sma=AddState(sma,'Name', 'Outcome',...
         'Timer',S.Outcome,...
         'StateChangeConditions', {'Tup', 'PostOutcome'},...
-        'OutputActions', {'ValveState', S.Valve});  
+        'OutputActions', {'ValveState', S.Valve,...
+                            'BNCState',S.Stim_State(4)});  
     %Post task states
     sma=AddState(sma,'Name', 'PostOutcome',...
         'Timer',S.GUI.PostOutcome,...

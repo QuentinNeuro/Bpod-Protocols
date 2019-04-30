@@ -3,9 +3,10 @@ function CuedOutcome_TaskParameters(Param)
 %
 
 global S
-    S.Names.Phase={'RewardA','RewardB','RewardAPunishB','RewardBPunishA','RewardAPunishBValues','RewardBPunishAValues','RewardACBValues','PunishA','PunishB','RewardA-2CuesVS'};
-    S.Names.Cue={'Sweep','Tones','Visual'};
-    S.Names.StateToZero={'PostOutcome','CueDelivery'};
+    S.Names.Phase={'RewardA','RewardB','RewardAPunishB','RewardBPunishA','RewardAPunishBValues','RewardBPunishAValues','RewardACBValues','RewardA_DREADD'};
+    S.Names.Cue={'Sweep','Tones','Visual','Odors'};
+    S.Names.StateToZero={'CueDelivery','PostOutcome'};
+    S.Names.StateToStim={'Baseline','CueDelivery','Delay','Outcome'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -15,8 +16,14 @@ global S
     S.GUI.eZTrials=1;
 	S.GUIMeta.eZTrials.Style='checkbox';
     S.GUIMeta.eZTrials.String='Auto';
-    S.GUIPanels.Task={'Phase','eZTrials'};
+    S.GUI.CueType=1;
+    S.GUIMeta.CueType.Style='popupmenu';
+    S.GUIMeta.CueType.String=S.Names.Cue;
+    S.GUIPanels.Task={'Phase','CueType','eZTrials'};
     
+    S.GUI.Optogenetic=1;
+    S.GUIMeta.Optogenetic.Style='checkbox';
+    S.GUIMeta.Optogenetic.String='Auto';
     S.GUI.Wheel=1;
     S.GUIMeta.Wheel.Style='checkbox';
     S.GUIMeta.Wheel.String='Auto';
@@ -32,13 +39,11 @@ global S
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
+    S.GUIPanels.Recording={'Optogenetic','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
     
-    S.GUI.TimeMin=-4;
-    S.GUI.TimeMax=4;
     S.GUI.NidaqMin=-5;
     S.GUI.NidaqMax=10;
-    S.GUIPanels.Plot={'TimeMin','TimeMax','NidaqMin','NidaqMax'};
+    S.GUIPanels.Plot={'NidaqMin','NidaqMax'};
     
     S.GUITabs.General={'Plot','Recording','Task'};
 
@@ -52,17 +57,16 @@ global S
     S.GUI.ITI=3;
     S.GUIPanels.TaskTiming={'MaxTrials','PreCue','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
     
-    S.GUI.StateToZero=1;
+    S.GUI.StateToZero=2;
 	S.GUIMeta.StateToZero.Style='popupmenu';
     S.GUIMeta.StateToZero.String=S.Names.StateToZero;
+    S.GUI.TimeMin=-4;
+    S.GUI.TimeMax=4;
     S.GUI.BaselineBegin=1.5;
     S.GUI.BaselineEnd=2.5;
-    S.GUIPanels.PlotTiming={'StateToZero','BaselineBegin','BaselineEnd'};
+    S.GUIPanels.PlotTiming={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd'};
     S.GUITabs.Timing={'TaskTiming','PlotTiming'};
 %% Task Parameters    
-    S.GUI.CueType=1;
-    S.GUIMeta.CueType.Style='popupmenu';
-    S.GUIMeta.CueType.String=S.Names.Cue;
     S.GUI.SoundDuration=0.5;
     S.GUI.LowFreq=4000;
     S.GUI.HighFreq=20000;
@@ -70,8 +74,8 @@ global S
     S.GUI.NbOfFreq=1;
     S.GUI.FreqWidth=1;
 	S.GUI.SoundSamplingRate=192000;
-    S.GUIPanels.Cue={'CueType','SoundDuration','LowFreq','HighFreq','SoundRamp','NbOfFreq','FreqWidth','SoundSamplingRate'};
-    S.GUITabs.Cue={'Cue'};
+    S.GUIPanels.Auditory={'SoundDuration','LowFreq','HighFreq','SoundRamp','NbOfFreq','FreqWidth','SoundSamplingRate'};
+    S.GUITabs.Cue={'Auditory'};
 %    
     S.GUI.RewardValve=1;
     S.GUIMeta.RewardValve.Style='popupmenu';
@@ -90,7 +94,7 @@ global S
     S.GUITabs.Outcome={'Outcome'};
     
 %% Nidaq and Photometry
-    S.GUI.PhotometryVersion=1;
+    S.GUI.PhotometryVersion=1.1;
     S.GUI.Modulation=1;
     S.GUIMeta.Modulation.Style='checkbox';
     S.GUIMeta.Modulation.String='Auto';
@@ -114,4 +118,18 @@ global S
                             'LED1b_Name','LED1b_Amp','LED1b_Freq'};
                         
     S.GUITabs.Photometry={'Photometry'};
+%% Optogenetic stimulation
+    S.GUI.Opto_BNC=2;
+    S.GUI.Opto_Proba=1;
+    S.GUI.Opto_State=1;
+    S.GUIMeta.Opto_State.Style='popupmenu';
+    S.GUIMeta.Opto_State.String=S.Names.StateToStim;
+%     S.GUI.Opto_Length=NaN;
+%     S.GUI.Opto_continuous=1;
+%     S.GUIMeta.Opto_continuous.Style='checkbox';
+%     S.GUIMeta.Opto_continuous.String='Auto';
+%     S.GUI.Opto_Freq=20;
+%     S.GUI.Opto_PulseLength=0.005;
+    S.GUIPanels.Optogenetic={'Opto_BNC','Opto_Proba','Opto_State'};
+    S.GUITabs.Optogenetic={'Optogenetic'};                  
 end
