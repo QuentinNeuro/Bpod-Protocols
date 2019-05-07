@@ -113,7 +113,7 @@ for currentTrial = 1:S.GUI.MaxTrials
     S.NoLick=[5 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
             end
         case 4 % Olfaction
-            if ~S.Cue==3
+            if S.Cue~=3
     S.WireOlf=(1+2^(S.Cue));
             end
     S.Cue=3;        % No sound cue beeing delivered
