@@ -10,18 +10,18 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Phase = 1;
+    S.GUI.Phase = 2;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
     S.GUI.eZTrials=1;
 	S.GUIMeta.eZTrials.Style='checkbox';
     S.GUIMeta.eZTrials.String='Auto';
-    S.GUI.CueType=1;
+    S.GUI.CueType=4;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
     S.GUIPanels.Task={'Phase','CueType','eZTrials'};
     
-    S.GUI.Optogenetic=1;
+    S.GUI.Optogenetic=0;
     S.GUIMeta.Optogenetic.Style='checkbox';
     S.GUIMeta.Optogenetic.String='Auto';
     S.GUI.Wheel=1;
@@ -30,7 +30,7 @@ global S
  	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
-    S.GUI.DbleFibers=0;
+    S.GUI.DbleFibers=1;
     S.GUIMeta.DbleFibers.Style='checkbox';
     S.GUIMeta.DbleFibers.String='Auto';
     S.GUI.Isobestic405=0;
@@ -50,7 +50,7 @@ global S
 %% Timing
     S.GUI.MaxTrials=300;
     S.GUI.PreCue=3;
-    S.GUI.Delay=1;
+    S.GUI.Delay=2;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
     S.GUI.TimeNoLick=2;
@@ -67,7 +67,7 @@ global S
     S.GUIPanels.PlotTiming={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd'};
     S.GUITabs.Timing={'TaskTiming','PlotTiming'};
 %% Task Parameters    
-    S.GUI.SoundDuration=0.5;
+    S.GUI.SoundDuration=1;
     S.GUI.LowFreq=4000;
     S.GUI.HighFreq=20000;
     S.GUI.SoundRamp=0;
