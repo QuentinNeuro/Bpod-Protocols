@@ -16,7 +16,7 @@ global S
     S.GUI.eZTrials=1;
 	S.GUIMeta.eZTrials.Style='checkbox';
     S.GUIMeta.eZTrials.String='Auto';
-    S.GUI.CueType=4;
+    S.GUI.CueType=3;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
     S.GUIPanels.Task={'Phase','CueType','eZTrials'};
@@ -48,13 +48,13 @@ global S
     S.GUITabs.General={'Plot','Recording','Task'};
 
 %% Timing
-    S.GUI.MaxTrials=300;
+    S.GUI.MaxTrials=200;
     S.GUI.PreCue=3;
     S.GUI.Delay=2;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
     S.GUI.TimeNoLick=2;
-    S.GUI.ITI=3;
+    S.GUI.ITI=5;
     S.GUIPanels.TaskTiming={'MaxTrials','PreCue','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
     
     S.GUI.StateToZero=2;
@@ -98,7 +98,7 @@ global S
     S.GUI.Modulation=1;
     S.GUIMeta.Modulation.Style='checkbox';
     S.GUIMeta.Modulation.String='Auto';
-	S.GUI.NidaqDuration=10;
+	S.GUI.NidaqDuration=20;
     S.GUI.NidaqSamplingRate=6100;
     S.GUI.DecimateFactor=610;
     S.GUI.LED1_Name='Fiber1 470-A1';
