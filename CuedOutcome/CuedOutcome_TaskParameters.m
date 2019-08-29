@@ -50,7 +50,7 @@ global S
 %% Timing
     S.GUI.MaxTrials=200;
     S.GUI.PreCue=3;
-    S.GUI.Delay=2;
+    S.GUI.Delay=1;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
     S.GUI.TimeNoLick=2;
@@ -67,7 +67,7 @@ global S
     S.GUIPanels.PlotTiming={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd'};
     S.GUITabs.Timing={'TaskTiming','PlotTiming'};
 %% Task Parameters    
-    S.GUI.SoundDuration=1;
+    S.GUI.SoundDuration=0.5;
     S.GUI.LowFreq=4000;
     S.GUI.HighFreq=20000;
     S.GUI.SoundRamp=0;
@@ -98,7 +98,7 @@ global S
     S.GUI.Modulation=1;
     S.GUIMeta.Modulation.Style='checkbox';
     S.GUIMeta.Modulation.String='Auto';
-	S.GUI.NidaqDuration=20;
+	S.GUI.NidaqDuration=30;
     S.GUI.NidaqSamplingRate=6100;
     S.GUI.DecimateFactor=610;
     S.GUI.LED1_Name='Fiber1 470-A1';
