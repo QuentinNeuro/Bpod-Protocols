@@ -34,26 +34,22 @@ switch S.GUI.CueType
     case 1 % Chirp/sweep
         CueA=chirp(TimeSound,S.GUI.LowFreq,S.GUI.SoundDuration,S.GUI.HighFreq);
         CueB=chirp(TimeSound,S.GUI.HighFreq,S.GUI.SoundDuration,S.GUI.LowFreq);
-        NoCue=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
         CueC=[chirp(HalfTimeSound,S.GUI.LowFreq,S.GUI.SoundDuration/2,S.GUI.HighFreq) chirp(HalfTimeSound,S.GUI.HighFreq,S.GUI.SoundDuration/2,S.GUI.LowFreq)];
     case 2 % Tones
         CueA=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.LowFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
         CueB=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.HighFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
-        NoCue=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
         CueC=SoundGenerator(S.GUI.SoundSamplingRate,(S.GUI.LowFreq+S.GUI.HighFreq)/2,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
     case {3,4} % Visual / olfactory Cue
         CueA=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
         CueB=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
-        NoCue=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
         CueC=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
 end
 WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.ITI+1,0);
 PsychToolboxSoundServer('init');
 PsychToolboxSoundServer('Load', 1, CueA);
 PsychToolboxSoundServer('Load', 2, CueB);
-PsychToolboxSoundServer('Load', 3, NoCue);
-PsychToolboxSoundServer('Load', 4, CueC);
-PsychToolboxSoundServer('Load', 5, WhiteNoise);
+PsychToolboxSoundServer('Load', 3, CueC);
+PsychToolboxSoundServer('Load', 4, WhiteNoise);
 BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
 
 %% Define trial types parameters, trial sequence and Initialize plots
@@ -103,21 +99,21 @@ for currentTrial = 1:S.GUI.MaxTrials
 	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
 	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
     S.VisualCue =   [0 0]; % Left right LED
-    S.WireOlf=0;
-    S.NoLick=[255 100]; % Softcode - no sound / LED at 255
+    S.WireOlf   =   0;
+    S.NoLick    =   [255 100]; % Softcode - no sound / LED at 255
     switch S.GUI.CueType
         case 3 % Visual Cues
             if S.Cue==1 || S.Cue==2
     S.VisualCue(S.Cue)=100;  
-    S.Cue=3;        % No sound cue beeing delivered
-    S.NoLick=[5 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
+    S.Cue=255;        % No sound cue beeing delivered
             end
+    S.NoLick=[4 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
         case 4 % Olfaction
-            if S.Cue~=3
+            if S.Cue~=255
     S.WireOlf=(1+2^(S.Cue));
+    S.Cue=255;        % No sound cue beeing delivered
             end
-    S.Cue=3;        % No sound cue beeing delivered
-    S.NoLick=[5 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
+    S.NoLick=[4 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
     end       
     S.ITI = 100;
     while S.ITI > 3 * S.GUI.ITI
