@@ -50,12 +50,13 @@ global S
 %% Timing
     S.GUI.MaxTrials=200;
     S.GUI.PreCue=3;
+    S.GUI.CueDuration=0.5;
     S.GUI.Delay=1;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
     S.GUI.TimeNoLick=2;
     S.GUI.ITI=5;
-    S.GUIPanels.TaskTiming={'MaxTrials','PreCue','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
+    S.GUIPanels.TaskTiming={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
     
     S.GUI.StateToZero=2;
 	S.GUIMeta.StateToZero.Style='popupmenu';
@@ -67,14 +68,13 @@ global S
     S.GUIPanels.PlotTiming={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd'};
     S.GUITabs.Timing={'TaskTiming','PlotTiming'};
 %% Task Parameters    
-    S.GUI.SoundDuration=0.5;
     S.GUI.LowFreq=4000;
     S.GUI.HighFreq=20000;
     S.GUI.SoundRamp=0;
     S.GUI.NbOfFreq=1;
     S.GUI.FreqWidth=1;
 	S.GUI.SoundSamplingRate=192000;
-    S.GUIPanels.Auditory={'SoundDuration','LowFreq','HighFreq','SoundRamp','NbOfFreq','FreqWidth','SoundSamplingRate'};
+    S.GUIPanels.Auditory={'LowFreq','HighFreq','SoundRamp','NbOfFreq','FreqWidth','SoundSamplingRate'};
     S.GUITabs.Cue={'Auditory'};
 %    
     S.GUI.RewardValve=1;

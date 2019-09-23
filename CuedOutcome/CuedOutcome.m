@@ -28,27 +28,27 @@ S.InterRew  =   GetValveTimes(S.GUI.InterReward, S.GUI.RewardValve);
 S.LargeRew  =   GetValveTimes(S.GUI.LargeReward, S.GUI.RewardValve);
 
 %% Define stimuli and send to sound server
-TimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.SoundDuration;
-HalfTimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.SoundDuration/2;
+TimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.CueDuration;
+HalfTimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.CueDuration/2;
+WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.CueDuration,0);
 switch S.GUI.CueType
     case 1 % Chirp/sweep
-        CueA=chirp(TimeSound,S.GUI.LowFreq,S.GUI.SoundDuration,S.GUI.HighFreq);
-        CueB=chirp(TimeSound,S.GUI.HighFreq,S.GUI.SoundDuration,S.GUI.LowFreq);
-        CueC=[chirp(HalfTimeSound,S.GUI.LowFreq,S.GUI.SoundDuration/2,S.GUI.HighFreq) chirp(HalfTimeSound,S.GUI.HighFreq,S.GUI.SoundDuration/2,S.GUI.LowFreq)];
+        CueA=chirp(TimeSound,S.GUI.LowFreq,S.GUI.CueDuration,S.GUI.HighFreq);
+        CueB=chirp(TimeSound,S.GUI.HighFreq,S.GUI.CueDuration,S.GUI.LowFreq);
+        CueC=[chirp(HalfTimeSound,S.GUI.LowFreq,S.GUI.CueDuration/2,S.GUI.HighFreq) chirp(HalfTimeSound,S.GUI.HighFreq,S.GUI.SoundDuration/2,S.GUI.LowFreq)];
     case 2 % Tones
-        CueA=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.LowFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
-        CueB=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.HighFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
-        CueC=SoundGenerator(S.GUI.SoundSamplingRate,(S.GUI.LowFreq+S.GUI.HighFreq)/2,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
-    case {3,4} % Visual / olfactory Cue
-        CueA=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
-        CueB=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
-        CueC=zeros(1,S.GUI.SoundDuration*S.GUI.SoundSamplingRate);
+        CueA=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.LowFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.CueDuration,S.GUI.SoundRamp);
+        CueB=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.HighFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.CueDuration,S.GUI.SoundRamp);
+        CueC=SoundGenerator(S.GUI.SoundSamplingRate,(S.GUI.LowFreq+S.GUI.HighFreq)/2,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.CueDuration,S.GUI.SoundRamp);
+    otherwise % WhiteNoise for No Lick period
+        WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.TimeNoLick+1,0);
 end
-WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.ITI+1,0);
 PsychToolboxSoundServer('init');
+if S.GUI.CueType==1 || S.GUI.CueType==2
 PsychToolboxSoundServer('Load', 1, CueA);
 PsychToolboxSoundServer('Load', 2, CueB);
 PsychToolboxSoundServer('Load', 3, CueC);
+end
 PsychToolboxSoundServer('Load', 4, WhiteNoise);
 BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
 
@@ -93,32 +93,35 @@ end
 BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
 for currentTrial = 1:S.GUI.MaxTrials
     S = BpodParameterGUI('sync', S); % Sync parameters with BpodParameterGUI plugin 
-%% Initialize current trial parameters - Auditory cue by default
+%% Initialize current trial parameters
 	S.Cue       =	S.TrialsMatrix(TrialSequence(currentTrial),3);
 	S.Delay     =	S.TrialsMatrix(TrialSequence(currentTrial),4)+(S.GUI.DelayIncrement*(currentTrial-1));
 	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
 	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
-    S.VisualCue =   [0 0]; % Left right LED
-    S.WireOlf   =   0;
-    S.NoLick    =   [255 100]; % Softcode - no sound / LED at 255
-    switch S.GUI.CueType
-        case 3 % Visual Cues
-            if S.Cue==1 || S.Cue==2
-    S.VisualCue(S.Cue)=100;  
-    S.Cue=255;        % No sound cue beeing delivered
-            end
-    S.NoLick=[4 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
-        case 4 % Olfaction
-            if S.Cue~=255
-    S.WireOlf=(1+2^(S.Cue));
-    S.Cue=255;        % No sound cue beeing delivered
-            end
-    S.NoLick=[4 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
-    end       
     S.ITI = 100;
     while S.ITI > 3 * S.GUI.ITI
         S.ITI = exprnd(S.GUI.ITI);
     end
+%% Cue definition    
+    S.AudCue    =   255;    % No AudCue by default
+    S.VisualCue =   [0 0]; % Left right LED
+    S.WireOlf   =   0;
+    switch S.GUI.CueType
+        case [1 2]  % Auditory Cues
+            if S.Cue~=0
+                S.AudCue=S.Cue;
+            end
+             S.NoLick    =   [255 100];
+        case 3      % Visual Cues
+            if S.Cue~=0
+    S.VisualCue(S.Cue)=100;  
+            end
+    S.NoLick=[4 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
+        case 4      % Olfactory Cues
+    S.WireOlf=(1+2^(S.Cue));
+    S.NoLick=[4 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
+    end       
+%% Optogenetic
 if S.GUI.Optogenetic
     S.Stim_State=Stim_State*S.TrialsMatrix(TrialSequence(currentTrial),8);
 else
@@ -137,15 +140,15 @@ end
         'OutputActions',{'BNCState',1+S.Stim_State(1)});
     %Stimulus delivery
     sma=AddState(sma,'Name', 'CueDelivery',...
-        'Timer',S.GUI.SoundDuration,...
+        'Timer',S.GUI.CueDuration,...
         'StateChangeConditions',{'Tup', 'Delay'},...
-        'OutputActions', {'SoftCode',S.Cue,'PWM4',S.VisualCue(1),'PWM5',S.VisualCue(2),... 
+        'OutputActions', {'SoftCode',S.AudCue,'PWM4',S.VisualCue(1),'PWM5',S.VisualCue(2),... 
                             'BNCState',S.Stim_State(2),'WireState',S.WireOlf});
     %Delay
     sma=AddState(sma,'Name', 'Delay',...
         'Timer',S.Delay,...
         'StateChangeConditions', {'Tup', 'Outcome'},...
-        'OutputActions', {'BNCState',S.Stim_State(3)});
+        'OutputActions', {'SoftCode',255,'BNCState',S.Stim_State(3)});
     %Reward
     sma=AddState(sma,'Name', 'Outcome',...
         'Timer',S.Outcome,...
