@@ -107,7 +107,7 @@ for currentTrial = 1:S.GUI.MaxTrials
     S.VisualCue =   [0 0]; % Left right LED
     S.WireOlf   =   0;
     switch S.GUI.CueType
-        case [1 2]  % Auditory Cues
+        case {1,2}  % Auditory Cues
             if S.Cue~=0
                 S.AudCue=S.Cue;
             end
