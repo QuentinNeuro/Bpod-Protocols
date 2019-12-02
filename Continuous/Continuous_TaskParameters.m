@@ -41,19 +41,19 @@ global S
     S.GUIMeta.RedChannel.String='Auto';    
     S.GUIPanels.Recording={'Optogenetic','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
     
-    S.GUI.NidaqMin=-5;
-    S.GUI.NidaqMax=5
+    S.GUI.NidaqMin=-10;
+    S.GUI.NidaqMax=10;
     S.GUIPanels.Plot={'NidaqMin','NidaqMax'};
     
     S.GUITabs.General={'Plot','Recording','Task'};
 
 %% Timing
-    S.GUI.MaxTrials=20;
+    S.GUI.MaxTrials=5;
     S.GUI.PreCue=3;
     S.GUI.CueDuration=0;
     S.GUI.Delay=0;
     S.GUI.DelayIncrement=0;
-    S.GUI.PostOutcome=2;
+    S.GUI.PostOutcome=4;
     S.GUI.TimeNoLick=0;
     S.GUI.ITI=20;
     S.GUIPanels.TaskTiming={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
@@ -61,8 +61,8 @@ global S
     S.GUI.StateToZero=2;
 	S.GUIMeta.StateToZero.Style='popupmenu';
     S.GUIMeta.StateToZero.String=S.Names.StateToZero;
-    S.GUI.TimeMin=-4;
-    S.GUI.TimeMax=120;
+    S.GUI.TimeMin=-10;
+    S.GUI.TimeMax=40;
     S.GUI.BaselineBegin=1.5;
     S.GUI.BaselineEnd=2.5;
     S.GUIPanels.PlotTiming={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd'};
