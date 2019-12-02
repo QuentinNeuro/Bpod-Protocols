@@ -27,6 +27,31 @@ S.SmallRew  =   GetValveTimes(S.GUI.SmallReward, S.GUI.RewardValve);
 S.InterRew  =   GetValveTimes(S.GUI.InterReward, S.GUI.RewardValve);
 S.LargeRew  =   GetValveTimes(S.GUI.LargeReward, S.GUI.RewardValve);
 
+%% Define stimuli and send to sound server
+TimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.CueDuration;
+HalfTimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.CueDuration/2;
+WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.CueDuration,0);
+switch S.GUI.CueType
+    case 1 % Chirp/sweep
+        CueA=chirp(TimeSound,S.GUI.LowFreq,S.GUI.CueDuration,S.GUI.HighFreq);
+        CueB=chirp(TimeSound,S.GUI.HighFreq,S.GUI.CueDuration,S.GUI.LowFreq);
+        CueC=[chirp(HalfTimeSound,S.GUI.LowFreq,S.GUI.CueDuration/2,S.GUI.HighFreq) chirp(HalfTimeSound,S.GUI.HighFreq,S.GUI.CueDuration/2,S.GUI.LowFreq)];
+    case 2 % Tones
+        CueA=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.LowFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.CueDuration,S.GUI.SoundRamp);
+        CueB=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.HighFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.CueDuration,S.GUI.SoundRamp);
+        CueC=SoundGenerator(S.GUI.SoundSamplingRate,(S.GUI.LowFreq+S.GUI.HighFreq)/2,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.CueDuration,S.GUI.SoundRamp);
+    otherwise % WhiteNoise for No Lick period
+        WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.TimeNoLick+1,0);
+end
+PsychToolboxSoundServer('init');
+if S.GUI.CueType==1 || S.GUI.CueType==2
+PsychToolboxSoundServer('Load', 1, CueA);
+PsychToolboxSoundServer('Load', 2, CueB);
+PsychToolboxSoundServer('Load', 3, CueC);
+end
+PsychToolboxSoundServer('Load', 4, WhiteNoise);
+BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
+
 %% Define trial types parameters, trial sequence and Initialize plots
 [S.TrialsNames, S.TrialsMatrix]=Continuous_Phase(S,S.Names.Phase{S.GUI.Phase});
 TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
@@ -129,7 +154,7 @@ for currentTrial = 1:S.GUI.MaxTrials
         'StateChangeConditions',{'Tup', 'End'},...
         'OutputActions',{});
     sma = AddState(sma,'Name', 'End',...
-        'Timer',1,...
+        'Timer',4,...
         'StateChangeConditions', {'Tup', 'exit'},...
         'OutputActions',{'SoftCode', 255});
     SendStateMatrix(sma);
@@ -143,15 +168,17 @@ end
 %% NIDAQ Stop acquisition and save data in bpod structure
 if S.GUI.Photometry || S.GUI.Wheel
     Nidaq_photometry('Stop');
-    [PhotoData,~,Photo2Data]=Nidaq_photometry('Save');
+    [PhotoData,WheelData,Photo2Data]=Nidaq_photometry('Save');
     if S.GUI.Photometry
         BpodSystem.Data.NidaqData{currentTrial}=PhotoData;
         if S.GUI.DbleFibers || S.GUI.RedChannel
             BpodSystem.Data.Nidaq2Data{currentTrial}=Photo2Data;
         end
     end
+    if S.GUI.Wheel
+        BpodSystem.Data.NidaqWheelData{currentTrial}=WheelData;
+    end
 end
-
 %% Save
 if ~isempty(fieldnames(RawEvents))                                          % If trial data was returned
     BpodSystem.Data = AddTrialEvents(BpodSystem.Data,RawEvents);            % Computes trial events from raw data

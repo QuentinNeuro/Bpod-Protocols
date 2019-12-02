@@ -106,21 +106,18 @@ for currentTrial = 1:S.GUI.MaxTrials
     S.AudCue    =   255;    % No AudCue by default
     S.VisualCue =   [0 0]; % Left right LED
     S.WireOlf   =   0;
+	S.NoLick=[4 0];
+    if S.Cue~=0
     switch S.GUI.CueType
         case {1,2}  % Auditory Cues
-            if S.Cue~=0
                 S.AudCue=S.Cue;
-            end
-             S.NoLick    =   [255 100];
+                S.NoLick    =   [255 100];
         case 3      % Visual Cues
-            if S.Cue~=0
-    S.VisualCue(S.Cue)=100;  
-            end
-    S.NoLick=[4 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
+    S.VisualCue(S.Cue)=100; 
         case 4      % Olfactory Cues
     S.WireOlf=(1+2^(S.Cue));
-    S.NoLick=[4 0]; % Softcode - White noise / LED at 0 - to indicate end of trial
-    end       
+    end   
+    end
 %% Optogenetic
 if S.GUI.Optogenetic
     S.Stim_State=Stim_State*S.TrialsMatrix(TrialSequence(currentTrial),8);
