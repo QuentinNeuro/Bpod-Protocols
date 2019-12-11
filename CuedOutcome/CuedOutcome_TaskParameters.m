@@ -16,7 +16,7 @@ global S
     S.GUI.eZTrials=1;
 	S.GUIMeta.eZTrials.Style='checkbox';
     S.GUIMeta.eZTrials.String='Auto';
-    S.GUI.CueType=3;
+    S.GUI.CueType=4;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
     S.GUIPanels.Task={'Phase','CueType','eZTrials'};
@@ -51,7 +51,7 @@ global S
     S.GUI.MaxTrials=200;
     S.GUI.PreCue=3;
     S.GUI.CueDuration=0.5;
-    S.GUI.Delay=1;
+    S.GUI.Delay=2;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
     S.GUI.TimeNoLick=2;
