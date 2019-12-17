@@ -37,16 +37,18 @@ global S
     S.GUITabs.General={'Recording','Task'};
 
 %% Task Parameters
-    S.GUI.SoundType=2;
+    S.GUI.SoundType=1;
     S.GUIMeta.SoundType.Style='popupmenu';
     S.GUIMeta.SoundType.String=S.Names.Sound;
     S.GUI.SoundDuration=0.100;
     S.GUI.SoundFrequency=10000;
+    S.GUI.LowFreq=4000;
+    S.GUI.HighFreq=20000;
     S.GUI.SoundRamp=0;
     S.GUI.NbOfFreq=1;
     S.GUI.FreqWidth=1;
 	S.GUI.SoundSamplingRate=192000;
-    S.GUIPanels.Cue={'SoundType','SoundDuration','SoundFrequency','SoundRamp','NbOfFreq','FreqWidth','SoundSamplingRate'};
+    S.GUIPanels.Cue={'SoundType','SoundDuration','SoundFrequency','HighFreq','LowFreq','SoundRamp','NbOfFreq','FreqWidth','SoundSamplingRate'};
  
     S.GUITabs.Cue={'Cue'};
 

@@ -21,9 +21,15 @@ S = BpodParameterGUI('sync', S);
 
 %% Define stimuli and send to sound server
 S.SoundFreq2=S.GUI.SoundFrequency*sqrt(2);
-switch S.GUI.SoundType
-    case 1
-        disp('Cannot use chirp in this protocol');
+TimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.CueDuration;
+HalfTimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.CueDuration/2;
+WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.CueDuration,0);
+switch S.GUI.CueType
+    case 1 % Chirp/sweep
+        CueA=chirp(TimeSound,S.GUI.LowFreq,S.GUI.CueDuration,S.GUI.HighFreq);
+        CueB=chirp(TimeSound,S.GUI.HighFreq,S.GUI.CueDuration,S.GUI.LowFreq);
+        CueC=[chirp(HalfTimeSound,S.GUI.LowFreq,S.GUI.CueDuration/2,S.GUI.HighFreq) chirp(HalfTimeSound,S.GUI.HighFreq,S.GUI.CueDuration/2,S.GUI.LowFreq)];
+    
     case 2
         CueA=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.SoundFrequency,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
         CueB=SoundGenerator(S.GUI.SoundSamplingRate,S.SoundFreq2,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.SoundDuration,S.GUI.SoundRamp);
