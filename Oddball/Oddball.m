@@ -24,7 +24,7 @@ S.SoundFreq2=S.GUI.SoundFrequency*sqrt(2);
 TimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.SoundDuration;
 HalfTimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.SoundDuration/2;
 WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.SoundDuration,0);
-switch S.GUI.CueType
+switch S.GUI.SoundType
     case 1 % Chirp/sweep
         CueA=chirp(TimeSound,S.GUI.LowFreq,S.GUI.SoundDuration,S.GUI.HighFreq);
         CueB=chirp(TimeSound,S.GUI.HighFreq,S.GUI.SoundDuration,S.GUI.LowFreq);

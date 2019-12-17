@@ -23,7 +23,7 @@ global S
  	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
-    S.GUI.DbleFibers=0;
+    S.GUI.DbleFibers=1;
     S.GUIMeta.DbleFibers.Style='checkbox';
     S.GUIMeta.DbleFibers.String='Auto';
     S.GUI.Isobestic405=0;
