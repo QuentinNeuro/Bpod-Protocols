@@ -19,7 +19,10 @@ global S
     S.GUI.CueType=4;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
-    S.GUIPanels.Task={'Phase','CueType','eZTrials'};
+    S.GUI.noLickPeriod=0;
+    S.GUIMeta.noLickPeriod.Style='checkbox';
+    S.GUIMeta.noLickPeriod.String='Auto';
+    S.GUIPanels.Task={'Phase','CueType','eZTrials','noLickPeriod'};
     
     S.GUI.Optogenetic=0;
     S.GUIMeta.Optogenetic.Style='checkbox';
