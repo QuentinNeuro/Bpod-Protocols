@@ -217,7 +217,7 @@ if ~isempty(fieldnames(RawEvents))                                          % If
 end
 
 %% PLOT - extract events from BpodSystem.data and update figures
-% try
+try
 [currentOutcome, currentLickEvents]=Online_LickEvents(S.Names.StateToZero{S.GUI.StateToZero});
 FigLick=Online_LickPlot('update',[],FigLick,currentOutcome,currentLickEvents);
 
@@ -242,9 +242,9 @@ end
 if S.GUI.Wheel
     FigWheel=Online_WheelPlot('update',FigWheel,WheelData,S.Names.StateToZero{S.GUI.StateToZero},currentTrial,currentLickEvents);
 end
-% catch
-%     disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
-% end
+catch
+    disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
+end
 
 %% Photometry QC
 if currentTrial==1 && S.GUI.Photometry
