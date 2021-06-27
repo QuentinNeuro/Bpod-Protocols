@@ -16,14 +16,17 @@ global S
     S.GUI.eZTrials=1;
 	S.GUIMeta.eZTrials.Style='checkbox';
     S.GUIMeta.eZTrials.String='Auto';
+    S.GUI.noLickPeriod=1;
+	S.GUIMeta.noLickPeriod.Style='checkbox';
+    S.GUIMeta.noLickPeriod.String='Auto';
     S.GUI.CueType=4;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
-    S.GUI.noLickPeriod=0;
-    S.GUIMeta.noLickPeriod.Style='checkbox';
-    S.GUIMeta.noLickPeriod.String='Auto';
     S.GUIPanels.Task={'Phase','CueType','eZTrials','noLickPeriod'};
-    
+     
+    S.GUI.Bonsai=0;
+    S.GUIMeta.Bonsai.Style='checkbox';
+    S.GUIMeta.Bonsai.String='Auto';
     S.GUI.Optogenetic=0;
     S.GUIMeta.Optogenetic.Style='checkbox';
     S.GUIMeta.Optogenetic.String='Auto';
@@ -42,8 +45,8 @@ global S
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Optogenetic','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
-    
+    S.GUIPanels.Recording={'Bonsai','Optogenetic','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
+     
     S.GUI.NidaqMin=-5;
     S.GUI.NidaqMax=10;
     S.GUIPanels.Plot={'NidaqMin','NidaqMax'};
@@ -51,7 +54,7 @@ global S
     S.GUITabs.General={'Plot','Recording','Task'};
 
 %% Timing
-    S.GUI.MaxTrials=200;
+    S.GUI.MaxTrials=100;
     S.GUI.PreCue=3;
     S.GUI.CueDuration=0.5;
     S.GUI.Delay=2;

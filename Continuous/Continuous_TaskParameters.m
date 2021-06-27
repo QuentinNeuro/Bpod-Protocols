@@ -10,17 +10,17 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Phase = 2;
+    S.GUI.Phase = 1;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
-    S.GUI.eZTrials=0;
-	S.GUIMeta.eZTrials.Style='checkbox';
-    S.GUIMeta.eZTrials.String='Auto';
     S.GUI.CueType=5;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
-    S.GUIPanels.Task={'Phase','CueType','eZTrials'};
+    S.GUIPanels.Task={'Phase','CueType'};
     
+    S.GUI.Bonsai=1;
+    S.GUIMeta.Bonsai.Style='checkbox';
+    S.GUIMeta.Bonsai.String='Auto';
     S.GUI.Optogenetic=0;
     S.GUIMeta.Optogenetic.Style='checkbox';
     S.GUIMeta.Optogenetic.String='Auto';
@@ -39,8 +39,8 @@ global S
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Optogenetic','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
-    
+    S.GUIPanels.Recording={'Bonsai','Optogenetic','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
+   
     S.GUI.NidaqMin=-10;
     S.GUI.NidaqMax=10;
     S.GUIPanels.Plot={'NidaqMin','NidaqMax'};

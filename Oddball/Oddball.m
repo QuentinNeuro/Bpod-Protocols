@@ -46,12 +46,20 @@ BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
 TrialSequence=ones(P.BlocksNb,1);
 TrialSequence(1:ceil(P.BlocksNb/2))=2;
 TrialSequence=TrialSequence(randperm(P.BlocksNb));
+BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
 
 %% NIDAQ Initialization
 if S.GUI.Photometry || S.GUI.Wheel
     Nidaq_photometry('ini',ParamPC);
 end
-BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
+
+%% Bonsai
+if S.GUI.Bonsai
+BpodSystem.Pause=1;
+disp('Adjust ROI and time to 200 sec - resume when ready');
+success=Bpod2Bonsai_Quentin()
+HandlePauseCondition;
+end
 %% Main trial loop
 for currentTrial = 1:P.BlocksNb
 %% Initialize current trial parameters
