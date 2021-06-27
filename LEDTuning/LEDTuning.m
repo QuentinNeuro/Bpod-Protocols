@@ -108,16 +108,16 @@ end
 
 %% PLOT - extract events from BpodSystem.data and update figures
 try
-    currentNidaq1=Nidaq_demodulation(PhotoData(:,1),nidaq.LED1,S.GUI.LED1_Freq,S.GUI.LED1_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+    currentNidaq1=Photometry_demod(PhotoData(:,1),nidaq.LED1,S.GUI.LED1_Freq,S.GUI.LED1_Amp,S.Names.StateToZero{S.GUI.StateToZero});
     FigNidaq1=Online_LEDTuningPlot('update',TrialSequence,FigNidaq1,currentTrial,currentNidaq1);
 
 if S.GUI.Isobestic405 || S.GUI.DbleFibers || S.GUI.RedChannel
     if S.GUI.Isobestic405
-    currentNidaq2=Nidaq_demodulation(PhotoData(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+    currentNidaq2=Photometry_demod(PhotoData(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
     elseif S.GUI.RedChannel
-    currentNidaq2=Nidaq_demodulation(Photo2Data(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+    currentNidaq2=Photometry_demod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
     elseif S.GUI.DbleFibers
-    currentNidaq2=Nidaq_demodulation(Photo2Data(:,1),nidaq.LED2,S.GUI.LED1b_Freq,S.GUI.LED1b_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+    currentNidaq2=Photometry_demod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED1b_Freq,S.GUI.LED1b_Amp,S.Names.StateToZero{S.GUI.StateToZero});
     end
     FigNidaq2=Online_LEDTuningPlot('update',TrialSequence,FigNidaq2,currentTrial,currentNidaq2);
 end

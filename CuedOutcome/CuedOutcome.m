@@ -209,22 +209,22 @@ if ~isempty(fieldnames(RawEvents))                                          % If
 end
 
 %% PLOT - extract events from BpodSystem.data and update figures
-try
+% try
 [currentOutcome, currentLickEvents]=Online_LickEvents(S.Names.StateToZero{S.GUI.StateToZero});
 FigLick=Online_LickPlot('update',[],FigLick,currentOutcome,currentLickEvents);
 
 if S.GUI.Photometry
-    [currentNidaq1, rawNidaq1]=Nidaq_demodulation(PhotoData(:,1),nidaq.LED1,S.GUI.LED1_Freq,S.GUI.LED1_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+    [currentNidaq1, rawNidaq1]=Photometry_demod(PhotoData(:,1),nidaq.LED1,S.GUI.LED1_Freq,S.GUI.LED1_Amp,S.Names.StateToZero{S.GUI.StateToZero});
     currentNidaq1=Online_VariableITIAVG(currentNidaq1,'PreState');
     FigNidaq1=Online_PhotoPlot('update',[],FigNidaq1,currentNidaq1,rawNidaq1);
 
     if S.GUI.Isobestic405 || S.GUI.DbleFibers || S.GUI.RedChannel
         if S.GUI.Isobestic405
-        [currentNidaq2, rawNidaq2]=Nidaq_demodulation(PhotoData(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+        [currentNidaq2, rawNidaq2]=Photometry_demod(PhotoData(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
         elseif S.GUI.RedChannel
-        [currentNidaq2, rawNidaq2]=Nidaq_demodulation(Photo2Data(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+        [currentNidaq2, rawNidaq2]=Photometry_demod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
         elseif S.GUI.DbleFibers
-        [currentNidaq2, rawNidaq2]=Nidaq_demodulation(Photo2Data(:,1),nidaq.LED2,S.GUI.LED1b_Freq,S.GUI.LED1b_Amp,S.Names.StateToZero{S.GUI.StateToZero});
+        [currentNidaq2, rawNidaq2]=Photometry_demod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED1b_Freq,S.GUI.LED1b_Amp,S.Names.StateToZero{S.GUI.StateToZero});
         end
         currentNidaq2=Online_VariableITIAVG(currentNidaq2,'PreState');
         FigNidaq2=Online_PhotoPlot('update',[],FigNidaq2,currentNidaq2,rawNidaq2);
@@ -234,9 +234,9 @@ end
 if S.GUI.Wheel
     FigWheel=Online_WheelPlot('update',FigWheel,WheelData,S.Names.StateToZero{S.GUI.StateToZero},currentTrial,currentLickEvents);
 end
-catch
-    disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
-end
+% catch
+%     disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
+% end
 
 %% Photometry QC
 if currentTrial==1 && S.GUI.Photometry
