@@ -74,9 +74,9 @@ if S.GUI.Photometry || S.GUI.Wheel
     Nidaq_photometry('ini',ParamPC);
 end
 if S.GUI.Photometry
-    FigNidaq1=Online_AudTuningPlot('ini',TrialSequence);
+    FigNidaq1=Online_AudTuningPlot('ini','AudTun1',TrialSequence,[],[],[],1);
     if S.GUI.DbleFibers || S.GUI.Isobestic405 || S.GUI.RedChannel
-        FigNidaq2=Online_AudTuningPlot('ini',TrialSequence);
+        FigNidaq2=Online_AudTuningPlot('ini','AudTun2',TrialSequence,[],[],[],2);
     end
 end
 %% Main trial loop
@@ -138,7 +138,7 @@ end
 try
 if S.GUI.Photometry
     currentNidaq1=Photometry_demod(PhotoData(:,1),nidaq.LED1,S.GUI.LED1_Freq,S.GUI.LED1_Amp,S.Names.StateToZero{S.GUI.StateToZero});
-    FigNidaq1=Online_AudTuningPlot('update',TrialSequence,FigNidaq1,currentTrial,currentNidaq1);
+    FigNidaq1=Online_AudTuningPlot('update',[],[],FigNidaq1,currentTrial,currentNidaq1);
 
     if S.GUI.Isobestic405 || S.GUI.DbleFibers || S.GUI.RedChannel
         if S.GUI.Isobestic405
@@ -148,7 +148,7 @@ if S.GUI.Photometry
         elseif S.GUI.DbleFibers
         currentNidaq2=Photometry_demod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED1b_Freq,S.GUI.LED1b_Amp,S.Names.StateToZero{S.GUI.StateToZero});
         end
-        FigNidaq2=Online_AudTuningPlot('update',TrialSequence,FigNidaq2,currentTrial,currentNidaq2);
+        FigNidaq2=Online_AudTuningPlot('update',[],[],FigNidaq2,currentTrial,currentNidaq2);
     end
 end
 catch

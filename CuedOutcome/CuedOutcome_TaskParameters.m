@@ -27,9 +27,6 @@ global S
     S.GUI.Bonsai=0;
     S.GUIMeta.Bonsai.Style='checkbox';
     S.GUIMeta.Bonsai.String='Auto';
-    S.GUI.Optogenetic=0;
-    S.GUIMeta.Optogenetic.Style='checkbox';
-    S.GUIMeta.Optogenetic.String='Auto';
     S.GUI.Wheel=1;
     S.GUIMeta.Wheel.Style='checkbox';
     S.GUIMeta.Wheel.String='Auto';
@@ -45,7 +42,7 @@ global S
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Bonsai','Optogenetic','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
+    S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
      
     S.GUI.NidaqMin=-5;
     S.GUI.NidaqMax=10;
@@ -125,6 +122,9 @@ global S
                         
     S.GUITabs.Photometry={'Photometry'};
 %% Optogenetic stimulation
+    S.GUI.Optogenetic=0;
+    S.GUIMeta.Optogenetic.Style='checkbox';
+    S.GUIMeta.Optogenetic.String='Auto';
     S.GUI.Opto_BNC=2;
     S.GUI.Opto_Proba=1;
     S.GUI.Opto_State=1;
@@ -136,6 +136,6 @@ global S
 %     S.GUIMeta.Opto_continuous.String='Auto';
 %     S.GUI.Opto_Freq=20;
 %     S.GUI.Opto_PulseLength=0.005;
-    S.GUIPanels.Optogenetic={'Opto_BNC','Opto_Proba','Opto_State'};
-    S.GUITabs.Optogenetic={'Optogenetic'};                  
+    S.GUIPanels.Optogenetic={'Optogenetic','Opto_BNC','Opto_Proba','Opto_State'};
+    S.GUITabs.Opto={'Optogenetic'};                  
 end

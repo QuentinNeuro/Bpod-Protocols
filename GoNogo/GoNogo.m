@@ -64,15 +64,15 @@ if S.GUI.Photometry || S.GUI.Wheel
     end
     Nidaq_photometry('ini',ParamPC);
 end
-if S.GUI.Photometry
-    FigNidaq1=Online_NidaqPlot('ini','470');
-    if S.GUI.DbleFibers || S.GUI.Isobestic405 || S.GUI.RedChannel
-        FigNidaq2=Online_NidaqPlot('ini','channel2');
-    end
+[FigPhoto1,FigPhoto2,FigWheel]=Nidaq_Plots('ini');
+%% Bonsai
+if S.GUI.Bonsai
+    BpodSystem.Pause=1;
+    disp('Adjust ROI and time to 15sec - resume when ready');
+    success=Bpod2Bonsai_Quentin()
+    HandlePauseCondition;
 end
-if S.GUI.Wheel
-    FigWheel=Online_WheelPlot('ini');
-end
+
 %% Main trial loop
 BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
 for currentTrial = 1:S.GUI.MaxTrials
@@ -167,26 +167,9 @@ end
 try
 [currentOutcome, currentLickEvents]=Online_LickEvents(S.Names.StateToZero{S.GUI.StateToZero});
 FigLick=Online_LickPlot('update',[],FigLick,currentOutcome,currentLickEvents);
+[FigPhoto1,FigPhoto2,FigWheel]=Nidaq_Plots('update',FigPhoto1,FigPhoto2,FigWheel,'InitialDelay');
 
-if S.GUI.Photometry
-    [currentNidaq1, rawNidaq1]=Photometry_demod(PhotoData(:,1),nidaq.LED1,S.GUI.LED1_Freq,S.GUI.LED1_Amp,S.Names.StateToZero{S.GUI.StateToZero});
-    FigNidaq1=Online_NidaqPlot('update',[],FigNidaq1,currentNidaq1,rawNidaq1);
 
-    if S.GUI.Isobestic405 || S.GUI.DbleFibers || S.GUI.RedChannel
-        if S.GUI.Isobestic405
-        [currentNidaq2, rawNidaq2]=Photometry_demod(PhotoData(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
-        elseif S.GUI.RedChannel
-        [currentNidaq2, rawNidaq2]=Photometry_demod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
-        elseif S.GUI.DbleFibers
-        [currentNidaq2, rawNidaq2]=Photometry_demod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED1b_Freq,S.GUI.LED1b_Amp,S.Names.StateToZero{S.GUI.StateToZero});
-        end
-        FigNidaq2=Online_NidaqPlot('update',[],FigNidaq2,currentNidaq2,rawNidaq2);
-    end
-end
-
-if S.GUI.Wheel
-    FigWheel=Online_WheelPlot('update',FigWheel,WheelData,S.Names.StateToZero{S.GUI.StateToZero},currentTrial,currentLickEvents);
-end
 catch
     disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
 end
