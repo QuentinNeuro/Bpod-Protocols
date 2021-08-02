@@ -3,7 +3,7 @@ function CuedOutcome_TaskParameters(Param)
 %
 
 global S
-    S.Names.Phase={'Habituation','RewardA','RewardB','RewardAPunishB','RewardBPunishA','RewardAPunishBValues','RewardBPunishAValues','RewardACBValues','RewardBACValues','RewardA_DREADD','RewardA_Large','RewardB_Large'};
+    S.Names.Phase={'Habituation','RewardA','RewardB','PunishA','RewardAPunishB','RewardBPunishA','RewardAPunishBValues','RewardBPunishAValues','RewardACBValues','RewardBACValues','RewardA_DREADD','RewardA_Large','RewardB_Large'};
     S.Names.Cue={'Sweep','Tones','Visual','Odors'};
     S.Names.StateToZero={'CueDelivery','PostOutcome'};
     S.Names.StateToStim={'Baseline','CueDelivery','Delay','Outcome'};
