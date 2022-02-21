@@ -10,7 +10,7 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Phase = 2;
+    S.GUI.Phase = 3;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
     S.GUI.eZTrials=1;
@@ -24,7 +24,7 @@ global S
     S.GUIMeta.CueType.String=S.Names.Cue;
     S.GUIPanels.Task={'Phase','CueType','eZTrials','noLickPeriod'};
      
-    S.GUI.Bonsai=0;
+    S.GUI.Bonsai=1;
     S.GUIMeta.Bonsai.Style='checkbox';
     S.GUIMeta.Bonsai.String='Auto';
     S.GUI.Wheel=1;

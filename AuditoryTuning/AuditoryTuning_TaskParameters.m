@@ -8,13 +8,13 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Wheel=0;
+    S.GUI.Wheel=1;
     S.GUIMeta.Wheel.Style='checkbox';
     S.GUIMeta.Wheel.String='Auto';
  	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
-    S.GUI.DbleFibers=0;
+    S.GUI.DbleFibers=1;
     S.GUIMeta.DbleFibers.Style='checkbox';
     S.GUIMeta.DbleFibers.String='Auto';
     S.GUI.Isobestic405=0;

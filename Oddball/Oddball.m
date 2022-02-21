@@ -148,4 +148,10 @@ if BpodSystem.BeingUsed == 0
 end
 end
 display('Good Job Mouse')
+try
+    ChannelNames={'ACxF1' 'F2'};
+    AP_Launcher_PostRec(BpodSystem,ChannelNames,1)
+catch
+    disp('Post recording analysis failed - check whether analysis pipeline is present')
+end
 end

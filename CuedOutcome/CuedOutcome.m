@@ -113,7 +113,7 @@ for currentTrial = 1:S.GUI.MaxTrials
                 S.AudCue=S.Cue;
                 S.NoLick    =   [255 100];
         case 3      % Visual Cues
-    S.VisualCue(S.Cue)=100; 
+    S.VisualCue(S.Cue)=50; 
         case 4      % Olfactory Cues
     S.WireOlf=(1+2^(S.Cue));
     end   
