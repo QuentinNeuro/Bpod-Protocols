@@ -242,6 +242,7 @@ if BpodSystem.BeingUsed == 0
 end
 end
 try
+    sprintf('Water collected : %.0d ul', FigLick.water)
     ChannelNames={'F1' 'F2'};
     AP_Launcher_PostRec(BpodSystem,ChannelNames,1)
 catch
