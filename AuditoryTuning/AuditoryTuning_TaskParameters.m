@@ -68,19 +68,19 @@ global S
     S.GUI.SoundSamplingRate=192000;
     S.GUIPanels.Sound_Properties={'intensityFactor','SoundSamplingRate'};
 
-    S.GUI.SoundDuration_pt=0.5;
+    S.GUI.SoundDuration_pt=0.2;
 	S.GUI.SoundRamp_pt=0;
     S.GUI.LowFreq_pt=4000;
     S.GUI.HighFreq_pt=20000;
     S.GUI.NbOfTones=5;
     S.GUIPanels.PureTones_Properties={'SoundDuration_pt','SoundRamp_pt','LowFreq_pt','HighFreq_pt','NbOfTones'};
      
-    S.GUI.SoundDuration_s=0.5;
+    S.GUI.SoundDuration_s=0.2;
     S.GUI.LowFreq_s=4000;
     S.GUI.HighFreq_s=20000;
     S.GUIPanels.Sweeps_Properties={'SoundDuration_s','LowFreq_s','HighFreq_s'};
     
-    S.GUI.SoundDuration_wn=0.5;
+    S.GUI.SoundDuration_wn=0.2;
     S.GUI.SoundRamp_wn=0.05;
     S.GUIPanels.WhiteNoise_Properties={'SoundDuration_wn','SoundRamp_wn'};
  
