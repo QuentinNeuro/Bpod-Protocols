@@ -52,6 +52,12 @@ if S.GUI.PureTones
     end
 end
 
+fieldSound=fieldnames(SoundStruct);
+for thisS=1:length(fieldSound)
+    thisField=fieldSound{thisS};
+    SoundStruct.(thisField)=SoundStruct.(thisField)*S.GUI.intensityFactor;
+end
+
 PsychToolboxSoundServer('init')
 for i=TrialSequence
     thisSound=sprintf('Sound_%.0d',i);
