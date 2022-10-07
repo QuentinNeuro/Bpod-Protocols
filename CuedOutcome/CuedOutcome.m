@@ -243,8 +243,7 @@ end
 end
 try
     sprintf('Water collected : %.0d ul', FigLick.water)
-    ChannelNames={'F1' 'F2'};
-    AP_Launcher_PostRec(BpodSystem,ChannelNames,1)
+    Analysis_Photometry_Launcher;
 catch
     disp('Post recording analysis failed - check whether analysis pipeline is present')
 end

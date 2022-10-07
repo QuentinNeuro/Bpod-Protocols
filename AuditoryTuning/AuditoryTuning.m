@@ -179,8 +179,7 @@ if BpodSystem.BeingUsed == 0
 end
 end
 try
-    ChannelNames={'F1' 'F2'};
-    AP_Launcher_PostRec(BpodSystem,ChannelNames,1)
+Analysis_Photometry_Launcher;
 catch
     disp('Post recording analysis failed - check whether analysis pipeline is present')
 end

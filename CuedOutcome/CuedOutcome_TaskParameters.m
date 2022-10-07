@@ -10,7 +10,7 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Phase = 3;
+    S.GUI.Phase = 9;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
     S.GUI.eZTrials=1;
@@ -19,7 +19,7 @@ global S
     S.GUI.noLickPeriod=0;
 	S.GUIMeta.noLickPeriod.Style='checkbox';
     S.GUIMeta.noLickPeriod.String='Auto';
-    S.GUI.CueType=1;
+    S.GUI.CueType=4;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
     S.GUIPanels.Task={'Phase','CueType','eZTrials','noLickPeriod'};
@@ -54,7 +54,7 @@ global S
     S.GUI.MaxTrials=100;
     S.GUI.PreCue=3;
     S.GUI.CueDuration=0.5;
-    S.GUI.Delay=1;
+    S.GUI.Delay=2;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
     S.GUI.TimeNoLick=2;
