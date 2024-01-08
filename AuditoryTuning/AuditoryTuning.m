@@ -124,7 +124,7 @@ if S.GUI.Photometry || S.GUI.Wheel
     [PhotoData,WheelData,Photo2Data]=Nidaq_photometry('Save');
     if S.GUI.Photometry
         BpodSystem.Data.NidaqData{currentTrial} = PhotoData;
-        if S.GUI.DbleFibers == 1
+        if S.GUI.DbleFibers || S.GUI.RedChannel
             BpodSystem.Data.Nidaq2Data{currentTrial}=Photo2Data;
         end
     end
