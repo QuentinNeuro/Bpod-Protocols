@@ -27,17 +27,13 @@ S.MaxTrials=length(TrialSequence);
 %% NIDAQ Initialization
 if S.GUI.Photometry || S.GUI.Wheel
     if (S.GUI.DbleFibers+S.GUI.Isobestic405+S.GUI.RedChannel)*S.GUI.Photometry >1
-        disp('WARNING - Incorrect photometry recording parameters')
+        disp('Error - Incorrect photometry recording parameters')
         return
     end
     Nidaq_photometry('ini',ParamPC);
 end
-if S.GUI.Photometry
-    FigNidaq1=Online_AudTuningPlot('ini','AudTun1',TrialSequence,[],[],[],1);
-    if S.GUI.DbleFibers || S.GUI.Isobestic405 || S.GUI.RedChannel
-        FigNidaq2=Online_AudTuningPlot('ini','AudTun2',TrialSequence,[],[],[],2);
-    end
-end
+[FigPhoto1,FigPhoto2,FigWheel]=Nidaq_Plots('ini');
+
 %% Main trial loop
 BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
 for currentTrial = 1:S.MaxTrials
@@ -96,21 +92,7 @@ end
 
 %% PLOT - extract events from BpodSystem.data and update figures
 try
-if S.GUI.Photometry
-    currentNidaq1=Photometry_demod(PhotoData(:,1),nidaq.LED1,S.GUI.LED1_Freq,S.GUI.LED1_Amp,S.Names.StateToZero{S.GUI.StateToZero});
-    FigNidaq1=Online_AudTuningPlot('update',[],TrialSequence,FigNidaq1,currentTrial,currentNidaq1);
-
-    if S.GUI.Isobestic405 || S.GUI.DbleFibers || S.GUI.RedChannel
-        if S.GUI.Isobestic405
-        currentNidaq2=Photometry_demod(PhotoData(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
-        elseif S.GUI.RedChannel
-        currentNidaq2=Photometry_demod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED2_Freq,S.GUI.LED2_Amp,S.Names.StateToZero{S.GUI.StateToZero});
-        elseif S.GUI.DbleFibers
-        currentNidaq2=Photometry_demod(Photo2Data(:,1),nidaq.LED2,S.GUI.LED1b_Freq,S.GUI.LED1b_Amp,S.Names.StateToZero{S.GUI.StateToZero});
-        end
-        FigNidaq2=Online_AudTuningPlot('update',[],TrialSequence,FigNidaq2,currentTrial,currentNidaq2);
-    end
-end
+[FigPhoto1,FigPhoto2,FigWheel]=Nidaq_Plots('update',FigPhoto1,FigPhoto2,FigWheel,'PreState',currentLickEvents);
 catch
     disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
 end
