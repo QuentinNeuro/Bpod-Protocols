@@ -31,7 +31,8 @@ global S
     S.GUI.NidaqMax=10;
     S.GUIPanels.Plot={'TimeMin','TimeMax','NidaqMin','NidaqMax'};
     
-	S.GUI.LightIntensity=50;
+	S.GUI.Phase=''
+    S.GUI.LightIntensity=50;
 
     S.GUIPanels.Light={'LightIntensity'};
     S.GUITabs.General={'Plot','Recording','Light'};
