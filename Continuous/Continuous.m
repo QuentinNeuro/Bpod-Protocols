@@ -58,7 +58,7 @@ TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
 S.NumTrialTypes=max(TrialSequence);
 FigLick=Online_LickPlot('ini',TrialSequence);
 
-%% NIDAQ Initialization amd Plots
+%% NIDAQ Initialization and Plots
 if S.GUI.Photometry || S.GUI.Wheel
     if (S.GUI.DbleFibers+S.GUI.Isobestic405+S.GUI.RedChannel)*S.GUI.Photometry >1
         disp('Error - Incorrect photometry recording parameters')
@@ -66,7 +66,7 @@ if S.GUI.Photometry || S.GUI.Wheel
     end
     Nidaq_photometry('ini',ParamPC);
 end
-[FigPhoto1,FigPhoto2,FigWheel]=Nidaq_Plots('ini');
+[FigPhoto1,FigPhoto2,FigWheel]=Online_NidaqPlots('ini');
 %% Bonsai
 if S.GUI.Bonsai
 BpodSystem.Pause=1;
@@ -193,7 +193,7 @@ end
 try
 [currentOutcome, currentLickEvents]=Online_LickEvents(S.Names.StateToZero{S.GUI.StateToZero});
 FigLick=Online_LickPlot('update',[],FigLick,currentOutcome,currentLickEvents);
-[FigPhoto1,FigPhoto2,FigWheel]=Nidaq_Plots('update',FigPhoto1,FigPhoto2,FigWheel,'PreState',currentLickEvents);
+[FigPhoto1,FigPhoto2,FigWheel]=Online_NidaqPlots('update',FigPhoto1,FigPhoto2,FigWheel,currentLickEvents);
 catch
     disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
 end

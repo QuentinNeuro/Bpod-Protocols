@@ -32,7 +32,7 @@ if S.GUI.Photometry || S.GUI.Wheel
     end
     Nidaq_photometry('ini',ParamPC);
 end
-[FigPhoto1,FigPhoto2,FigWheel]=Nidaq_Plots('ini');
+[FigPhoto1,FigPhoto2,FigWheel]=Online_NidaqPlots('ini');
 
 %% Main trial loop
 BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
@@ -92,7 +92,7 @@ end
 
 %% PLOT - extract events from BpodSystem.data and update figures
 try
-[FigPhoto1,FigPhoto2,FigWheel]=Nidaq_Plots('update',FigPhoto1,FigPhoto2,FigWheel,'PreState',[]);
+[FigPhoto1,FigPhoto2,FigWheel]=Online_NidaqPlots('update',FigPhoto1,FigPhoto2,FigWheel,[]);
 catch
     disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
 end
