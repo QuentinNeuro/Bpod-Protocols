@@ -19,7 +19,7 @@ S = BpodParameterGUI('sync', S);
 %% Define stimuli and send to sound server
 S.TrialsNames={'Center','Left','Right'};
 TrialSequence=[1 2 3]';
-TrialSequence=repmat(TrialSequence,10,1);
+TrialSequence=repmat(TrialSequence,S.GUI.Repetition,1);
 TrialSequence=TrialSequence(randperm(length(TrialSequence)));
 S.NumTrialTypes=max(TrialSequence);
 S.MaxTrials=length(TrialSequence);
