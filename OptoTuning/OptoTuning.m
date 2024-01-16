@@ -17,9 +17,9 @@ HandlePauseCondition;
 S = BpodParameterGUI('sync', S);
 
 %% Stimulation
-PulsePal('COM6');
+PulsePal(ParamPC.PPCOM);
 S.TrialsNames={'Pulse_3ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'};
-BNCpp=2;
+BNCpp=ParamPC.BPPP_BNC;
 for i=1:size(S.TrialsNames,2)
     thisPP=S.TrialsNames{i};
     pm{i}=load(thisPP);
