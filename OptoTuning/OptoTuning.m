@@ -17,6 +17,7 @@ HandlePauseCondition;
 S = BpodParameterGUI('sync', S);
 
 %% Stimulation
+EndPulsePal
 PulsePal(ParamPC.PPCOM);
 S.TrialsNames={'Pulse_3ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'};
 BNCpp=ParamPC.BPPP_BNC;
@@ -27,7 +28,7 @@ end
 
 %% Define stim sequence
 TrialSequence=1:size(S.TrialsNames,2);
-TrialSequence=repmat(TrialSequence,S.GUI.Repetition,1);
+TrialSequence=repmat(TrialSequence',S.GUI.Repetition,1);
 TrialSequence=TrialSequence(randperm(length(TrialSequence)));
 S.NumTrialTypes=max(TrialSequence);
 S.MaxTrials=length(TrialSequence);
@@ -126,6 +127,7 @@ if BpodSystem.BeingUsed == 0
     return
 end
 end
+EndPulsePal
 try
 Analysis_Photometry_Launcher;
 catch
