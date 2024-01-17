@@ -125,17 +125,12 @@ global S
     S.GUI.Optogenetic=0;
     S.GUIMeta.Optogenetic.Style='checkbox';
     S.GUIMeta.Optogenetic.String='Auto';
-    S.GUI.Opto_BNC=2;
-    S.GUI.Opto_Proba=1;
+    S.GUI.Opto_BNC=Param.BPPP_BNC;
+    S.GUI.Opto_Proba=0.5;
     S.GUI.Opto_State=1;
     S.GUIMeta.Opto_State.Style='popupmenu';
     S.GUIMeta.Opto_State.String=S.Names.StateToStim;
-%     S.GUI.Opto_Length=NaN;
-%     S.GUI.Opto_continuous=1;
-%     S.GUIMeta.Opto_continuous.Style='checkbox';
-%     S.GUIMeta.Opto_continuous.String='Auto';
-%     S.GUI.Opto_Freq=20;
-%     S.GUI.Opto_PulseLength=0.005;
+
     S.GUIPanels.Optogenetic={'Optogenetic','Opto_BNC','Opto_Proba','Opto_State'};
     S.GUITabs.Opto={'Optogenetic'};                  
 end

@@ -73,8 +73,8 @@ FigLick=Online_LickPlot('ini',TrialSequence);
 Stim_State=zeros(length(S.Names.StateToStim));
 if S.GUI.Optogenetic
     Stim_State(S.GUI.Opto_State)=1*S.GUI.Opto_BNC;
-    PulsePal('COM6');
-    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod\Protocols\PhotoStim_multiFreq\LightTrain_6s.mat');
+    PulsePal(ParamPC.PPCOM);
+    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Pulse_10ms_5V.mat');
     ProgramPulsePal(ParameterMatrix);
 end
 %% NIDAQ Initialization and Plots
