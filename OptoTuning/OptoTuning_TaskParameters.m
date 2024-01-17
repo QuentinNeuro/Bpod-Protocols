@@ -4,7 +4,7 @@ function OptoTuning_TaskParameters(Param)
 %
 
 global S
-    S.Names.StateToZero={'CueDelivery','blank'};
+    S.Names.StateToZero={'StimDelivery','blank'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -26,7 +26,7 @@ global S
     S.GUIPanels.Recording={'Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
     
     S.GUI.TimeMin=-1;
-    S.GUI.TimeMax=2;
+    S.GUI.TimeMax=3;
     S.GUI.NidaqMin=-5;
     S.GUI.NidaqMax=10;
     S.GUIPanels.Plot={'TimeMin','TimeMax','NidaqMin','NidaqMax'};
@@ -34,20 +34,18 @@ global S
     S.GUITabs.General={'Plot','Recording'};
     
 %% Timing
-    S.GUI.Repetition=10;
-    S.GUI.TimePreCue=2;
-    S.GUI.TimeCue=1;
-    S.GUI.TimePostCue=4;
-    S.GUIPanels.TaskTiming={'Repetition','TimePreCue','TimeCue','TimePostCue'};
+    S.GUI.Repetition=20;
+    S.GUI.TimePreStim=2;
+    S.GUI.TimeStim=1;
+    S.GUI.TimePostStim=4;
+    S.GUIPanels.TaskTiming={'Repetition','TimePreStim','TimeStim','TimePostStim'};
         
     S.GUI.StateToZero=1;
 	S.GUIMeta.StateToZero.Style='popupmenu';
     S.GUIMeta.StateToZero.String=S.Names.StateToZero;
     S.GUI.BaselineBegin=0.1;
     S.GUI.BaselineEnd=1.1;
-    S.GUI.CueBegin=0;
-    S.GUI.CueEnd=0.5;
-    S.GUIPanels.PlotTiming={'StateToZero','BaselineBegin','BaselineEnd','CueBegin','CueEnd'};
+    S.GUIPanels.PlotTiming={'StateToZero','BaselineBegin','BaselineEnd'};
 
     S.GUITabs.OnlinePlot={'TaskTiming','PlotTiming'};
     
