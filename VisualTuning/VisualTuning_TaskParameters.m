@@ -1,4 +1,4 @@
-function VisualTuning_s_TaskParameters(Param)
+function VisualTuning_TaskParameters(Param)
 %
 %
 %

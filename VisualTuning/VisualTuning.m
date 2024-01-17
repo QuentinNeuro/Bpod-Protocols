@@ -1,4 +1,4 @@
-function VisualTuning_s
+function VisualTuning
 
 global BpodSystem nidaq S
 
@@ -7,7 +7,7 @@ global BpodSystem nidaq S
 S = BpodSystem.ProtocolSettings; % Load settings chosen in launch manager into current workspace as a struct called S
 ParamPC=BpodParam_PCdep();
 if isempty(fieldnames(S))  % If settings file was an empty struct, populate struct with default settings
-    VisualTuning_s_TaskParameters(ParamPC);
+    VisualTuning_TaskParameters(ParamPC);
 end
 
 % Initialize parameter GUI plugin and Pause
