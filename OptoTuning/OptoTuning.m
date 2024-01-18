@@ -25,7 +25,7 @@ for i=1:size(S.TrialsNames,2)
     thisPP=S.TrialsNames{i};
     pm{i}=load(thisPP);
 end
-
+S.ParameterMatrix=pm;
 %% Define stim sequence
 TrialSequence=1:size(S.TrialsNames,2);
 TrialSequence=repmat(TrialSequence',S.GUI.Repetition,1);

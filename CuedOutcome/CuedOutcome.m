@@ -76,6 +76,7 @@ if S.GUI.Optogenetic
     Stim_State(S.GUI.Opto_State)=1*S.GUI.Opto_BNC;
     PulsePal(ParamPC.PPCOM);
     load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Pulse_10ms_5V.mat');
+    S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);
 end
 %% NIDAQ Initialization and Plots
