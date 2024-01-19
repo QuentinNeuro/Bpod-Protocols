@@ -74,7 +74,7 @@ if S.GUI.Optogenetic
     S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);
     for i=TrialSequence
-        S.TrialsNames{counter}=[S.TrialsNames{counter} 'Stim'];
+        S.TrialsNames{i}=[S.TrialsNames{i} 'Stim'];
     end
 end
 
