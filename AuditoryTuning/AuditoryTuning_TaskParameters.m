@@ -5,6 +5,7 @@ function AuditoryTuning_TaskParameters(Param)
 
 global S
     S.Names.StateToZero={'CueDelivery','blank'};
+    S.Names.StateToStim={'CueDelivery'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -111,4 +112,16 @@ global S
                             'LED1b_Name','LED1b_Amp','LED1b_Freq'};
                         
     S.GUITabs.Photometry={'Photometry'};
+%% Optogenetic stimulation
+    S.GUI.Optogenetic=0;
+    S.GUIMeta.Optogenetic.Style='checkbox';
+    S.GUIMeta.Optogenetic.String='Auto';
+    S.GUI.Opto_BNC=Param.BPPP_BNC;
+    S.GUI.Opto_Proba=0.5;
+    S.GUI.Opto_State=1;
+    S.GUIMeta.Opto_State.Style='popupmenu';
+    S.GUIMeta.Opto_State.String=S.Names.StateToStim;
+
+    S.GUIPanels.Optogenetic={'Optogenetic','Opto_BNC','Opto_Proba','Opto_State'};
+    S.GUITabs.Opto={'Optogenetic'};    
 end

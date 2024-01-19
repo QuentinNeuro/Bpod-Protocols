@@ -65,6 +65,19 @@ for i=TrialSequence
 end
 BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
 
+%% Stimulation
+BNCpp=0;
+if S.GUI.Optogenetic
+    BNCpp=ParamPC.BPPP_BNC;
+    PulsePal(ParamPC.PPCOM);
+    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Pulse_10ms_5V.mat');
+    S.ParameterMatrix=ParameterMatrix;
+    ProgramPulsePal(ParameterMatrix);
+    for i=TrialSequence
+        S.TrialsNames{counter}=[S.TrialsNames{counter} 'Stim'];
+    end
+end
+
 %% Define trial types parameters, trial sequence
 TrialSequence=TrialSequence(randperm(length(TrialSequence)));
 TrialSequence=repmat(TrialSequence',S.GUI.Repetition,1);
@@ -99,7 +112,7 @@ for currentTrial = 1:S.MaxTrials
     sma=AddState(sma,'Name', 'CueDelivery',...
         'Timer',S.GUI.TimeCue,...
         'StateChangeConditions',{'Tup', 'PostCueState'},...
-        'OutputActions', {'SoftCode',S.Sound});
+        'OutputActions', {'SoftCode',S.Sound,'BNCState',BNCpp});
     %Post Cue Delivery
     sma=AddState(sma,'Name', 'PostCueState',...
         'Timer',S.GUI.TimePostCue,...
