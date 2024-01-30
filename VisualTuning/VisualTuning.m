@@ -19,10 +19,26 @@ S = BpodParameterGUI('sync', S);
 %% Define stimuli and send to sound server
 S.TrialsNames={'Center','Left','Right'};
 TrialSequence=[1 2 3]';
+if S.GUI.Optogenetic
+    TrialSequence=S.GUI.Opto_trialType;
+end
 TrialSequence=repmat(TrialSequence,S.GUI.Repetition,1);
 TrialSequence=TrialSequence(randperm(length(TrialSequence)));
 S.NumTrialTypes=max(TrialSequence);
 S.MaxTrials=length(TrialSequence);
+
+%% Stimulation
+BNCpp=0;
+if S.GUI.Optogenetic
+    BNCpp=ParamPC.BPPP_BNC;
+    PulsePal(ParamPC.PPCOM);
+    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Train_1Hz_500s_5ms_5V');
+    S.ParameterMatrix=ParameterMatrix;
+    ProgramPulsePal(ParameterMatrix);
+    for i=TrialSequence
+        S.TrialsNames{i}=[S.TrialsNames{i} 'Stim'];
+    end
+end
 
 %% NIDAQ Initialization and Plots
 if S.GUI.Photometry || S.GUI.Wheel
