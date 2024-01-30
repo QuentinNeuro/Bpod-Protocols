@@ -39,7 +39,7 @@ global S
 %% Timing
     S.GUI.Repetition=5;
     S.GUI.TimePreCue=2;
-    S.GUI.TimeCue=0.1;
+    S.GUI.TimeCue=0.5;
     S.GUI.TimePostCue=4;
     S.GUIPanels.TaskTiming={'Repetition','TimePreCue','TimeCue','TimePostCue'};
         
