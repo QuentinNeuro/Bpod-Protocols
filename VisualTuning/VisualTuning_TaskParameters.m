@@ -5,6 +5,7 @@ function VisualTuning_TaskParameters(Param)
 
 global S
     S.Names.StateToZero={'CueDelivery','blank'};
+    S.Names.StateToStim={'CueDelivery'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
