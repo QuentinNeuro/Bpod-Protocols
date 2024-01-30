@@ -22,10 +22,6 @@ TrialSequence=[1 2 3]';
 if S.GUI.Optogenetic
     TrialSequence=S.GUI.Opto_trialType;
 end
-TrialSequence=repmat(TrialSequence,S.GUI.Repetition,1);
-TrialSequence=TrialSequence(randperm(length(TrialSequence)));
-S.NumTrialTypes=max(TrialSequence);
-S.MaxTrials=length(TrialSequence);
 
 %% Stimulation
 BNCpp=0;
@@ -39,6 +35,12 @@ if S.GUI.Optogenetic
         S.TrialsNames{i}=[S.TrialsNames{i} 'Stim'];
     end
 end
+
+%% Creating sequence
+TrialSequence=repmat(TrialSequence,S.GUI.Repetition,1);
+TrialSequence=TrialSequence(randperm(length(TrialSequence)));
+S.NumTrialTypes=max(TrialSequence);
+S.MaxTrials=length(TrialSequence);
 
 %% NIDAQ Initialization and Plots
 if S.GUI.Photometry || S.GUI.Wheel
