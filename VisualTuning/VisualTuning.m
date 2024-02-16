@@ -28,7 +28,7 @@ BNCpp=0;
 if S.GUI.Optogenetic
     BNCpp=ParamPC.BPPP_BNC;
     PulsePal(ParamPC.PPCOM);
-    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Train_1Hz_500s_5ms_5V');
+    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Train_10Hz_500s_5ms_5V');
     S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);
     for i=TrialSequence
