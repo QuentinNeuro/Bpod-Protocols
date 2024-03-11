@@ -19,7 +19,7 @@ S = BpodParameterGUI('sync', S);
 %% Stimulation
 PulsePal(ParamPC.PPCOM);
 % S.TrialsNames={'Pulse_3ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'};
-S.TrialsNames={'Train_10Hz_1s_5ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'};
+S.TrialsNames={'Train_10Hz_500s_5ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'};
 BNCpp=ParamPC.BPPP_BNC;
 for i=1:size(S.TrialsNames,2)
     thisPP=S.TrialsNames{i};

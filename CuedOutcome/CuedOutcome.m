@@ -75,7 +75,7 @@ Stim_State=zeros(length(S.Names.StateToStim));
 if S.GUI.Optogenetic
     Stim_State(S.GUI.Opto_State)=1*S.GUI.Opto_BNC;
     PulsePal(ParamPC.PPCOM);
-    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Pulse_10ms_5V.mat');
+    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Train_10Hz_500s_5ms_5V');
     S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);
 end
