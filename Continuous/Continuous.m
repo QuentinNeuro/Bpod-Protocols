@@ -79,7 +79,7 @@ BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will b
 for currentTrial = 1:S.GUI.MaxTrials
     S = BpodParameterGUI('sync', S); % Sync parameters with BpodParameterGUI plugin 
 %% Initialize current trial parameters
-    S.AudCue       =   S.TrialsMatrix(TrialSequence(currentTrial),3);
+    S.AudCue    =   S.TrialsMatrix(TrialSequence(currentTrial),3);
 	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
 	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
     thisITI = [100 ; 100 ; 100];

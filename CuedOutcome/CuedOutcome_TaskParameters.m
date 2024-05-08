@@ -127,7 +127,7 @@ global S
     S.GUIMeta.Optogenetic.String='Auto';
     S.GUI.Opto_BNC=Param.BPPP_BNC;
     S.GUI.Opto_Proba=0.5;
-    S.GUI.Opto_State=1;
+    S.GUI.Opto_State=4;
     S.GUIMeta.Opto_State.Style='popupmenu';
     S.GUIMeta.Opto_State.String=S.Names.StateToStim;
 
