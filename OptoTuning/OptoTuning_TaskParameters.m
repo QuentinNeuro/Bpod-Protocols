@@ -35,9 +35,9 @@ global S
     
 %% Timing
     S.GUI.Repetition=20;
-    S.GUI.TimePreStim=2;
+    S.GUI.TimePreStim=4;
     S.GUI.TimeStim=1;
-    S.GUI.TimePostStim=4;
+    S.GUI.TimePostStim=5;
     S.GUIPanels.TaskTiming={'Repetition','TimePreStim','TimeStim','TimePostStim'};
         
     S.GUI.StateToZero=1;
