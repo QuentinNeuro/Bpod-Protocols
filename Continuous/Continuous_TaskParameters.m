@@ -94,13 +94,14 @@ global S
     S.GUITabs.Outcome={'Outcome'};
     
 %% Nidaq and Photometry
-    S.GUI.PhotometryVersion=1.1;
+    S.GUI.PhotometryVersion=1.2;
     S.GUI.Modulation=1;
     S.GUIMeta.Modulation.Style='checkbox';
     S.GUIMeta.Modulation.String='Auto';
-	S.GUI.NidaqDuration=200;
+	S.GUI.NidaqDuration=30;
     S.GUI.NidaqSamplingRate=6100;
     S.GUI.DecimateFactor=610;
+    S.GUI.Phase=-1.5708;
     S.GUI.LED1_Name='Fiber1 470-A1';
     S.GUI.LED1_Amp=Param.LED1Amp;
     S.GUI.LED1_Freq=211;
@@ -112,12 +113,13 @@ global S
     S.GUI.LED1b_Freq=531;
 
     S.GUIPanels.Photometry={'PhotometryVersion','Modulation','NidaqDuration',...
-                            'NidaqSamplingRate','DecimateFactor',...
+                            'NidaqSamplingRate','DecimateFactor','Phase',...
                             'LED1_Name','LED1_Amp','LED1_Freq',...
                             'LED2_Name','LED2_Amp','LED2_Freq',...
                             'LED1b_Name','LED1b_Amp','LED1b_Freq'};
                         
     S.GUITabs.Photometry={'Photometry'};
+    
 %% Optogenetic stimulation
     S.GUI.Opto_BNC=2;
     S.GUI.Opto_Proba=1;
