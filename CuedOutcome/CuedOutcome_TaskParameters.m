@@ -79,12 +79,12 @@ global S
 	S.GUI.SoundSamplingRate=192000;
     S.GUIPanels.Auditory={'LowFreq','HighFreq','SoundRamp','NbOfFreq','FreqWidth','SoundSamplingRate'};
     S.GUITabs.Cue={'Auditory'};
-
+%    
     S.GUI.UncPA=0.75;
     S.GUI.UncPB=0.5;
     S.GUI.UncPC=0.25;
     S.GUIPanels.Uncertainty={'UncPA','UncPB','UncPC'};
-%    
+%
     S.GUI.RewardValve=1;
     S.GUIMeta.RewardValve.Style='popupmenu';
     S.GUIMeta.RewardValve.String={1,2,3,4,5,6};
@@ -102,7 +102,7 @@ global S
     S.GUITabs.Outcome={'Uncertainty','Outcome'};
     
 %% Nidaq and Photometry
-    S.GUI.PhotometryVersion=1.2;
+    S.GUI.PhotometryVersion=1.1;
     S.GUI.Modulation=1;
     S.GUIMeta.Modulation.Style='checkbox';
     S.GUIMeta.Modulation.String='Auto';
