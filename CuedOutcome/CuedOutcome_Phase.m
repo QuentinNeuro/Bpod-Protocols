@@ -8,7 +8,7 @@ switch PhaseName
         % 1.type, 2.proba, 3.sound, 4.delay,    5.valve,                6.Outcome         	7.Marker
             1,   0.5,       0,    S.GUI.Delay,  S.GUI.RewardValve,      S.InterRew,         double('o');...    
             2,   0.5,       0,    S.GUI.Delay,  S.GUI.OmissionValve,	S.InterRew,         double('s')];
-        easyTrials=[4 4 4 5 5 5 5 4 4];
+        easyTrials=[1 1 1 1 1 1 2 2];
 
     case 'RewardA'
         trialsNames={'Cue A Reward','Cue A Omission',...
