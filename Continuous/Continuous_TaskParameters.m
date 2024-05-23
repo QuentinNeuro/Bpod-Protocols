@@ -101,7 +101,7 @@ global S
 	S.GUI.NidaqDuration=30;
     S.GUI.NidaqSamplingRate=6100;
     S.GUI.DecimateFactor=610;
-    S.GUI.Phase=-1.5708;
+    S.GUI.modPhase=-1.5708;
     S.GUI.LED1_Name='Fiber1 470-A1';
     S.GUI.LED1_Amp=Param.LED1Amp;
     S.GUI.LED1_Freq=211;
@@ -113,7 +113,7 @@ global S
     S.GUI.LED1b_Freq=531;
 
     S.GUIPanels.Photometry={'PhotometryVersion','Modulation','NidaqDuration',...
-                            'NidaqSamplingRate','DecimateFactor','Phase',...
+                            'NidaqSamplingRate','DecimateFactor','modPhase',...
                             'LED1_Name','LED1_Amp','LED1_Freq',...
                             'LED2_Name','LED2_Amp','LED2_Freq',...
                             'LED1b_Name','LED1b_Amp','LED1b_Freq'};
