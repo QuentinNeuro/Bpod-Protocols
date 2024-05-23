@@ -127,7 +127,7 @@ switch PhaseName
             4,   omP(2),    2,    S.GUI.Delay,  S.GUI.OmissionValve,   S.InterRew,        double('s');...    
             5,   rewP(3),   3,    S.GUI.Delay,  S.GUI.RewardValve,     S.InterRew,        double('o');...    
             6,   omP(3),    3,    S.GUI.Delay,  S.GUI.OmissionValve,	  S.InterRew,     double('s')];
-        easyTrials=[1 1 2 3 3 4 5 5];
+        easyTrials=[];
 
 end
 ezTrialsSeq=easyTrials(randperm(length(easyTrials),length(easyTrials)));
