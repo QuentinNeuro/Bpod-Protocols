@@ -5,16 +5,23 @@ function OptoTuning_TaskParameters(Param)
 
 global S
     S.Names.StateToZero={'StimDelivery','blank'};
+    S.Names.StateToStim={'NA','ND'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
+    S.GUI.Bonsai=0;
+    S.GUIMeta.Bonsai.Style='checkbox';
+    S.GUIMeta.Bonsai.String='Auto';
     S.GUI.Wheel=0;
     S.GUIMeta.Wheel.Style='checkbox';
     S.GUIMeta.Wheel.String='Auto';
+    S.GUI.Optogenetic=0;
+    S.GUIMeta.Optogenetic.Style='checkbox';
+    S.GUIMeta.Optogenetic.String='Auto';
  	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
-    S.GUI.DbleFibers=0;
+    S.GUI.DbleFibers=1;
     S.GUIMeta.DbleFibers.Style='checkbox';
     S.GUIMeta.DbleFibers.String='Auto';
     S.GUI.Isobestic405=0;
@@ -23,7 +30,7 @@ global S
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
+    S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
     
     S.GUI.TimeMin=-1;
     S.GUI.TimeMax=3;
@@ -54,7 +61,7 @@ global S
     S.GUI.Modulation=1;
     S.GUIMeta.Modulation.Style='checkbox';
     S.GUIMeta.Modulation.String='Auto';
-	S.GUI.NidaqDuration=10;
+	S.GUI.NidaqDuration=15;
     S.GUI.NidaqSamplingRate=6100;
     S.GUI.DecimateFactor=610;
     S.GUI.modPhase=-1.5708;
@@ -76,4 +83,18 @@ global S
                         
     S.GUITabs.Photometry={'Photometry'};
     
+%% Optogenetic stimulation
+    S.GUI.PulsePalProtocol='na';
+    S.GUI.Opto_BNC=Param.BPPP_BNC;
+    S.GUI.Opto_State=1;
+    S.GUIMeta.Opto_State.Style='popupmenu';
+    S.GUIMeta.Opto_State.String=S.Names.StateToStim;
+    S.GUI.Opto_Proba=0;
+    S.GUI.Opto_TrialType=0;
+    S.GUI.Opto_Block=0;
+    S.GUI.Opto_Pairing=0; % Auto-adjust GUI parameters for pairing protocol, used for AuditoryTuning and VisualTuning
+    S.GUIMeta.Opto_Pairing.Style='checkbox';
+    S.GUIMeta.Opto_Pairing.String='Auto'; 
+    S.GUIPanels.Optogenetic={'PulsePalProtocol,''Opto_BNC','Opto_State','Opto_Proba','Opto_TrialType','Opto_Block','Opto_Pairing'};
+    S.GUITabs.Opto={'Optogenetic'};    
 end

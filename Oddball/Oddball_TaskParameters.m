@@ -6,6 +6,7 @@ function Oddball_TaskParameters(Param)
 global S
     S.Names.Phase={'OddBall','Ctl-0.3','Ctl-0.5'};
     S.Names.Sound={'Sweep','Tones'};
+    S.Names.StateToStim={'NA','ND'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -17,15 +18,15 @@ global S
     S.GUI.BlockITI=5;
     S.GUIPanels.Task={'Phase','MaxTrials','ITI','BlockITI'};
     
-    S.GUI.Bonsai=1;
+    S.GUI.Bonsai=0;
     S.GUIMeta.Bonsai.Style='checkbox';
     S.GUIMeta.Bonsai.String='Auto';
+    S.GUI.Wheel=0;
+    S.GUIMeta.Wheel.Style='checkbox';
+    S.GUIMeta.Wheel.String='Auto';
     S.GUI.Optogenetic=0;
     S.GUIMeta.Optogenetic.Style='checkbox';
     S.GUIMeta.Optogenetic.String='Auto';
-    S.GUI.Wheel=1;
-    S.GUIMeta.Wheel.Style='checkbox';
-    S.GUIMeta.Wheel.String='Auto';
  	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
@@ -38,7 +39,7 @@ global S
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Bonsai','Optogenetic','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel'};
+    S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
        
     S.GUITabs.General={'Recording','Task'};
 
@@ -84,5 +85,18 @@ global S
                             'LED1b_Name','LED1b_Amp','LED1b_Freq'};
                         
     S.GUITabs.Photometry={'Photometry'};
-    
+%% Optogenetic stimulation
+    S.GUI.PulsePalProtocol='Train_10Hz_500ms_5ms_5V';
+    S.GUI.Opto_BNC=Param.BPPP_BNC;
+    S.GUI.Opto_State=1;
+    S.GUIMeta.Opto_State.Style='popupmenu';
+    S.GUIMeta.Opto_State.String=S.Names.StateToStim;
+    S.GUI.Opto_Proba=0.5;
+    S.GUI.Opto_TrialType=0;
+    S.GUI.Opto_Block=0;
+    S.GUI.Opto_Pairing=0; % Auto-adjust GUI parameters for pairing protocol, used for AuditoryTuning and VisualTuning
+    S.GUIMeta.Opto_Pairing.Style='checkbox';
+    S.GUIMeta.Opto_Pairing.String='Auto'; 
+    S.GUIPanels.Optogenetic={'PulsePalProtocol,''Opto_BNC','Opto_State','Opto_Proba','Opto_TrialType','Opto_Block','Opto_Pairing'};
+    S.GUITabs.Opto={'Optogenetic'};   
 end

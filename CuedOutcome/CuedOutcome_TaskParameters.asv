@@ -57,7 +57,7 @@ global S
     S.GUI.MaxTrials=100;
     S.GUI.PreCue=3;
     S.GUI.CueDuration=0.5;
-    S.GUI.Delay=1;
+    S.GUI.Delay=2;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
     S.GUI.TimeNoLick=2;
@@ -139,9 +139,7 @@ global S
     S.GUI.Opto_Proba=0.5;
     S.GUI.Opto_TrialType=0;
     S.GUI.Opto_Block=0;
-    S.GUI.Opto_Pairing=0; % Auto-adjust GUI parameters for pairing protocol, used for AuditoryTuning and VisualTuning
-    S.GUIMeta.Opto_Pairing.Style='checkbox';
-    S.GUIMeta.Opto_Pairing.String='Auto'; 
-    S.GUIPanels.Optogenetic={'PulsePalProtocol,''Opto_BNC','Opto_State','Opto_Proba','Opto_TrialType','Opto_Block','Opto_Pairing'};
+    S.GUI.Opto_Pairing=0; % Auto-adjust GUI parameters for pairing protocol, used for AuditoryTuni
+    S.GUIPanels.Optogenetic={'PulsePalProtocol,''Opto_BNC','Opto_State','Opto_Proba','Opto_TrialType','Opto_Block'};
     S.GUITabs.Opto={'Optogenetic'};              
 end

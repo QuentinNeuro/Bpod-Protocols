@@ -16,6 +16,14 @@ BpodSystem.Pause=1;
 HandlePauseCondition;
 S = BpodParameterGUI('sync', S);
 
+% Auto GUI select for pairing
+if S.GUI.Optogenetics && S.GUI.Opto_Pairing
+    S.GUI=Bpod_GUI_StimPairing(S.GUI,'AuditoryTuning');
+    S = BpodParameterGUI('sync', S);
+    BpodSystem.Pause=1;
+    HandlePauseCondition;
+end
+
 %% Define stimuli and send to sound server
 TrialSequence=[];
 SoundStruct=struct();
@@ -70,7 +78,7 @@ BNCpp=0;
 if S.GUI.Optogenetic
     BNCpp=ParamPC.BPPP_BNC;
     PulsePal(ParamPC.PPCOM);
-    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Train_10Hz_500s_5ms_5V');
+    load(S.GUI.PulsePalProtocol);
     S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);
     for i=TrialSequence
@@ -94,6 +102,14 @@ if S.GUI.Photometry || S.GUI.Wheel
     Nidaq_photometry('ini',ParamPC);
 end
 [FigPhoto1,FigPhoto2,FigWheel]=Online_NidaqPlots('ini');
+
+if S.GUI.Bonsai
+    BpodSystem.Pause=1;
+    disp('Adjust ROI - resume when ready');
+    success=Bpod2Bonsai_Quentin()
+    HandlePauseCondition;
+end
+
 %% Main trial loop
 BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
 for currentTrial = 1:S.MaxTrials

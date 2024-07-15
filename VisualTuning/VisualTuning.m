@@ -16,6 +16,14 @@ BpodSystem.Pause=1;
 HandlePauseCondition;
 S = BpodParameterGUI('sync', S);
 
+% Auto GUI select for pairing
+if S.GUI.Optogenetics && S.GUI.Opto_Pairing
+    S.GUI=Bpod_GUI_StimPairing(S.GUI,'AuditoryTuning');
+    S = BpodParameterGUI('sync', S);
+    BpodSystem.Pause=1;
+    HandlePauseCondition;
+end
+
 %% Define stimuli and send to sound server
 S.TrialsNames={'Center','Left','Right'};
 TrialSequence=[1 2 3]';
@@ -28,7 +36,7 @@ BNCpp=0;
 if S.GUI.Optogenetic
     BNCpp=ParamPC.BPPP_BNC;
     PulsePal(ParamPC.PPCOM);
-    load('C:\Users\Kepecs\Documents\Data\Quentin\Bpod-FunctionQC\Pulsepal_Stim\Train_10Hz_500s_5ms_5V');
+    load(S.GUI.PulsePalProtocol);
     S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);
     for i=TrialSequence
