@@ -97,6 +97,6 @@ global S
     S.GUI.Opto_Pairing=0; % Auto-adjust GUI parameters for pairing protocol, used for AuditoryTuning and VisualTuning
     S.GUIMeta.Opto_Pairing.Style='checkbox';
     S.GUIMeta.Opto_Pairing.String='Auto'; 
-    S.GUIPanels.Optogenetic={'PulsePalProtocol,''Opto_BNC','Opto_State','Opto_Proba','Opto_TrialType','Opto_Block','Opto_Pairing'};
+    S.GUIPanels.Optogenetic={'PulsePalProtocol','Opto_BNC','Opto_State','Opto_Proba','Opto_TrialType','Opto_Block','Opto_Pairing'};
     S.GUITabs.Opto={'Optogenetic'};   
 end
