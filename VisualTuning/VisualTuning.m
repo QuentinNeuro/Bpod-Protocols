@@ -18,7 +18,7 @@ S = BpodParameterGUI('sync', S);
 
 % Auto GUI select for pairing
 if S.GUI.Optogenetics && S.GUI.Opto_Pairing
-    S.GUI=Bpod_GUI_StimPairing(S.GUI,'AuditoryTuning');
+    S.GUI=Bpod_GUI_StimPairing(S.GUI,'VisualTuning');
     S = BpodParameterGUI('sync', S);
     BpodSystem.Pause=1;
     HandlePauseCondition;
