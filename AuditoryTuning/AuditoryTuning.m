@@ -17,7 +17,7 @@ HandlePauseCondition;
 S = BpodParameterGUI('sync', S);
 
 % Auto GUI select for pairing
-if S.GUI.Optogenetics && S.GUI.Opto_Pairing
+if S.GUI.Optogenetic && S.GUI.Opto_Pairing
     S.GUI=Bpod_GUI_StimPairing(S.GUI,'AuditoryTuning');
     S = BpodParameterGUI('sync', S);
     BpodSystem.Pause=1;
@@ -78,7 +78,8 @@ BNCpp=0;
 if S.GUI.Optogenetic
     BNCpp=ParamPC.BPPP_BNC;
     PulsePal(ParamPC.PPCOM);
-    load(S.GUI.PulsePalProtocol);
+    S.PulsePalProtocol='Train_10Hz_500ms_5ms_5V';
+    load(S.PulsePalProtocol);
     S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);
     for i=TrialSequence
