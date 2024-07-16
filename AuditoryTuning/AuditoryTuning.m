@@ -78,7 +78,7 @@ BNCpp=0;
 if S.GUI.Optogenetic
     BNCpp=ParamPC.BPPP_BNC;
     PulsePal(ParamPC.PPCOM);
-    S.PulsePalProtocol='Train_10Hz_500ms_5ms_5V';
+    S.PulsePalProtocol=S.Names.PPProtocols{S.GUI.PulsePalProtocol};
     load(S.PulsePalProtocol);
     S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);

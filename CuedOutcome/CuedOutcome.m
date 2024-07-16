@@ -75,7 +75,7 @@ Stim_State=zeros(length(S.Names.StateToStim));
 if S.GUI.Optogenetic
     Stim_State(S.GUI.Opto_State)=1*S.GUI.Opto_BNC;
     PulsePal(ParamPC.PPCOM);
-    S.PulsePalProtocol='Train_10Hz_500ms_5ms_5V';
+    S.PulsePalProtocol=S.Names.PPProtocols{S.GUI.PulsePalProtocol};
     load(S.PulsePalProtocol);
     S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);
