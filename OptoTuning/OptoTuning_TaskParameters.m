@@ -33,7 +33,7 @@ global S
     S.GUIMeta.RedChannel.String='Auto';    
     S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
     
-    S.GUITabs.General={'Plot'};
+    S.GUITabs.General={'Recording'};
     
 %% Figure
     S.GUI.StateToZero=1;
