@@ -7,6 +7,7 @@ global S
     S.Names.Cue={'Sweep','Tones','Visual','Odors'};
     S.Names.StateToZero={'CueDelivery','PostOutcome'};
     S.Names.StateToStim={'Baseline','CueDelivery','Delay','Outcome'};
+    S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_10ms_5V'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -73,7 +74,7 @@ global S
     S.GUI.PostOutcome=5;
     S.GUI.TimeNoLick=2;
     S.GUI.ITI=5;
-    S.GUIPanels.TaskTiming={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
+    S.GUIPanels.Timing={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
     
     %    
     S.GUI.UncPA=0.75;
@@ -81,9 +82,9 @@ global S
     S.GUI.UncPC=0.25;
     S.GUIPanels.Uncertainty={'UncPA','UncPB','UncPC'};
     
-    S.GUITabs.Task={'TaskTiming','Uncertainty'};
+    S.GUITabs.TaskTiming={'Uncertainty','Timing'};
 
-%% Task Parameters    
+%% Cue   
     S.GUI.LowFreq=4000;
     S.GUI.HighFreq=20000;
     S.GUI.SoundRamp=0;
@@ -92,7 +93,7 @@ global S
 	S.GUI.SoundSamplingRate=192000;
     S.GUIPanels.Auditory={'LowFreq','HighFreq','SoundRamp','NbOfFreq','FreqWidth','SoundSamplingRate'};
     S.GUITabs.Cue={'Auditory'};
-%
+%% Outcome
     S.GUI.RewardValve=1;
     S.GUIMeta.RewardValve.Style='popupmenu';
     S.GUIMeta.RewardValve.String={1,2,3,4,5,6};
@@ -136,7 +137,9 @@ global S
                         
     S.GUITabs.Photometry={'Photometry'};
 %% Optogenetic stimulation
-    S.GUI.PulsePalProtocol='Train_10Hz_500ms_5ms_5V';
+    S.GUI.PulsePalProtocol=1;
+    S.GUIMeta.PulsePalProtocol.Style='popupmenu';
+    S.GUIMeta.PulsePalProtocol.String=S.Names.PPProtocols;
     S.GUI.Opto_BNC=Param.BPPP_BNC;
     S.GUI.Opto_State=4;
     S.GUIMeta.Opto_State.Style='popupmenu';

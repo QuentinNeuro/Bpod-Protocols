@@ -6,6 +6,7 @@ function OptoTuning_TaskParameters(Param)
 global S
     S.Names.StateToZero={'StimDelivery','blank'};
     S.Names.StateToStim={'NA','ND'};
+
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -15,7 +16,7 @@ global S
     S.GUI.Wheel=0;
     S.GUIMeta.Wheel.Style='checkbox';
     S.GUIMeta.Wheel.String='Auto';
-    S.GUI.Optogenetic=0;
+    S.GUI.Optogenetic=1;
     S.GUIMeta.Optogenetic.Style='checkbox';
     S.GUIMeta.Optogenetic.String='Auto';
  	S.GUI.Photometry=1;
@@ -32,30 +33,32 @@ global S
     S.GUIMeta.RedChannel.String='Auto';    
     S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
     
-    S.GUI.TimeMin=-1;
+    S.GUITabs.General={'Plot'};
+    
+%% Figure
+    S.GUI.StateToZero=1;
+	S.GUIMeta.StateToZero.Style='popupmenu';
+    S.GUIMeta.StateToZero.String=S.Names.StateToZero;
+    S.GUI.TimeMin=-2;
     S.GUI.TimeMax=3;
+    S.GUI.BaselineBegin=0.1;
+    S.GUI.BaselineEnd=1.1;
     S.GUI.NidaqMin=-5;
     S.GUI.NidaqMax=10;
-    S.GUIPanels.Plot={'TimeMin','TimeMax','NidaqMin','NidaqMax'};
-    
-    S.GUITabs.General={'Plot','Recording'};
-    
+
+    S.GUIPanels.PlotPhotometry={};
+    S.GUIPanels.PlotPhotometry={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd',...
+        'NidaqMin','NidaqMax'};
+    S.GUITabs.Figure={'PlotPhotometry'};
+
 %% Timing
     S.GUI.Repetition=20;
     S.GUI.TimePreStim=4;
     S.GUI.TimeStim=1;
     S.GUI.TimePostStim=5;
-    S.GUIPanels.TaskTiming={'Repetition','TimePreStim','TimeStim','TimePostStim'};
-        
-    S.GUI.StateToZero=1;
-	S.GUIMeta.StateToZero.Style='popupmenu';
-    S.GUIMeta.StateToZero.String=S.Names.StateToZero;
-    S.GUI.BaselineBegin=0.1;
-    S.GUI.BaselineEnd=1.1;
-    S.GUIPanels.PlotTiming={'StateToZero','BaselineBegin','BaselineEnd'};
+    S.GUIPanels.Timing={'Repetition','TimePreStim','TimeStim','TimePostStim'};
+    S.GUITabs.TaskTiming={'Timing'}; 
 
-    S.GUITabs.OnlinePlot={'TaskTiming','PlotTiming'};
-    
 %% Nidaq and Photometry
     S.GUI.PhotometryVersion=1.2;
     S.GUI.Modulation=1;

@@ -43,7 +43,13 @@ if S.GUI.Photometry || S.GUI.Wheel
     Nidaq_photometry('ini',ParamPC);
 end
 [FigPhoto1,FigPhoto2,FigWheel]=Online_NidaqPlots('ini');
-
+%% Bonsai
+if S.GUI.Bonsai
+    BpodSystem.Pause=1;
+    disp('Adjust ROI - resume when ready');
+    success=Bpod2Bonsai_Quentin()
+    HandlePauseCondition;
+end
 %% Main trial loop
 BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
 for currentTrial = 1:S.MaxTrials

@@ -6,6 +6,7 @@ function VisualTuning_TaskParameters(Param)
 global S
     S.Names.StateToZero={'CueDelivery','blank'};
     S.Names.StateToStim={'CueDelivery'};
+    S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_10ms_5V'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -32,35 +33,34 @@ global S
     S.GUIMeta.RedChannel.String='Auto';    
     S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
     
-    S.GUI.TimeMin=-1;
-    S.GUI.TimeMax=2;
-    S.GUI.NidaqMin=-5;
-    S.GUI.NidaqMax=10;
-    S.GUIPanels.Plot={'TimeMin','TimeMax','NidaqMin','NidaqMax'};
-    
     S.GUI.LightIntensity=50;
 
     S.GUIPanels.Light={'LightIntensity'};
-    S.GUITabs.General={'Plot','Recording','Light'};
+    S.GUITabs.General={'Recording','Light'};
     
-%% Timing
-    S.GUI.Repetition=5;
-    S.GUI.TimePreCue=3;
-    S.GUI.TimeCue=0.5;
-    S.GUI.TimePostCue=4;
-    S.GUIPanels.TaskTiming={'Repetition','TimePreCue','TimeCue','TimePostCue'};
-        
+%% Figure
     S.GUI.StateToZero=1;
 	S.GUIMeta.StateToZero.Style='popupmenu';
     S.GUIMeta.StateToZero.String=S.Names.StateToZero;
+    S.GUI.TimeMin=-2;
+    S.GUI.TimeMax=3;
     S.GUI.BaselineBegin=0.1;
     S.GUI.BaselineEnd=1.1;
-    S.GUI.CueBegin=0;
-    S.GUI.CueEnd=0.5;
-    S.GUIPanels.PlotTiming={'StateToZero','BaselineBegin','BaselineEnd','CueBegin','CueEnd'};
+    S.GUI.NidaqMin=-5;
+    S.GUI.NidaqMax=10;
 
-    S.GUITabs.OnlinePlot={'TaskTiming','PlotTiming'};
-    
+    S.GUIPanels.PlotPhotometry={};
+    S.GUIPanels.PlotPhotometry={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd',...
+        'NidaqMin','NidaqMax'};
+    S.GUITabs.Figure={'PlotPhotometry'};
+%% Timing
+    S.GUI.Repetition=5;
+    S.GUI.TimePreCue=3;
+    S.GUI.TimeCue=0.5; %independent of the actual length of the cue
+    S.GUI.TimePostCue=4;
+    S.GUIPanels.Timing={'Repetition','TimePreCue','TimeCue','TimePostCue'};
+        
+    S.GUITabs.TaskTiming={'Timing'}; 
 %% Nidaq and Photometry
     S.GUI.PhotometryVersion=1.2;
     S.GUI.Modulation=1;
@@ -115,7 +115,9 @@ global S
                         
     S.GUITabs.Photometry={'Photometry'};
 %% Optogenetic stimulation
-    S.GUI.PulsePalProtocol='Train_10Hz_500ms_5ms_5V';
+    S.GUI.PulsePalProtocol=1;
+    S.GUIMeta.PulsePalProtocol.Style='popupmenu';
+    S.GUIMeta.PulsePalProtocol.String=S.Names.PPProtocols;
     S.GUI.Opto_BNC=Param.BPPP_BNC;
     S.GUI.Opto_State=1;
     S.GUIMeta.Opto_State.Style='popupmenu';

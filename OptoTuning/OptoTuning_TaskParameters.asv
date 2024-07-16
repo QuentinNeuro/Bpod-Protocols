@@ -1,12 +1,12 @@
-function AuditoryTuning_TaskParameters(Param)
+function OptoTuning_TaskParameters(Param)
 %
 %
 %
 
 global S
-    S.Names.StateToZero={'CueDelivery','blank'};
-    S.Names.StateToStim={'CueDelivery'};
-    S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_10ms_5V'};
+    S.Names.StateToZero={'StimDelivery','blank'};
+    S.Names.StateToStim={'NA','ND'};
+
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -32,36 +32,33 @@ global S
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
     S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
-       
-	S.GUI.WhiteNoise=1;
-    S.GUIMeta.WhiteNoise.Style='checkbox';
-    S.GUIMeta.WhiteNoise.String='Auto';
-	S.GUI.PureTones=1;
-    S.GUIMeta.PureTones.Style='checkbox';
-    S.GUIMeta.PureTones.String='Auto';
-    S.GUI.Sweeps=1;
-    S.GUIMeta.Sweeps.Style='checkbox';
-    S.GUIMeta.Sweeps.String='Auto';   
     
-    S.GUIPanels.Sounds={'WhiteNoise','PureTones','Sweeps'};
-    S.GUITabs.General={'Recording','Sounds'};
-
+    S.GUI.TimeMin=-1;
+    S.GUI.TimeMax=3;
+    S.GUI.NidaqMin=-5;
+    S.GUI.NidaqMax=10;
+    S.GUIPanels.Plot={'TimeMin','TimeMax','NidaqMin','NidaqMax'};
+    
+    S.GUITabs.General={'Plot','Recording'};
+    
+%% Timing
 %% Figure
     S.GUI.StateToZero=1;
 	S.GUIMeta.StateToZero.Style='popupmenu';
     S.GUIMeta.StateToZero.String=S.Names.StateToZero;
-    S.GUI.TimeMin=-4;
-    S.GUI.TimeMax=4;
+    S.GUI.TimeMin=-2;
+    S.GUI.TimeMax=3;
     S.GUI.BaselineBegin=0.1;
     S.GUI.BaselineEnd=1.1;
     S.GUI.NidaqMin=-5;
     S.GUI.NidaqMax=10;
+    S.GUI.CueBegin=0;
+    S.GUI.CueEnd=0.5;
 
     S.GUIPanels.PlotPhotometry={};
     S.GUIPanels.PlotPhotometry={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd',...
-        'NidaqMin','NidaqMax'};
+        'NidaqMin','NidaqMax','CueBegin','CueEnd'};
     S.GUITabs.Figure={'PlotPhotometry'};
-
 %% Timing
     S.GUI.Repetition=5;
     S.GUI.TimePreCue=3;
@@ -69,31 +66,26 @@ global S
     S.GUI.TimePostCue=4;
     S.GUIPanels.Timing={'Repetition','TimePreCue','TimeCue','TimePostCue'};
         
-    S.GUITabs.TaskTiming={'Timing'};
-    
-%% Sound Parameters
-    S.GUI.intensityFactor=1;
-    S.GUI.SoundSamplingRate=192000;
-    S.GUIPanels.Sound_Properties={'intensityFactor','SoundSamplingRate'};
+    S.GUITabs.TaskTiming={'Timing'}; 
 
-    S.GUI.SoundDuration_pt=0.5;
-	S.GUI.SoundRamp_pt=0;
-    S.GUI.LowFreq_pt=4000;
-    S.GUI.HighFreq_pt=20000;
-    S.GUI.NbOfTones=5;
-    S.GUIPanels.PureTones_Properties={'SoundDuration_pt','SoundRamp_pt','LowFreq_pt','HighFreq_pt','NbOfTones'};
-     
-    S.GUI.SoundDuration_s=0.5;
-    S.GUI.LowFreq_s=4000;
-    S.GUI.HighFreq_s=20000;
-    S.GUIPanels.Sweeps_Properties={'SoundDuration_s','LowFreq_s','HighFreq_s'};
-    
-    S.GUI.SoundDuration_wn=0.5;
-    S.GUI.SoundRamp_wn=0.05;
-    S.GUIPanels.WhiteNoise_Properties={'SoundDuration_wn','SoundRamp_wn'};
- 
-    S.GUITabs.Cue={'Sound_Properties','PureTones_Properties','Sweeps_Properties','WhiteNoise_Properties'};
 
+
+
+    S.GUI.Repetition=20;
+    S.GUI.TimePreStim=4;
+    S.GUI.TimeStim=1;
+    S.GUI.TimePostStim=5;
+    S.GUIPanels.TaskTiming={'Repetition','TimePreStim','TimeStim','TimePostStim'};
+        
+    S.GUI.StateToZero=1;
+	S.GUIMeta.StateToZero.Style='popupmenu';
+    S.GUIMeta.StateToZero.String=S.Names.StateToZero;
+    S.GUI.BaselineBegin=0.1;
+    S.GUI.BaselineEnd=1.1;
+    S.GUIPanels.PlotTiming={'StateToZero','BaselineBegin','BaselineEnd'};
+
+    S.GUITabs.OnlinePlot={'TaskTiming','PlotTiming'};
+    
 %% Nidaq and Photometry
     S.GUI.PhotometryVersion=1.2;
     S.GUI.Modulation=1;
@@ -120,10 +112,9 @@ global S
                             'LED1b_Name','LED1b_Amp','LED1b_Freq'};
                         
     S.GUITabs.Photometry={'Photometry'};
+    
 %% Optogenetic stimulation
-    S.GUI.PulsePalProtocol=1;
-    S.GUIMeta.PulsePalProtocol.Style='popupmenu';
-    S.GUIMeta.PulsePalProtocol.String=S.Names.PPProtocols;
+    S.GUI.PulsePalProtocol='na';
     S.GUI.Opto_BNC=Param.BPPP_BNC;
     S.GUI.Opto_State=1;
     S.GUIMeta.Opto_State.Style='popupmenu';
@@ -131,7 +122,7 @@ global S
     S.GUI.Opto_Proba=0;
     S.GUI.Opto_TrialType=0;
     S.GUI.Opto_Block=0;
-    S.GUI.Opto_Pairing=1; % Auto-adjust GUI parameters for pairing protocol, used for AuditoryTuning and VisualTuning
+    S.GUI.Opto_Pairing=0; % Auto-adjust GUI parameters for pairing protocol, used for AuditoryTuning and VisualTuning
     S.GUIMeta.Opto_Pairing.Style='checkbox';
     S.GUIMeta.Opto_Pairing.String='Auto'; 
     S.GUIPanels.Optogenetic={'PulsePalProtocol','Opto_BNC','Opto_State','Opto_Proba','Opto_TrialType','Opto_Block','Opto_Pairing'};
