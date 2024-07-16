@@ -46,12 +46,23 @@ global S
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
     S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
-     
+         
+    S.GUITabs.General={'Recording','Task'};
+
+%% Figure
+    S.GUI.StateToZero=2;
+	S.GUIMeta.StateToZero.Style='popupmenu';
+    S.GUIMeta.StateToZero.String=S.Names.StateToZero;
+    S.GUI.TimeMin=-4;
+    S.GUI.TimeMax=4;
+    S.GUI.BaselineBegin=1.5;
+    S.GUI.BaselineEnd=2.5;
     S.GUI.NidaqMin=-5;
     S.GUI.NidaqMax=10;
-    S.GUIPanels.Plot={'NidaqMin','NidaqMax'};
-    
-    S.GUITabs.General={'Plot','Recording','Task'};
+
+    S.GUIPanels.PlotPhotometry={};
+    S.GUIPanels.PlotPhotometry={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd','NidaqMin','NidaqMax'};
+    S.GUITabs.Figure={'PlotPhotometry'};
 
 %% Timing
     S.GUI.MaxTrials=100;
@@ -64,15 +75,14 @@ global S
     S.GUI.ITI=5;
     S.GUIPanels.TaskTiming={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
     
-    S.GUI.StateToZero=2;
-	S.GUIMeta.StateToZero.Style='popupmenu';
-    S.GUIMeta.StateToZero.String=S.Names.StateToZero;
-    S.GUI.TimeMin=-4;
-    S.GUI.TimeMax=4;
-    S.GUI.BaselineBegin=1.5;
-    S.GUI.BaselineEnd=2.5;
-    S.GUIPanels.PlotTiming={'StateToZero','TimeMin','TimeMax','BaselineBegin','BaselineEnd'};
-    S.GUITabs.Timing={'TaskTiming','PlotTiming'};
+    %    
+    S.GUI.UncPA=0.75;
+    S.GUI.UncPB=0.5;
+    S.GUI.UncPC=0.25;
+    S.GUIPanels.Uncertainty={'UncPA','UncPB','UncPC'};
+    
+    S.GUITabs.Task={'TaskTiming','Uncertainty'};
+
 %% Task Parameters    
     S.GUI.LowFreq=4000;
     S.GUI.HighFreq=20000;
@@ -82,11 +92,6 @@ global S
 	S.GUI.SoundSamplingRate=192000;
     S.GUIPanels.Auditory={'LowFreq','HighFreq','SoundRamp','NbOfFreq','FreqWidth','SoundSamplingRate'};
     S.GUITabs.Cue={'Auditory'};
-%    
-    S.GUI.UncPA=0.75;
-    S.GUI.UncPB=0.5;
-    S.GUI.UncPC=0.25;
-    S.GUIPanels.Uncertainty={'UncPA','UncPB','UncPC'};
 %
     S.GUI.RewardValve=1;
     S.GUIMeta.RewardValve.Style='popupmenu';
@@ -102,7 +107,7 @@ global S
 	S.GUIMeta.OmissionValve.Style='popupmenu';
     S.GUIMeta.OmissionValve.String={1,2,3,4,5,6};
     S.GUIPanels.Outcome={'RewardValve','SmallReward','InterReward','LargeReward','PunishValve','PunishTime','OmissionValve'};
-    S.GUITabs.Outcome={'Uncertainty','Outcome'};
+    S.GUITabs.Outcome={'Outcome'};
     
 %% Nidaq and Photometry
     S.GUI.PhotometryVersion=1.2;
