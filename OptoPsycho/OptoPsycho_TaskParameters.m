@@ -6,7 +6,7 @@ global S
     S.Names.Phase={'LickToReward'};
     S.Names.StateToZero={'CueDelivery','PostOutcome'};
     S.Names.StateToStim={'na'};
-    S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_500ms_5V','Pulse_500ms_5V_ch2'};
+    S.Names.PPProtocols={'Pulse_500ms_5V','Pulse_500ms_5V_ch2'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -112,7 +112,7 @@ global S
                         
     S.GUITabs.Photometry={'Photometry'};
 %% Optogenetic stimulation
-    S.GUI.PulsePalProtocol=2;
+    S.GUI.PulsePalProtocol=1;
     S.GUIMeta.PulsePalProtocol.Style='popupmenu';
     S.GUIMeta.PulsePalProtocol.String=S.Names.PPProtocols;
     S.GUI.Opto_BNC=Param.BPPP_BNC;

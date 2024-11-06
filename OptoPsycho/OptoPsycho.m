@@ -40,8 +40,12 @@ if S.GUI.Optogenetic
     load(S.PulsePalProtocol);
     ParameterMatrix{5,2}=S.GUI.CueDuration;
     ParameterMatrix{8,2}=S.GUI.CueDuration;
-    S.ParameterMatrix=ParameterMatrix;
     S.OptoPowers=linspace(S.GUI.Opto_PowerMin,S.GUI.Opto_PowerMax,S.GUI.Opto_PowerNb);
+    for p=1:S.GUI.Opto_PowerNb
+        thisPM=ParameterMatrix;
+        thisPM{3,1+S.GUI.PulsePalProtocol}=S.OptoPowers(p);
+        S.ParameterMatrix{p}=thisPM;
+    end
 end
 %% NIDAQ Initialization and Plots
 if S.GUI.Photometry || S.GUI.Wheel
@@ -75,9 +79,7 @@ for currentTrial = 1:S.GUI.MaxTrials
 	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
 	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
 %% Opto
-    ParameterMatrix{3,2}=S.Power;
-    S.ParameterMatrix=ParameterMatrix;
-    ProgramPulsePal(ParameterMatrix);
+    ProgramPulsePal(S.ParameterMatrix{TrialSequence(currentTrial)});
 %% Assemble State matrix
  	sma = NewStateMatrix();
     sma = AddState(sma,'Name', 'ITI',...
