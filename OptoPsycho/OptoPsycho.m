@@ -1,4 +1,4 @@
-function OptoLickToReward
+function OptoPsycho
 %Functions used in this protocol:
 %"CuedReward_Phase": specify the phase of the training
 %"WeightedRandomTrials" : generate random trials sequence
@@ -14,7 +14,7 @@ global BpodSystem nidaq S
 S = BpodSystem.ProtocolSettings; % Load settings chosen in launch manager into current workspace as a struct called S
 ParamPC=BpodParam_PCdep();
 if isempty(fieldnames(S))  % If settings file was an empty struct, populate struct with default settings
-    OptoLickToReward_TaskParameters(ParamPC);
+    OptoPsycho_TaskParameters(ParamPC);
 end
 
 % Initialize parameter GUI plugin and Pause
@@ -28,7 +28,7 @@ S.InterRew  =   GetValveTimes(S.GUI.InterReward, S.GUI.RewardValve);
 S.LargeRew  =   GetValveTimes(S.GUI.LargeReward, S.GUI.RewardValve);
 
 %% Trial Sequence
-[S.TrialsNames, S.TrialsMatrix]=OptoLickToReward_Phase(S);
+[S.TrialsNames, S.TrialsMatrix]=OptoPsycho_Phase(S);
 TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
 S.NumTrialTypes=max(TrialSequence);
 FigLick=Online_LickPlot('ini',TrialSequence);
@@ -41,7 +41,7 @@ if S.GUI.Optogenetic
     ParameterMatrix{5,2}=S.GUI.CueDuration;
     ParameterMatrix{8,2}=S.GUI.CueDuration;
     S.ParameterMatrix=ParameterMatrix;
-    S.OptoPowers=linspace(S.GUI.PowerMin,S.GUI.PowerMax,S.GUI.Opto_PowerNb);
+    S.OptoPowers=linspace(S.GUI.Opto_PowerMin,S.GUI.Opto_PowerMax,S.GUI.Opto_PowerNb);
 end
 %% NIDAQ Initialization and Plots
 if S.GUI.Photometry || S.GUI.Wheel

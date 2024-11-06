@@ -1,8 +1,9 @@
-function OptoLickToReward_TaskParameters(Param)
+function OptoPsycho_TaskParameters(Param)
 %
 %
 
 global S
+    S.Names.Phase={'LickToReward'};
     S.Names.StateToZero={'CueDelivery','PostOutcome'};
     S.Names.StateToStim={'na'};
     S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_500ms_5V','Pulse_500ms_5V_ch2'};
@@ -32,12 +33,15 @@ global S
     S.GUIMeta.RedChannel.String='Auto';    
     S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
          
+    S.GUI.Phase = 1;
+    S.GUIMeta.Phase.Style='popupmenu';
+    S.GUIMeta.Phase.String=S.Names.Phase;
     S.GUI.Opto_PowerMax=5;
     S.GUI.Opto_PowerMin=0;
     S.GUI.Opto_PowerNb=6;
 
-    S.GUIPanels.OptoTuning={'Opto_PowerMax','Opto_PowerMin','Opto_PowerNb'};
-    S.GUITabs.General={'Recording','OptoTuning'};
+    S.GUIPanels.OptoPsych={'Phase','Opto_PowerMax','Opto_PowerMin','Opto_PowerNb'};
+    S.GUITabs.General={'Recording','OptoPsych'};
 
 %% Figure
     S.GUI.StateToZero=2;
