@@ -70,11 +70,14 @@ for currentTrial = 1:S.GUI.MaxTrials
     while S.ITI > 3 * S.GUI.ITI
         S.ITI = exprnd(S.GUI.ITI);
     end
+    S.Power       =	S.TrialsMatrix(TrialSequence(currentTrial),3);
+	S.Delay     =	S.TrialsMatrix(TrialSequence(currentTrial),4)+(S.GUI.DelayIncrement*(currentTrial-1));
+	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
+	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
 %% Opto
-    ParameterMatrix{3,2}=trialsMatrix(TrialSequence(currentTrial),3);
+    ParameterMatrix{3,2}=S.Power;
     S.ParameterMatrix=ParameterMatrix;
     ProgramPulsePal(ParameterMatrix);
-
 %% Assemble State matrix
  	sma = NewStateMatrix();
     sma = AddState(sma,'Name', 'ITI',...
@@ -93,7 +96,7 @@ for currentTrial = 1:S.GUI.MaxTrials
         'OutputActions', {'BNCState',2});
     %Delay
     sma=AddState(sma,'Name', 'Delay',...
-        'Timer',S.Delay,...
+        'Timer',S.GUI.Delay,...
         'StateChangeConditions', {'Tup', 'Outcome'},...
         'OutputActions', {});
     %Reward

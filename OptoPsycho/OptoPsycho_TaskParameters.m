@@ -60,7 +60,7 @@ global S
 %% Timing
     S.GUI.MaxTrials=100;
     S.GUI.PreCue=3;
-    S.GUI.CueDuration=0.5;
+    S.GUI.CueDuration=2;
     S.GUI.Delay=0;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
@@ -112,7 +112,7 @@ global S
                         
     S.GUITabs.Photometry={'Photometry'};
 %% Optogenetic stimulation
-    S.GUI.PulsePalProtocol=1;
+    S.GUI.PulsePalProtocol=2;
     S.GUIMeta.PulsePalProtocol.Style='popupmenu';
     S.GUIMeta.PulsePalProtocol.String=S.Names.PPProtocols;
     S.GUI.Opto_BNC=Param.BPPP_BNC;
