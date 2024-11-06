@@ -38,8 +38,10 @@ if S.GUI.Optogenetic
     PulsePal(ParamPC.PPCOM);
     S.PulsePalProtocol=S.Names.PPProtocols{S.GUI.PulsePalProtocol};
     load(S.PulsePalProtocol);
-    ParameterMatrix{5,2}=S.GUI.CueDuration;
-    ParameterMatrix{8,2}=S.GUI.CueDuration;
+    ParameterMatrix{5,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration;
+    ParameterMatrix{8,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration;
+    ParameterMatrix{9,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration+1;
+    ParameterMatrix{11,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration+1;
     S.OptoPowers=linspace(S.GUI.Opto_PowerMin,S.GUI.Opto_PowerMax,S.GUI.Opto_PowerNb);
     for p=1:S.GUI.Opto_PowerNb
         thisPM=ParameterMatrix;
