@@ -10,7 +10,7 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Bonsai=0;
+    S.GUI.Bonsai=1;
     S.GUIMeta.Bonsai.Style='checkbox';
     S.GUIMeta.Bonsai.String='Auto';
     S.GUI.Wheel=0;
@@ -36,11 +36,14 @@ global S
     S.GUI.Phase = 1;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
+    S.GUI.noLickPeriod=0;
+	S.GUIMeta.noLickPeriod.Style='checkbox';
+    S.GUIMeta.noLickPeriod.String='Auto';
     S.GUI.Opto_PowerMax=5;
     S.GUI.Opto_PowerMin=0;
     S.GUI.Opto_PowerNb=6;
 
-    S.GUIPanels.OptoPsych={'Phase','Opto_PowerMax','Opto_PowerMin','Opto_PowerNb'};
+    S.GUIPanels.OptoPsych={'Phase','noLickPeriod','Opto_PowerMax','Opto_PowerMin','Opto_PowerNb'};
     S.GUITabs.General={'Recording','OptoPsych'};
 
 %% Figure
@@ -64,8 +67,9 @@ global S
     S.GUI.Delay=0;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
+    S.GUI.TimeNoLick=2;
     S.GUI.ITI=5;
-    S.GUIPanels.Timing={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','ITI'};
+    S.GUIPanels.Timing={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
     S.GUITabs.TaskTiming={'Timing'};
 
 %% Outcome
