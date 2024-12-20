@@ -7,7 +7,7 @@ global S
     S.Names.Cue={'Sweep','Tones','Visual','Odors'};
     S.Names.StateToZero={'CueDelivery','PostOutcome'};
     S.Names.StateToStim={'Baseline','CueDelivery','Delay','Outcome'};
-    S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_500ms_5V'};
+    S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_500ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
