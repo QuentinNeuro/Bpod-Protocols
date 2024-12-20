@@ -6,8 +6,8 @@ switch PhaseName
                      'Uncued Omission'};
         trialsMatrix=[...
         % 1.type, 2.proba, 3.sound, 4.delay,    5.valve,                6.Outcome         	7.Marker
-            1,   0.5,       0,    S.GUI.Delay,  S.GUI.RewardValve,      S.InterRew,         double('o');...    
-            2,   0.5,       0,    S.GUI.Delay,  S.GUI.OmissionValve,	S.InterRew,         double('s')];
+            1,   0.7,       0,    S.GUI.Delay,  S.GUI.RewardValve,      S.InterRew,         double('o');...    
+            2,   0.3,       0,    S.GUI.Delay,  S.GUI.OmissionValve,	S.InterRew,         double('s')];
         easyTrials=[1 1 1 1 1 1 2 2];
 
     case 'RewardA'

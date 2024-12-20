@@ -7,7 +7,7 @@ global S
     S.Names.Cue={'Sweep','Tones','Visual','Odors'};
     S.Names.StateToZero={'CueDelivery','PostOutcome'};
     S.Names.StateToStim={'Baseline','CueDelivery','Delay','Outcome'};
-    S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_10ms_5V'};
+    S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_500ms_5V'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -28,7 +28,7 @@ global S
     S.GUI.Bonsai=0;
     S.GUIMeta.Bonsai.Style='checkbox';
     S.GUIMeta.Bonsai.String='Auto';
-    S.GUI.Wheel=0;
+    S.GUI.Wheel=1;
     S.GUIMeta.Wheel.Style='checkbox';
     S.GUIMeta.Wheel.String='Auto';
     S.GUI.Optogenetic=0;
@@ -37,7 +37,7 @@ global S
  	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
-    S.GUI.DbleFibers=1;
+    S.GUI.DbleFibers=0;
     S.GUIMeta.DbleFibers.Style='checkbox';
     S.GUIMeta.DbleFibers.String='Auto';
     S.GUI.Isobestic405=0;
