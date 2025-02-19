@@ -7,10 +7,11 @@ global S
     S.Names.StateToZero={'CueDelivery','blank'};
     S.Names.StateToStim={'CueDelivery'};
     S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_10ms_5V'};
+    S.Names.RecordingTypes={'Photometry','Spikes','AOD','Prime','Miniscope'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Bonsai=1;
+    S.GUI.Bonsai=0;
     S.GUIMeta.Bonsai.Style='checkbox';
     S.GUIMeta.Bonsai.String='Auto';
     S.GUI.Wheel=1;
@@ -31,8 +32,11 @@ global S
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
-       
+    S.GUI.RecordingTypes=1;
+    S.GUIMeta.RecordingTypes.Style='popupmenu';
+    S.GUIMeta.RecordingTypes.String=S.Names.RecordingTypes;
+    S.GUIPanels.Recording={'RecordingTypes','Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
+          
 	S.GUI.WhiteNoise=1;
     S.GUIMeta.WhiteNoise.Style='checkbox';
     S.GUIMeta.WhiteNoise.String='Auto';

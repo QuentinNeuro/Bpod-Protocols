@@ -41,9 +41,12 @@ end
     S.GUIMeta.Isobestic405.String='Auto';
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
-    S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Decoy','Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
-         
+    S.GUIMeta.RedChannel.String='Auto';  
+    S.GUI.RecordingTypes=1;
+    S.GUIMeta.RecordingTypes.Style='popupmenu';
+    S.GUIMeta.RecordingTypes.String=S.Names.RecordingTypes;
+    S.GUIPanels.Recording={'RecordingTypes','Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
+   
     S.GUI.Phase = 1;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
@@ -54,7 +57,7 @@ end
     S.GUI.Opto_PowerMin=0;
     S.GUI.Opto_PowerNb=6;
 
-    S.GUIPanels.OptoPsych={'Phase','noLickPeriod','Opto_PowerMax','Opto_PowerMin','Opto_PowerNb'};
+    S.GUIPanels.OptoPsych={'Decoy','Phase','noLickPeriod','Opto_PowerMax','Opto_PowerMin','Opto_PowerNb'};
     S.GUITabs.General={'Recording','OptoPsych'};
 
 %% Figure

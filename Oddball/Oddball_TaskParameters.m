@@ -7,6 +7,7 @@ global S
     S.Names.Phase={'OddBall','Ctl-0.3','Ctl-0.5'};
     S.Names.Sound={'Sweep','Tones'};
     S.Names.StateToStim={'NA','ND'};
+	S.Names.RecordingTypes={'Photometry','Spikes','AOD','Prime','Miniscope'};
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
@@ -39,8 +40,11 @@ global S
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
-       
+    S.GUI.RecordingTypes=1;
+    S.GUIMeta.RecordingTypes.Style='popupmenu';
+    S.GUIMeta.RecordingTypes.String=S.Names.RecordingTypes;
+    S.GUIPanels.Recording={'RecordingTypes','Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
+          
     S.GUITabs.General={'Recording','Task'};
 
 %% Task Parameters
