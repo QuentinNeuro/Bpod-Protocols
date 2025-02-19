@@ -9,7 +9,18 @@ global S
     S.Names.PPProtocols={'Pulse_500ms_5V','Pulse_500ms_5V_ch2'};
     S.Names.Rig=Param.rig;
 
-%% General Parameters    
+%% General Parameters
+    answer = questdlg('Is decoy ligth on ?', ...
+	'choose', ...
+	'yes','no','no');
+switch answer
+    case 'yes'
+    S.GUI.Decoy=1;
+    otherwise
+    S.GUI.Decoy=0;   
+end
+    S.GUIMeta.Decoy.Style='checkbox';
+    S.GUIMeta.Decoy.String='Auto';
     S.GUI.Bonsai=1;
     S.GUIMeta.Bonsai.Style='checkbox';
     S.GUIMeta.Bonsai.String='Auto';
@@ -31,15 +42,15 @@ global S
     S.GUI.RedChannel=0;
     S.GUIMeta.RedChannel.Style='checkbox';
     S.GUIMeta.RedChannel.String='Auto';    
-    S.GUIPanels.Recording={'Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
+    S.GUIPanels.Recording={'Decoy','Bonsai','Wheel','Photometry','DbleFibers','Isobestic405','RedChannel','Optogenetic'};
          
     S.GUI.Phase = 1;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
-    S.GUI.noLickPeriod=0;
+    S.GUI.noLickPeriod=1;
 	S.GUIMeta.noLickPeriod.Style='checkbox';
     S.GUIMeta.noLickPeriod.String='Auto';
-    S.GUI.Opto_PowerMax=5;
+    S.GUI.Opto_PowerMax=2;
     S.GUI.Opto_PowerMin=0;
     S.GUI.Opto_PowerNb=6;
 
@@ -63,7 +74,7 @@ global S
 %% Timing
     S.GUI.MaxTrials=100;
     S.GUI.PreCue=3;
-    S.GUI.CueDuration=2;
+    S.GUI.CueDuration=.6;
     S.GUI.Delay=0;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;

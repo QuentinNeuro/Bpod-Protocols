@@ -18,10 +18,10 @@ global S
     S.GUIMeta.CueType.String=S.Names.Cue;
     S.GUIPanels.Task={'Phase','CueType'};
     
-    S.GUI.Bonsai=0;
+    S.GUI.Bonsai=1;
     S.GUIMeta.Bonsai.Style='checkbox';
     S.GUIMeta.Bonsai.String='Auto';
-    S.GUI.Wheel=0;
+    S.GUI.Wheel=1;
     S.GUIMeta.Wheel.Style='checkbox';
     S.GUIMeta.Wheel.String='Auto';
     S.GUI.Optogenetic=0;
@@ -30,7 +30,7 @@ global S
  	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
-    S.GUI.DbleFibers=1;
+    S.GUI.DbleFibers=0;
     S.GUIMeta.DbleFibers.Style='checkbox';
     S.GUIMeta.DbleFibers.String='Auto';
     S.GUI.Isobestic405=0;

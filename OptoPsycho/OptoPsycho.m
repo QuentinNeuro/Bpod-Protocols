@@ -46,9 +46,9 @@ if S.GUI.Optogenetic
     load(S.PulsePalProtocol);
     ParameterMatrix{5,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration;
     ParameterMatrix{8,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration;
-    ParameterMatrix{9,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration+1;
-    ParameterMatrix{11,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration+1;
-    S.OptoPowers=linspace(S.GUI.Opto_PowerMin,S.GUI.Opto_PowerMax,S.GUI.Opto_PowerNb);
+    ParameterMatrix{9,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration;
+    ParameterMatrix{11,1+S.GUI.PulsePalProtocol}=S.GUI.CueDuration;
+    S.OptoPowers=S.TrialsMatrix(:,3);
     for p=1:S.GUI.Opto_PowerNb
         thisPM=ParameterMatrix;
         thisPM{3,1+S.GUI.PulsePalProtocol}=S.OptoPowers(p);
@@ -205,7 +205,7 @@ end
 end
 try
     sprintf('Water collected : %.0d ul', FigLick.water)
-    Analysis_Photometry_Launcher;
+    Analysis_Bpod_Launcher;
 catch
     disp('Post recording analysis failed - check whether analysis pipeline is present')
 end

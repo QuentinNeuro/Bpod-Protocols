@@ -22,7 +22,7 @@ global S
  	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
-    S.GUI.DbleFibers=1;
+    S.GUI.DbleFibers=0;
     S.GUIMeta.DbleFibers.Style='checkbox';
     S.GUIMeta.DbleFibers.String='Auto';
     S.GUI.Isobestic405=0;
@@ -52,7 +52,7 @@ global S
     S.GUITabs.Figure={'PlotPhotometry'};
 
 %% Timing
-    S.GUI.Repetition=20;
+    S.GUI.Repetition=10;
     S.GUI.TimePreStim=4;
     S.GUI.TimeStim=1;
     S.GUI.TimePostStim=5;

@@ -149,7 +149,7 @@ end
 end
 display('Good Job Mouse')
 try
-    Analysis_Photometry_Launcher;
+    Analysis_Bpod_Launcher;
 catch
     disp('Post recording analysis failed - check whether analysis pipeline is present')
 end

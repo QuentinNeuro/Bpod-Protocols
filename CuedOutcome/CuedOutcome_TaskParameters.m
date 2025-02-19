@@ -11,7 +11,7 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Phase = 1;
+    S.GUI.Phase = 2;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
     S.GUI.eZTrials=1;
@@ -66,7 +66,7 @@ global S
     S.GUITabs.Figure={'PlotPhotometry'};
 
 %% Timing
-    S.GUI.MaxTrials=100;
+    S.GUI.MaxTrials=150;
     S.GUI.PreCue=3;
     S.GUI.CueDuration=0.5;
     S.GUI.Delay=1;
@@ -137,7 +137,7 @@ global S
                         
     S.GUITabs.Photometry={'Photometry'};
 %% Optogenetic stimulation
-    S.GUI.PulsePalProtocol=1;
+    S.GUI.PulsePalProtocol=2;
     S.GUIMeta.PulsePalProtocol.Style='popupmenu';
     S.GUIMeta.PulsePalProtocol.String=S.Names.PPProtocols;
     S.GUI.Opto_BNC=Param.BPPP_BNC;

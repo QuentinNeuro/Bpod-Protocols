@@ -251,7 +251,7 @@ end
 end
 try
     sprintf('Water collected : %.0d ul', FigLick.water)
-    Analysis_Photometry_Launcher;
+    Analysis_Bpod_Launcher;
 catch
     disp('Post recording analysis failed - check whether analysis pipeline is present')
 end

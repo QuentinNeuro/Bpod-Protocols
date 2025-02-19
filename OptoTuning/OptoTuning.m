@@ -18,7 +18,7 @@ S = BpodParameterGUI('sync', S);
 
 %% Stimulation
 PulsePal(ParamPC.PPCOM);
-S.PulsePalProtocol={'Train_10Hz_500ms_5ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'}; %{'Pulse_3ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'};
+S.PulsePalProtocol={'Train_10Hz_500ms_5ms_5V','Pulse_500ms_5V'};%,'Pulse_5ms_5V','Pulse_10ms_5V'}; %{'Pulse_3ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'};
 S.TrialsNames=S.PulsePalProtocol;
 BNCpp=ParamPC.BPPP_BNC;
 for i=1:size(S.TrialsNames,2)
@@ -135,7 +135,7 @@ end
 end
 EndPulsePal
 try
-Analysis_Photometry_Launcher;
+Analysis_Bpod_Launcher;
 catch
     disp('Post recording analysis failed - check whether analysis pipeline is present')
 end
