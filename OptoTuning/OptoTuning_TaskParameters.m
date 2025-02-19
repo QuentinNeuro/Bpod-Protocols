@@ -6,6 +6,7 @@ function OptoTuning_TaskParameters(Param)
 global S
     S.Names.StateToZero={'StimDelivery','blank'};
     S.Names.StateToStim={'NA','ND'};
+    S.Names.RecordingTypes={'Photometry','Spikes','AOD','Prime','Miniscope'};
 
     S.Names.Rig=Param.rig;
 
