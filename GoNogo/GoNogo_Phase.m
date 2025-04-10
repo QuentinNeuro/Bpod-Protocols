@@ -1,4 +1,4 @@
-function [trialsNames, trialsMatrix]=GoNogo_Trace_Phase(S,PhaseName)
+function [trialsNames, trialsMatrix]=GoNogo_Phase(S,PhaseName)
 
 switch PhaseName
     	case 'Pavlovian'
