@@ -79,7 +79,7 @@ global S
     S.GUI.PostOutcome=5;
     S.GUI.CueResponse=1;
     S.GUI.ITI=5;
-    S.GUIPanels.Timing={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
+    S.GUIPanels.Timing={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','CueResponse','ITI'};
     
     S.GUITabs.TaskTiming={'Timing'};
 
