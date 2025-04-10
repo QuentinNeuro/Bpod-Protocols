@@ -1,4 +1,4 @@
-function CuedOutcome
+function GoNogo
 %Functions used in this protocol:
 %"CuedReward_Phase": specify the phase of the training
 %"WeightedRandomTrials" : generate random trials sequence
@@ -14,7 +14,7 @@ global BpodSystem nidaq S
 S = BpodSystem.ProtocolSettings; % Load settings chosen in launch manager into current workspace as a struct called S
 ParamPC=BpodParam_PCdep();
 if isempty(fieldnames(S))  % If settings file was an empty struct, populate struct with default settings
-    CuedOutcome_TaskParameters(ParamPC);
+    GoNogo_TaskParameters(ParamPC);
 end
 
 % Initialize parameter GUI plugin and Pause
@@ -29,10 +29,7 @@ S.LargeRew  =   GetValveTimes(S.GUI.LargeReward, S.GUI.RewardValve);
 
 % User-friendly check of cue modality-dependent delay period
 if (S.GUI.CueType==4 && S.GUI.Delay==1) || (S.GUI.CueType~=4 && S.GUI.Delay==2)
-    BpodSystem.Pause=1;
-    HandlePauseCondition;
-    disp('Please check that the delay period is correct')
-    S = BpodParameterGUI('sync', S);
+    pause('Please check that the delay period is correct')
 end
 
 %% Define stimuli and send to sound server
@@ -61,15 +58,11 @@ PsychToolboxSoundServer('Load', 4, WhiteNoise);
 BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
 
 %% Define trial types parameters, trial sequence and Initialize plots
-[S.TrialsNames, S.TrialsMatrix,ezTrialsSeq]=CuedOutcome_Phase(S,S.Names.Phase{S.GUI.Phase});
+[S.TrialsNames, S.TrialsMatrix]=GoNogo_Phase(S,S.Names.Phase{S.GUI.Phase});
 if S.GUI.Optogenetic
     [S.TrialsNames, S.TrialsMatrix]=Phase_Add_Stim(S.TrialsNames, S.TrialsMatrix);
-    ezTrialsSeq=[];
 end
 TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
-if S.GUI.eZTrials
-    TrialSequence(1:length(ezTrialsSeq))=ezTrialsSeq;
-end
 S.NumTrialTypes=max(TrialSequence);
 FigLick=Online_LickPlot('ini',TrialSequence);
 
@@ -105,26 +98,37 @@ BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will b
 for currentTrial = 1:S.GUI.MaxTrials
     S = BpodParameterGUI('sync', S); % Sync parameters with BpodParameterGUI plugin 
 %% Initialize current trial parameters
-	S.Cue       =	S.TrialsMatrix(TrialSequence(currentTrial),3);
-	S.Delay     =	S.TrialsMatrix(TrialSequence(currentTrial),4)+(S.GUI.DelayIncrement*(currentTrial-1));
-	S.Valve     =	S.TrialsMatrix(TrialSequence(currentTrial),5);
-	S.Outcome   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
+	S.Cue           =	S.TrialsMatrix(TrialSequence(currentTrial),3);
+	S.Delay         =	S.GUI.Delay;
+	S.GoValve       =	S.TrialsMatrix(TrialSequence(currentTrial),4);
+    S.noGoValve     =   S.TrialsMatrix(TrialSequence(currentTrial),5);
+    S.Valve=S.GoValve; % for plotting purposes
+    if S.GoValve==S.GUI.PunishValve
+         S.GoValveTime   =   S.GUI.PunishTime;
+    else
+         S.GoValveTime   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
+    end
+    if S.noGoValve==S.GUI.PunishValve
+         S.noGoValveTime   =   S.GUI.PunishTime;
+    else
+         S.noGoValveTime   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
+    end
     S.ITI = 100;
     while S.ITI > 3 * S.GUI.ITI
         S.ITI = exprnd(S.GUI.ITI);
     end
 %% Cue definition    
     S.AudCue    =   255;    % No AudCue by default
-    S.VisualCue =   [0 0]; % Left right LED
+    S.VisualCue =   [0 0];  % Left right LED
     S.WireOlf   =   0;
-	S.NoLick=[4 0];
+	S.LickCue=[4 0];
     if S.Cue~=0
     switch S.GUI.CueType
         case {1,2}  % Auditory Cues
                 S.AudCue=S.Cue;
-                S.NoLick    =   [255 100];
+                S.LickCue    =   [255 20];
         case 3      % Visual Cues
-    S.VisualCue(S.Cue)=50; 
+    S.VisualCue(S.Cue)=20; 
         case 4      % Olfactory Cues
     S.WireOlf=(1+2^(S.Cue));
     end   
@@ -146,6 +150,26 @@ end
         'Timer',S.GUI.PreCue,...
         'StateChangeConditions',{'Tup','CueDelivery'},...
         'OutputActions',{'BNCState',1+S.Stim_State(1)});
+    switch S.GUI.Type
+        case 1
+            sma=AddState(sma,'Name', 'CueDelivery',...
+                'Timer',S.GUI.CueDuration,...
+                'StateChangeConditions',{'Tup', 'noGo','Port1In','Go'},...
+                'OutputActions', {'SoftCode',S.AudCue,'PWM4',S.VisualCue(1),'PWM5',S.VisualCue(2),... 
+                            'BNCState',S.Stim_State(2),'WireState',S.WireOlf});
+        case 2
+            sma=AddState(sma,'Name', 'CueDelivery',...
+                'Timer',S.GUI.CueDuration,...
+                'StateChangeConditions',{'Tup', 'Delay'},...
+                'OutputActions', {'SoftCode',S.AudCue,'PWM4',S.VisualCue(1),'PWM5',S.VisualCue(2),... 
+                                    'BNCState',S.Stim_State(2),'WireState',S.WireOlf});
+            sma=AddState(sma,'Name', 'Delay',...
+                'Timer',S.Delay,...
+                'StateChangeConditions', {'Tup', 'CueResponse'},...
+                'OutputActions', {'SoftCode',255,'BNCState',S.Stim_State(3)});  
+        case 3
+            
+    end
     %Stimulus delivery
     sma=AddState(sma,'Name', 'CueDelivery',...
         'Timer',S.GUI.CueDuration,...
@@ -155,35 +179,27 @@ end
     %Delay
     sma=AddState(sma,'Name', 'Delay',...
         'Timer',S.Delay,...
-        'StateChangeConditions', {'Tup', 'Outcome'},...
-        'OutputActions', {'SoftCode',255,'BNCState',S.Stim_State(3)});
-    %Reward
-    sma=AddState(sma,'Name', 'Outcome',...
-        'Timer',S.Outcome,...
+        'StateChangeConditions', {'Tup', 'CueResponse'},...
+        'OutputActions', {'SoftCode',255,'BNCState',S.Stim_State(3)});  
+    %CueLick
+    sma=AddState(sma,'Name', 'CueResponse',...
+        'Timer',S.GUI.CueDuration,...
+        'StateChangeConditions', {'Tup', 'noGo','Port1In','Go'},...
+        'OutputActions', {'SoftCode',S.LickCue(1),'PWM1',S.LickCue(2)});
+    %GoNoGo State
+    sma=AddState(sma,'Name', 'Go',...
+        'Timer',S.GoValveTime,...
         'StateChangeConditions', {'Tup', 'PostOutcome'},...
-        'OutputActions', {'ValveState', S.Valve,...
-                            'BNCState',S.Stim_State(4)});  
+        'OutputActions', {'ValveState',S.GoValve,'SoftCode',255, 'BNCState',S.Stim_State(4)});
+    sma=AddState(sma,'Name', 'noGo',...
+        'Timer',S.noGoValveTime,...
+        'StateChangeConditions', {'Tup', 'PostOutcome'},...
+        'OutputActions', {'ValveState',S.noGoValve,'SoftCode',255,'BNCState',S.Stim_State(4)});
     %Post task states
     sma=AddState(sma,'Name', 'PostOutcome',...
         'Timer',S.GUI.PostOutcome,...
-        'StateChangeConditions',{'Tup', 'NoLick'},...
+        'StateChangeConditions',{'Tup', 'End'},...
         'OutputActions',{});
-    if S.GUI.noLickPeriod
-    %ITI + noLick period
-    sma = AddState(sma,'Name', 'NoLick', ...
-        'Timer', S.GUI.TimeNoLick,...
-        'StateChangeConditions', {'Tup', 'End','Port1In','RestartNoLick'},...
-        'OutputActions', {'SoftCode',S.NoLick(1),'PWM1',S.NoLick(2)});  
-    sma = AddState(sma,'Name', 'RestartNoLick', ...
-        'Timer', 0,...
-        'StateChangeConditions', {'Tup', 'NoLick',},...
-        'OutputActions', {'SoftCode',S.NoLick(1),'PWM1',S.NoLick(2)}); 
-    else
-    sma = AddState(sma,'Name', 'NoLick', ...
-        'Timer', S.GUI.TimeNoLick,...
-        'StateChangeConditions', {'Tup', 'End'},...
-        'OutputActions', {});  
-    end
     sma = AddState(sma,'Name', 'End',...
         'Timer',1,...
         'StateChangeConditions', {'Tup', 'exit'},...
