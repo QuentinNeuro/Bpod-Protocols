@@ -58,23 +58,11 @@ PsychToolboxSoundServer('Load', 4, WhiteNoise);
 BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
 
 %% Define trial types parameters, trial sequence and Initialize plots
-<<<<<<< HEAD
 [S.TrialsNames, S.TrialsMatrix]=GoNogo_Trace_Phase(S,S.Names.Phase{S.GUI.Phase});
 if S.GUI.Optogenetic
     [S.TrialsNames, S.TrialsMatrix]=Phase_Add_Stim(S.TrialsNames, S.TrialsMatrix);
 end
 TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
-=======
-[S.TrialsNames, S.TrialsMatrix,ezTrialsSeq]=CuedOutcome_Phase(S,S.Names.Phase{S.GUI.Phase});
-if S.GUI.Optogenetic
-    [S.TrialsNames, S.TrialsMatrix]=Phase_Add_Stim(S.TrialsNames, S.TrialsMatrix);
-    ezTrialsSeq=[];
-end
-TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
-if S.GUI.eZTrials
-    TrialSequence(1:length(ezTrialsSeq))=ezTrialsSeq;
-end
->>>>>>> origin/master
 S.NumTrialTypes=max(TrialSequence);
 FigLick=Online_LickPlot('ini',TrialSequence);
 
