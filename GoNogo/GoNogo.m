@@ -102,7 +102,7 @@ for currentTrial = 1:S.GUI.MaxTrials
 	S.Delay         =	S.GUI.Delay;
 	S.GoValve       =	S.TrialsMatrix(TrialSequence(currentTrial),4);
     S.noGoValve     =   S.TrialsMatrix(TrialSequence(currentTrial),5);
-    S.Valve=S.GUI.GoValve; % for plotting purposes
+    S.Valve=S.GoValve; % for plotting purposes
     if S.GoValve==S.GUI.PunishValve
          S.GoValveTime   =   S.GUI.PunishTime;
     else
