@@ -62,16 +62,7 @@ BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
 if S.GUI.Optogenetic
     [S.TrialsNames, S.TrialsMatrix]=Phase_Add_Stim(S.TrialsNames, S.TrialsMatrix);
 end
-
-if S.GUI.Optogenetic
-    [S.TrialsNames, S.TrialsMatrix]=Phase_Add_Stim(S.TrialsNames, S.TrialsMatrix);
-    ezTrialsSeq=[];
-end
 TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
-if S.GUI.eZTrials
-    TrialSequence(1:length(ezTrialsSeq))=ezTrialsSeq;
-end
->>>>>>> origin/master
 S.NumTrialTypes=max(TrialSequence);
 FigLick=Online_LickPlot('ini',TrialSequence);
 
@@ -111,10 +102,11 @@ for currentTrial = 1:S.GUI.MaxTrials
 	S.Delay         =	S.GUI.Delay;
 	S.GoValve       =	S.TrialsMatrix(TrialSequence(currentTrial),4);
     S.noGoValve     =   S.TrialsMatrix(TrialSequence(currentTrial),5);
+    S.Valve=S.GoValve % for plotti
     if S.GoValve==S.GUI.PunishValve
-         S.noGoValveTime   =   S.GUI.PunishTime;
+         S.GoValveTime   =   S.GUI.PunishTime;
     else
-         S.noGoValveTime   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
+         S.GoValveTime   =   S.TrialsMatrix(TrialSequence(currentTrial),6);
     end
     if S.noGoValve==S.GUI.PunishValve
          S.noGoValveTime   =   S.GUI.PunishTime;
@@ -167,12 +159,12 @@ end
     %Delay
     sma=AddState(sma,'Name', 'Delay',...
         'Timer',S.Delay,...
-        'StateChangeConditions', {'Tup', 'Outcome'},...
+        'StateChangeConditions', {'Tup', 'CueResponse'},...
         'OutputActions', {'SoftCode',255,'BNCState',S.Stim_State(3)});  
     %CueLick
     sma=AddState(sma,'Name', 'CueResponse',...
-        'Timer',S.CueDuration,...
-        'StateChangeConditions', {'Tup', 'Nogo','Port1In','Go'},...
+        'Timer',S.GUI.CueDuration,...
+        'StateChangeConditions', {'Tup', 'noGo','Port1In','Go'},...
         'OutputActions', {'SoftCode',S.LickCue(1),'PWM1',S.LickCue(2)});
     %GoNoGo State
     sma=AddState(sma,'Name', 'Go',...
@@ -224,13 +216,13 @@ if ~isempty(fieldnames(RawEvents))                                          % If
 end
 
 %% PLOT - extract events from BpodSystem.data and update figures
-try
+% try
 [currentOutcome, currentLickEvents]=Online_LickEvents(S.Names.StateToZero{S.GUI.StateToZero});
 FigLick=Online_LickPlot('update',[],FigLick,currentOutcome,currentLickEvents);
 [FigPhoto1,FigPhoto2,FigWheel]=Online_NidaqPlots('update',FigPhoto1,FigPhoto2,FigWheel,currentLickEvents);
-catch
+% catch
     disp('Oups, something went wrong with the online analysis... May be you closed a plot ?') 
-end
+% end
 
 %% Photometry QC
 if currentTrial==1 && S.GUI.Photometry

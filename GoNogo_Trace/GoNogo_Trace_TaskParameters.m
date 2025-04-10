@@ -6,7 +6,7 @@ global S
     S.Names.Phase={'Pavlovian','GoNoGo'};
     S.Names.Cue={'Sweep','Tones','Visual','Odors'};
     S.Names.StateToZero={'CueDelivery','PostOutcome'};
-    S.Names.StateToStim={'Baseline','CueDelivery','Delay','Outcome'};
+    S.Names.StateToStim={'Baseline','CueDelivery','Delay','PostOutcome'};
     S.Names.PPProtocols={'Train_10Hz_500ms_5ms_5V','Pulse_500ms_5V','Pulse_5ms_5V','Pulse_10ms_5V'};
 	S.Names.RecordingTypes={'Photometry','Spikes','AOD','Prime','Miniscope'};
     S.Names.Rig=Param.rig;
