@@ -17,7 +17,7 @@ global S
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
     S.GUI.Type=1;
-	S.GUIMeta.Type.Style='checkbox';
+	S.GUIMeta.Type.Style='popupmenu';
     S.GUIMeta.Type.String='Auto';
     S.GUI.Punishment=0;
 	S.GUIMeta.Punishment.Style='checkbox';
