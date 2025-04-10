@@ -8,15 +8,22 @@ switch PhaseName
         % 1.type, 2.proba, 3.Cue,   4.GoValve,                  5.NoGoValve,          6.Outcome           7.Marker
             1,   0.5,       1,      S.GUI.RewardValve,          S.GUI.RewardValve,    S.InterRew,         double('o');...    
             2,   0.5,       2,      S.GUI.RewardValve,          S.GUI.RewardValve,	  S.InterRew,         double('s')];
-
-	case 'Go'
-        trialsNames={'Go'};
+    case '1Cue'
+        trialsNames={'Go',...
+                     'NoGo'};
+        if S.GUI.Punishment
         trialsMatrix=[...
         % 1.type, 2.proba, 3.Cue,   4.GoValve,                  5.NoGoValve,          6.Outcome           7.Marker
-            1,   1,       1,      S.GUI.RewardValve,          S.GUI.OmissionValve,  S.InterRew,         double('o')];
+            1,   0.5,       1,      S.GUI.RewardValve,          S.GUI.OmissionValve,  S.InterRew,         double('o');...    
+            2,   0.5,       2,      S.GUI.PunishValve,          S.GUI.RewardValve,	  S.InterRew,         double('s')];
+        else
+        trialsMatrix=[...
+        % 1.type, 2.proba, 3.Cue,   4.GoValve,                  5.NoGoValve,          6.Outcome           7.Marker
+            1,   0.5,       1,      S.GUI.RewardValve,          S.GUI.OmissionValve,  S.InterRew,         double('o');...    
+            2,   0.5,       2,      S.GUI.OmissionValve,        S.GUI.RewardValve,	  S.InterRew,         double('s')];
+        end
 
-
-	case 'GoNoGo'
+    case '2Cues'
         trialsNames={'Go',...
                      'NoGo'};
         if S.GUI.Punishment
