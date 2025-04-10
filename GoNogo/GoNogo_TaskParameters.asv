@@ -13,7 +13,7 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Phase = 2;
+    S.GUI.Phase = 1;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
     S.GUI.Type=1;
@@ -73,11 +73,11 @@ global S
 %% Timing
     S.GUI.MaxTrials=150;
     S.GUI.PreCue=3;
-    S.GUI.CueDuration=1;
+    S.GUI.CueDuration=0.5;
     S.GUI.Delay=0;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
-    S.GUI.CueResponse=1;
+    S.GUI.CueResponse=0.5;
     S.GUI.ITI=5;
     S.GUIPanels.Timing={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','TimeNoLick','ITI'};
     
