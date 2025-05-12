@@ -46,7 +46,7 @@ switch S.GUI.CueType
         CueB=SoundGenerator(S.GUI.SoundSamplingRate,S.GUI.HighFreq,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.CueDuration,S.GUI.SoundRamp);
         CueC=SoundGenerator(S.GUI.SoundSamplingRate,(S.GUI.LowFreq+S.GUI.HighFreq)/2,S.GUI.FreqWidth,S.GUI.NbOfFreq,S.GUI.CueDuration,S.GUI.SoundRamp);
     otherwise % WhiteNoise for No Lick period
-        WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.TimeNoLick+1,0);
+        WhiteNoise=WhiteNoiseGenerator(S.GUI.SoundSamplingRate,S.GUI.CueDuration+1,0);
 end
 PsychToolboxSoundServer('init');
 if S.GUI.CueType==1 || S.GUI.CueType==2
@@ -58,11 +58,15 @@ PsychToolboxSoundServer('Load', 4, WhiteNoise);
 BpodSystem.SoftCodeHandlerFunction = 'SoftCodeHandler_PlaySound';
 
 %% Define trial types parameters, trial sequence and Initialize plots
+if ~S.GUI.Bloc
 [S.TrialsNames, S.TrialsMatrix]=GoNogo_Phase(S,S.Names.Phase{S.GUI.Phase});
 if S.GUI.Optogenetic
     [S.TrialsNames, S.TrialsMatrix]=Phase_Add_Stim(S.TrialsNames, S.TrialsMatrix);
 end
 TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
+else
+    [S.TrialsNames, S.TrialsMatrix,TrialSequence]=GoNogo_Phase_Bloc(S);
+end
 S.NumTrialTypes=max(TrialSequence);
 FigLick=Online_LickPlot('ini',TrialSequence);
 
@@ -99,7 +103,7 @@ for currentTrial = 1:S.GUI.MaxTrials
     S = BpodParameterGUI('sync', S); % Sync parameters with BpodParameterGUI plugin 
 %% Initialize current trial parameters
 	S.Cue           =	S.TrialsMatrix(TrialSequence(currentTrial),3);
-	S.Delay         =	S.GUI.Delay;
+	S.Delay         =	S.GUI.Delay+(S.GUI.DelayIncrement*(currentTrial-1));
 	S.GoValve       =	S.TrialsMatrix(TrialSequence(currentTrial),4);
     S.noGoValve     =   S.TrialsMatrix(TrialSequence(currentTrial),5);
     S.Valve=S.GoValve; % for plotting purposes
@@ -121,12 +125,11 @@ for currentTrial = 1:S.GUI.MaxTrials
     S.AudCue    =   255;    % No AudCue by default
     S.VisualCue =   [0 0];  % Left right LED
     S.WireOlf   =   0;
-	S.LickCue=[4 0];
+	S.LickCue    =   [255 20];
     if S.Cue~=0
     switch S.GUI.CueType
         case {1,2}  % Auditory Cues
                 S.AudCue=S.Cue;
-                S.LickCue    =   [255 20];
         case 3      % Visual Cues
     S.VisualCue(S.Cue)=20; 
         case 4      % Olfactory Cues

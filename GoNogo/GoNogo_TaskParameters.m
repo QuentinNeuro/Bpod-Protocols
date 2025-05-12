@@ -25,7 +25,11 @@ global S
     S.GUI.CueType=2;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
-    S.GUIPanels.Task={'Phase','Type','CueType','Punishment'};
+    S.GUI.Bloc=0;
+    S.GUIMeta.Bloc.Style='checkbox';
+    S.GUIMeta.BonBlocsai.String='Auto';
+    S.GUIPanels.Task={'Phase','Type','CueType','Punishment','Bloc'};
+
      
     S.GUI.Bonsai=0;
     S.GUIMeta.Bonsai.Style='checkbox';
@@ -59,8 +63,8 @@ global S
     S.GUI.StateToZero=2;
 	S.GUIMeta.StateToZero.Style='popupmenu';
     S.GUIMeta.StateToZero.String=S.Names.StateToZero;
-    S.GUI.TimeMin=-4;
-    S.GUI.TimeMax=4;
+    S.GUI.TimeMin=-12;
+    S.GUI.TimeMax=5;
     S.GUI.BaselineBegin=1.5;
     S.GUI.BaselineEnd=2.5;
     S.GUI.NidaqMin=-5;
@@ -82,6 +86,16 @@ global S
     S.GUIPanels.Timing={'MaxTrials','PreCue','CueDuration','Delay','DelayIncrement','PostOutcome','CueResponse','ITI'};
     
     S.GUITabs.TaskTiming={'Timing'};
+
+%% Bloc
+    S.GUI.Bloc1=12;
+    S.GUI.Bloc2=23;
+    S.GUI.Bloc3=31;
+    S.GUI.BlocProba=30;
+    S.GUI.BlocMinTrial=40;
+    S.GUI.GoNogoProba=60;
+    S.GUIPanels.Bloc={'Bloc1','Bloc2','Bloc3','BlocProba','BlocMinTrial','GoNogoProba'};
+    S.GUITabs.Bloc={'Bloc'};
 
 %% Cue   
     S.GUI.LowFreq=4000;

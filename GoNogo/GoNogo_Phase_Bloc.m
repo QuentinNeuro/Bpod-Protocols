@@ -1,0 +1,40 @@
+function [trialsNames, trialsMatrix,trialSequence]=GoNogo_Phase_Bloc(S)
+
+%% General Phase
+if S.GUI.Puishment
+noGoValve=S.GUI.PunishValve;
+else
+noGoValve=S.GUI.OmissionValve;
+end
+goProba=S.GUI.GoNogoProba;
+noGoProba=100-S.GUI.GoNogoProba;
+
+trialsNames={'Go1','Go2','Go3'
+                'NoGo1','NoGo2','NoGo3'};
+
+trialsMatrix=[...
+% 1.type, 2.proba, 3.Cue,   4.GoValve,                  5.NoGoValve,          6.Outcome           7.Marker
+    1,   goProba,         1,         S.GUI.RewardValve,          S.GUI.OmissionValve,  S.InterRew,         double('o');...    
+    2,   goProba,         2,      S.GUI.RewardValve,          S.GUI.OmissionValve,  S.InterRew,         double('0');...
+    3,   goProba,         3,      S.GUI.RewardValve,          S.GUI.OmissionValve,  S.InterRew,         double('0');...
+    4,   noGoProba,       1,      noGoValve,                  S.GUI.OmissionValve,  S.InterRew,         double('s');...
+    5,   noGoProba,       2,      noGoValve,                  S.GUI.OmissionValve,  S.InterRew,         double('s');...
+    6,   noGoProba,       3,      noGoValve,                  S.GUI.OmissionValve,  S.InterRew,         double('s');];
+
+%% Generating Blocs
+trialSequence=[];
+trialNb_Bloc=ceil(S.GUI.MaxTrials/(S.GUI.BlocProba/100));
+trialNb_Bloc=trialNb_Bloc+ceil(trialNb_Bloc*0.1);
+
+for b=1:3
+    thisBloc=sprintf('bloc%d',b);
+    thisTrialTypes=dec2base(S.GUI.(thisBloc),10) - '0';
+    thisTrialMatrix=trialsMatrix(thisTrialTypes,:);
+    thisTrialNb(b)=1;
+    while thisTrialNb(b)<S.GUI.BlocMinTrial
+        thisTrialNb(b)=randi(trialNb_Bloc);
+    end
+   
+    thisTrialSequence=WeightedRandomTrials(thisTrialMatrix(:,2)', thisTrialNb);
+    trialSequence=[trialSequence thisTrialSequence];
+end
