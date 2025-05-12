@@ -13,19 +13,19 @@ global S
     S.Names.Rig=Param.rig;
 
 %% General Parameters    
-    S.GUI.Phase = 2;
+    S.GUI.Phase = 3;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
-    S.GUI.Type=1;
+    S.GUI.Type=3;
 	S.GUIMeta.Type.Style='popupmenu';
     S.GUIMeta.Type.String=S.Names.Type;
     S.GUI.Punishment=0;
 	S.GUIMeta.Punishment.Style='checkbox';
     S.GUIMeta.Punishment.String='Auto';
-    S.GUI.CueType=2;
+    S.GUI.CueType=4;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
-    S.GUI.Bloc=0;
+    S.GUI.Bloc=1;
     S.GUIMeta.Bloc.Style='checkbox';
     S.GUIMeta.BonBlocsai.String='Auto';
     S.GUIPanels.Task={'Phase','Type','CueType','Punishment','Bloc'};
@@ -40,7 +40,7 @@ global S
     S.GUI.Optogenetic=0;
     S.GUIMeta.Optogenetic.Style='checkbox';
     S.GUIMeta.Optogenetic.String='Auto';
- 	S.GUI.Photometry=1;
+ 	S.GUI.Photometry=0;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
     S.GUI.DbleFibers=0;
@@ -75,10 +75,10 @@ global S
     S.GUITabs.Figure={'PlotPhotometry'};
 
 %% Timing
-    S.GUI.MaxTrials=150;
+    S.GUI.MaxTrials=200;
     S.GUI.PreCue=3;
     S.GUI.CueDuration=1;
-    S.GUI.Delay=0;
+    S.GUI.Delay=6;
     S.GUI.DelayIncrement=0;
     S.GUI.PostOutcome=5;
     S.GUI.CueResponse=1;
