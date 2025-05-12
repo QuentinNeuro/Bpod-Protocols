@@ -27,11 +27,6 @@ S.SmallRew  =   GetValveTimes(S.GUI.SmallReward, S.GUI.RewardValve);
 S.InterRew  =   GetValveTimes(S.GUI.InterReward, S.GUI.RewardValve);
 S.LargeRew  =   GetValveTimes(S.GUI.LargeReward, S.GUI.RewardValve);
 
-% User-friendly check of cue modality-dependent delay period
-if (S.GUI.CueType==4 && S.GUI.Delay==1) || (S.GUI.CueType~=4 && S.GUI.Delay==2)
-    pause('Please check that the delay period is correct')
-end
-
 %% Define stimuli and send to sound server
 TimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.CueDuration;
 HalfTimeSound=0:1/S.GUI.SoundSamplingRate:S.GUI.CueDuration/2;

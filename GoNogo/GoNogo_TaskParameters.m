@@ -88,10 +88,11 @@ global S
     S.GUITabs.TaskTiming={'Timing'};
 
 %% Bloc
-    S.GUI.Bloc1=12;
-    S.GUI.Bloc2=23;
-    S.GUI.Bloc3=31;
+    S.GUI.Bloc1=15;
+    S.GUI.Bloc2=16;
+    S.GUI.Bloc3=24;
     S.GUI.BlocProba=30;
+    S.GUI.BlocMaxTrial=60;
     S.GUI.BlocMinTrial=40;
     S.GUI.GoNogoProba=60;
     S.GUIPanels.Bloc={'Bloc1','Bloc2','Bloc3','BlocProba','BlocMinTrial','GoNogoProba'};
