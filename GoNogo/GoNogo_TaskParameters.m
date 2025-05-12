@@ -95,7 +95,7 @@ global S
     S.GUI.BlocMaxTrial=60;
     S.GUI.BlocMinTrial=40;
     S.GUI.GoNogoProba=60;
-    S.GUIPanels.Bloc={'Bloc1','Bloc2','Bloc3','BlocProba','BlocMinTrial','GoNogoProba'};
+    S.GUIPanels.Bloc={'Bloc1','Bloc2','Bloc3','BlocProba','BlocMinTrial','BlocMaxTrial','GoNogoProba'};
     S.GUITabs.Bloc={'Bloc'};
 
 %% Cue   
