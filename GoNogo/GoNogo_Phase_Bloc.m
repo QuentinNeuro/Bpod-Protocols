@@ -9,8 +9,7 @@ end
 goProba=S.GUI.GoNogoProba/100;
 noGoProba=1-goProba;
 
-trialsNames={'Go1','Go2','Go3'
-                'NoGo1','NoGo2','NoGo3'};
+trialsNames={'Go1','Go2','Go3','NoGo1','NoGo2','NoGo3'};
 
 trialsMatrix=[...
 % 1.type, 2.proba, 3.Cue,   4.GoValve,                  5.NoGoValve,          6.Outcome           7.Marker
