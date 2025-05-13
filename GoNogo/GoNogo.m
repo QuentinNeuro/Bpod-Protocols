@@ -60,7 +60,7 @@ if S.GUI.Optogenetic
 end
 TrialSequence=WeightedRandomTrials(S.TrialsMatrix(:,2)', S.GUI.MaxTrials);
 else
-    [S.TrialsNames, S.TrialsMatrix,TrialSequence]=GoNogo_Phase_Bloc(S);
+    [S.TrialsNames, S.TrialsMatrix,TrialSequence, S.BlocSequence]=GoNogo_Phase_Bloc(S);
     S.GUI.MaxTrials=length(TrialSequence);
 end
 S.NumTrialTypes=max(TrialSequence);

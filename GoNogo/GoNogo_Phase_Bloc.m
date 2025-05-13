@@ -1,4 +1,4 @@
-function [trialsNames, trialsMatrix,trialSequence]=GoNogo_Phase_Bloc(S)
+function [trialsNames, trialsMatrix,trialSequence,blocSequence]=GoNogo_Phase_Bloc(S)
 
 %% General Phase
 if S.GUI.Punishment
@@ -26,6 +26,7 @@ blocLetter='ABCDEF';
 blocGroup=[15 16 24 26 34 35];
 
 trialSequence=[];
+blocSequence=[];
 trialNb_Bloc=ceil(S.GUI.MaxTrials*(S.GUI.BlocProba/100));
 trialNb_Bloc=trialNb_Bloc+ceil(trialNb_Bloc*0.1);
 
@@ -47,4 +48,5 @@ for b=1:3
     thisTrialSequence(tempSequence==1)=thisTrialTypes(1);
     thisTrialSequence(tempSequence==2)=thisTrialTypes(2);
     trialSequence=[trialSequence thisTrialSequence];
+    blocSequence=[blocSequence b*ones(size(tempSequence))];
 end
