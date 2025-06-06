@@ -1,6 +1,6 @@
 function [trialsNames, trialsMatrix]=GoNogo_Phase(S,PhaseName)
 
-if S.GUI.Puishment
+if S.GUI.Punishment
 noGoValve=S.GUI.PunishValve;
 else
 noGoValve=S.GUI.OmissionValve;

@@ -4,7 +4,7 @@ function GoNogo_TaskParameters(Param)
 
 global S
     S.Names.Phase={'Pavlovian','Go','GoNoGo'};
-    S.Names.Type={'Direct','Delay','Trace'};
+    S.Names.Type={'Direct','Delay','Trace','Trace2'};
     S.Names.Cue={'Sweep','Tones','Visual','Odors'};
     S.Names.StateToZero={'CueDelivery','PostOutcome'};
     S.Names.StateToStim={'Baseline','CueDelivery','Delay','PostOutcome'};
