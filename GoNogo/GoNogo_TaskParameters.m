@@ -3,7 +3,7 @@ function GoNogo_TaskParameters(Param)
 %
 
 global S
-    S.Names.Phase={'Pavlovian','Go','GoNoGo'};
+    S.Names.Phase={'Pavlovian','Go','GoNoGo','GoNoGoGo','GoNoGoNoGo'};
     S.Names.Type={'Direct','Delay','Trace','Trace2'};
     S.Names.Cue={'Sweep','Tones','Visual','Odors'};
     S.Names.StateToZero={'CueDelivery','PostOutcome'};
@@ -16,7 +16,7 @@ global S
     S.GUI.Phase = 3;
     S.GUIMeta.Phase.Style='popupmenu';
     S.GUIMeta.Phase.String=S.Names.Phase;
-    S.GUI.Type=3;
+    S.GUI.Type=4;
 	S.GUIMeta.Type.Style='popupmenu';
     S.GUIMeta.Type.String=S.Names.Type;
     S.GUI.Punishment=0;
@@ -25,7 +25,7 @@ global S
     S.GUI.CueType=4;
     S.GUIMeta.CueType.Style='popupmenu';
     S.GUIMeta.CueType.String=S.Names.Cue;
-    S.GUI.Bloc=1;
+    S.GUI.Bloc=0;
     S.GUIMeta.Bloc.Style='checkbox';
     S.GUIMeta.BonBlocsai.String='Auto';
     S.GUIPanels.Task={'Phase','Type','CueType','Punishment','Bloc'};
@@ -40,10 +40,10 @@ global S
     S.GUI.Optogenetic=0;
     S.GUIMeta.Optogenetic.Style='checkbox';
     S.GUIMeta.Optogenetic.String='Auto';
- 	S.GUI.Photometry=0;
+ 	S.GUI.Photometry=1;
     S.GUIMeta.Photometry.Style='checkbox';
     S.GUIMeta.Photometry.String='Auto';
-    S.GUI.DbleFibers=0;
+    S.GUI.DbleFibers=1;
     S.GUIMeta.DbleFibers.Style='checkbox';
     S.GUIMeta.DbleFibers.String='Auto';
     S.GUI.Isobestic405=0;
@@ -75,7 +75,7 @@ global S
     S.GUITabs.Figure={'PlotPhotometry'};
 
 %% Timing
-    S.GUI.MaxTrials=200;
+    S.GUI.MaxTrials=100;
     S.GUI.PreCue=3;
     S.GUI.CueDuration=1;
     S.GUI.Delay=6;
@@ -94,7 +94,7 @@ global S
     S.GUI.BlocProba=30;
     S.GUI.BlocMaxTrial=60;
     S.GUI.BlocMinTrial=40;
-    S.GUI.GoNogoProba=60;
+    S.GUI.GoNogoProba=50;
     S.GUIPanels.Bloc={'Bloc1','Bloc2','Bloc3','BlocProba','BlocMinTrial','BlocMaxTrial','GoNogoProba'};
     S.GUITabs.Bloc={'Bloc'};
 
