@@ -95,7 +95,7 @@ if S.GUI.Bonsai
 end
 %% Main trial loop
 BpodSystem.Data.TrialTypes = []; % The trial type of each trial completed will be added here.
-for currentTrial = 1:S.GUI.MaxTrials
+for currentTrial = 1:length(TrialSequence)
     S = BpodParameterGUI('sync', S); % Sync parameters with BpodParameterGUI plugin 
 %% Initialize current trial parameters
 	S.Cue           =	S.TrialsMatrix(TrialSequence(currentTrial),3);
